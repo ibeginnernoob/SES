@@ -1,4 +1,5 @@
 import { Text, type TextProps, StyleSheet } from 'react-native';
+import '../global.css'
 
 import { useThemeColor } from '@/hooks/useThemeColor';
 
@@ -19,15 +20,16 @@ export function ThemedText({
 
   return (
     <Text
-      style={[
-        { color },
-        type === 'default' ? styles.default : undefined,
-        type === 'title' ? styles.title : undefined,
-        type === 'defaultSemiBold' ? styles.defaultSemiBold : undefined,
-        type === 'subtitle' ? styles.subtitle : undefined,
-        type === 'link' ? styles.link : undefined,
-        style,
-      ]}
+      // style={[
+      //   { color },
+      //   type === 'default' ? styles.default : undefined,
+      //   type === 'title' ? styles.title : undefined,
+      //   type === 'defaultSemiBold' ? styles.defaultSemiBold : undefined,
+      //   type === 'subtitle' ? styles.subtitle : undefined,
+      //   type === 'link' ? styles.link : undefined,
+      //   style,
+      // ]}
+      className='text-sky-500'
       {...rest}
     />
   );
