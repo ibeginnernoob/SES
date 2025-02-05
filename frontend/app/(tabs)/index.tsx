@@ -1,12 +1,14 @@
 import { StyleSheet } from "react-native";
 import { useState } from "react";
-import { View, Text, TextInput } from "react-native";
+import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { router } from "expo-router";
 
 import ActionSheetComponent from "@/components/ActionSheet";
 import DropDownComponent from "@/components/DropDownComponent";
 import TextAreaComponent from "@/components/TextAreaComponent";
 
-export default function Main(){
+export default function Home(){
 
   const [userDetails,setUserDetails]=useState({
     weight:'',
@@ -15,11 +17,25 @@ export default function Main(){
     comments:''
   })
 
+  
+
   return(
-    <View className="h-screen flex flex-col items-center justify-end">
-      <DropDownComponent type='gender' />
-      <DropDownComponent type='age' />
-      <TextAreaComponent />
-    </View>
+    <KeyboardAwareScrollView>
+      <View className="h-screen px-4 flex flex-col items-center justify-end">
+        <TouchableOpacity onPress={()=>{
+          router.navigate('/signin')
+        }}>
+          <Text>Signin</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={()=>{
+          router.navigate('/signup')
+        }}>
+          <Text>Signup</Text>
+        </TouchableOpacity>
+        <DropDownComponent type='gender' />
+        <DropDownComponent type='age' />
+        <TextAreaComponent />
+      </View>
+    </KeyboardAwareScrollView>
   )
 }

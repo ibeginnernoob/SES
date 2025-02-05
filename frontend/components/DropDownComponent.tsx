@@ -45,8 +45,8 @@ export default function DropDownComponent({type}:{
       return(
         <Fragment>
           <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollView}>
-            {ages.map(age=>{
-              return getAgeItem(age)
+            {ages.map((age,index)=>{
+              return getAgeItem(age,index)
             })}
           </ScrollView>
         </Fragment>
@@ -67,9 +67,9 @@ export default function DropDownComponent({type}:{
   }
 }
 
-function getAgeItem(age:number){
+function getAgeItem(age:number,index:number){
   return(
-    <SelectItem label={`${age}`} value={`${age}`} />
+    <SelectItem key={index} label={`${age}`} value={`${age}`} />
   )
 }
 
