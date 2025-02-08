@@ -7,11 +7,11 @@ declare module 'jsonwebtoken' {
     }
 }
 
-export interface ExtendReqWithUserID extends Request {
+export interface ExtendedReq extends Request {
     userId: string
 }
 
-const isAuth=async (req:ExtendReqWithUserID,res:Response,next:NextFunction)=>{
+const isAuth=async (req:ExtendedReq,res:Response,next:NextFunction)=>{
     try{
         if(!req.headers['Authorization']){
             throw new Error('Invalid token!')

@@ -11,7 +11,8 @@ const userSchema = new Schema({
         required:true
     },
     chat_ids:[{
-        type:mongoose.Schema.Types.ObjectId
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Chat'
     }]
 });
 
