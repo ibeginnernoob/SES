@@ -8,7 +8,7 @@ const chatSchema = new Schema({
     },
     title:{
         type:String,
-        required:true
+        default:""
     },
     prompts:[{
         type:mongoose.Schema.Types.ObjectId,
