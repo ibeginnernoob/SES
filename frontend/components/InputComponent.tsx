@@ -6,10 +6,12 @@ export default function InputComponent({
   type,
   styles,
   placeholder,
+  setValue
 }: {
   type: string
   styles: string
-  placeholder: string
+  placeholder: string,
+  setValue: (parameter: string) => void
 }) {
   return (
     <View>
@@ -22,7 +24,9 @@ export default function InputComponent({
         className={`rounded-3xl py-2 ${styles}`}
       >
         {getInputIcon()}
-        <InputField placeholder={placeholder} />
+        <InputField placeholder={placeholder} onChangeText={(text)=>{
+          setValue(text)
+        }} />
       </Input>
     </View>
   )

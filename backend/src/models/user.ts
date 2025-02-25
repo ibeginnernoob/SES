@@ -1,21 +1,27 @@
-import mongoose, { Schema, model } from "mongoose";
+import mongoose, { Schema, model } from 'mongoose';
 
 const userSchema = new Schema({
-    email:{
-        type:String,
-        required:true,
-        unique:true
+    email: {
+        type: String,
+        required: true,
+        unique: true,
     },
-    password:{
-        type:String,
-        required:true
+    password: {
+        type: String
     },
-    chat_ids:[{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'Chat'
-    }]
+    fireBaseId: {
+        type: String,
+        unique: true,
+        required: true
+    },
+    chat_ids: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Chat',
+        },
+    ],
 });
 
-const User=model('User', userSchema);
+const User = model('User', userSchema);
 
-export default User
+export default User;

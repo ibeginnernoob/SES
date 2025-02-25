@@ -17,7 +17,7 @@ export default function ButtonComponent({
         variant="solid"
         action="primary"
         className={`${styles}`}
-        onPress={() => {}}
+        onPress={onclick}
       >
         <ButtonText>{msg}</ButtonText>
       </Button>

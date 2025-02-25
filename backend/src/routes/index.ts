@@ -1,9 +1,11 @@
-import { Router } from "express";
+import { Router } from 'express';
 
-import authRouter from './auth'
+import authRouter from './auth';
+import chatRouter from './chat'
 
-const router=Router()
+const router = Router();
 
-router.use('/auth',authRouter)
+router.use('/auth', authRouter);
+router.use('/user', chatRouter);
 
-export default router
+export default router;

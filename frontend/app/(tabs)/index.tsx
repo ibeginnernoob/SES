@@ -4,8 +4,11 @@ import { View, Text, TextInput, TouchableOpacity } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { router } from 'expo-router'
 
+import { useIsAuth } from '@/hooks/useIsAuth'
+
 import DropDownComponent from '@/components/DropDownComponent'
 import TextAreaComponent from '@/components/TextAreaComponent'
+import LogoutButton from '@/components/LogoutButton'
 
 export default function Home() {
   const [userDetails, setUserDetails] = useState({
@@ -14,6 +17,20 @@ export default function Home() {
     sex: '',
     comments: '',
   })
+
+  const {loading, userId}=useIsAuth()
+
+  if(loading) {
+    return (
+      <View>
+        <Text>Loading...</Text>
+      </View>
+    )
+  }
+
+  if(userId === null && !loading) {
+    router.navigate('/signin')
+  }
 
   return (
     <KeyboardAwareScrollView>
@@ -32,6 +49,7 @@ export default function Home() {
         >
           <Text>Signup</Text>
         </TouchableOpacity>
+        <LogoutButton />
         <DropDownComponent type="gender" />
         <DropDownComponent type="age" />
         <TextAreaComponent />
