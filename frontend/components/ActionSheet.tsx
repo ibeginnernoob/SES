@@ -1,10 +1,18 @@
-import { Actionsheet, ActionsheetContent, ActionsheetItem, ActionsheetItemText, ActionsheetDragIndicator, ActionsheetDragIndicatorWrapper, ActionsheetBackdrop } from "@/components/ui/actionsheet";
-import { Button, ButtonText } from "@/components/ui/button";
-import React from "react";
-	
-function ActionSheetComponent(){
-  const [showActionsheet, setShowActionsheet] = React.useState(false);
-  const handleClose = () => setShowActionsheet(false);
+import {
+  Actionsheet,
+  ActionsheetContent,
+  ActionsheetItem,
+  ActionsheetItemText,
+  ActionsheetDragIndicator,
+  ActionsheetDragIndicatorWrapper,
+  ActionsheetBackdrop,
+} from '@/components/ui/actionsheet'
+import { Button, ButtonText } from '@/components/ui/button'
+import React from 'react'
+
+function ActionSheetComponent() {
+  const [showActionsheet, setShowActionsheet] = React.useState(false)
+  const handleClose = () => setShowActionsheet(false)
 
   return (
     <>
@@ -35,7 +43,7 @@ function ActionSheetComponent(){
         </ActionsheetContent>
       </Actionsheet>
     </>
-  );
+  )
 }
 
 export default ActionSheetComponent
