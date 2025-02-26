@@ -8,7 +8,8 @@ import { useIsAuth } from '@/hooks/useIsAuth'
 
 import DropDownComponent from '@/components/DropDownComponent'
 import TextAreaComponent from '@/components/TextAreaComponent'
-import LogoutButton from '@/components/LogoutButton'
+import TopBar from '@/components/TopBar'
+import SpinnerComponent from '@/components/SpinnerComponent'
 
 export default function Home() {
   const [userDetails, setUserDetails] = useState({
@@ -22,9 +23,7 @@ export default function Home() {
 
   if(loading) {
     return (
-      <View>
-        <Text>Loading...</Text>
-      </View>
+      <SpinnerComponent />
     )
   }
 
@@ -34,25 +33,13 @@ export default function Home() {
 
   return (
     <KeyboardAwareScrollView>
-      <View className="h-screen px-4 flex flex-col items-center justify-end">
-        <TouchableOpacity
-          onPress={() => {
-            router.navigate('/signin')
-          }}
-        >
-          <Text>Signin</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            router.navigate('/signup')
-          }}
-        >
-          <Text>Signup</Text>
-        </TouchableOpacity>
-        <LogoutButton />
-        <DropDownComponent type="gender" />
-        <DropDownComponent type="age" />
-        <TextAreaComponent />
+      <View>
+        <TopBar />
+        {/* <View className="h-screen px-4 flex flex-col items-center justify-end">
+          <DropDownComponent type="gender" />
+          <DropDownComponent type="age" />
+          <TextAreaComponent />
+        </View> */}
       </View>
     </KeyboardAwareScrollView>
   )

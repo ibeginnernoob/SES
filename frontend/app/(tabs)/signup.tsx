@@ -10,6 +10,7 @@ const BACKEND_URL = 'http://10.0.3.248:3000'
 
 import InputComponent from '@/components/InputComponent'
 import ButtonComponent from '@/components/ButtonComponent'
+import SpinnerComponent from '@/components/SpinnerComponent';
 import { useState } from 'react'
 
 export default function Signin() {
@@ -57,12 +58,10 @@ export default function Signin() {
   }
 
   if(loading) {
-    return (
-      <View>
-        <Text className="text-2xl font-semibold">Loading ...</Text>
-      </View>
-    )
-  }
+      return (
+        <SpinnerComponent />
+      )
+    }
 
   return (
     <KeyboardAwareScrollView>
@@ -106,7 +105,7 @@ export default function Signin() {
           />
         </View>
         <ButtonComponent
-          styles="rounded-2xl py-3 h-auto"
+          buttonStyles="rounded-2xl py-3 h-auto"
           msg="Get Started"
           onclick={createUser}
         />

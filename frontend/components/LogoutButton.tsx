@@ -6,7 +6,10 @@ import ButtonComponent from '@/components/ButtonComponent'
 import { auth } from '@/firebaseConfig'
 import { signOut } from "firebase/auth";
 
-export default function LogoutButton() {
+export default function LogoutButton({ buttonStyles, textStyles } : {
+    buttonStyles?: string,
+    textStyles?: string
+}) {
 
     const logout = async () => {
         try {
@@ -21,7 +24,8 @@ export default function LogoutButton() {
     return (
         <View>
             <ButtonComponent
-                styles="rounded-2xl py-3 h-auto"
+                buttonStyles={`rounded-2xl py-3 h-auto ${buttonStyles}`}
+                textStyles={`${textStyles}`}
                 msg="Logout"
                 onclick={logout}
             />

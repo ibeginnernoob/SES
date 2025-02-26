@@ -10,25 +10,30 @@ import { signInWithEmailAndPassword, GoogleAuthProvider } from 'firebase/auth'
 
 import InputComponent from '@/components/InputComponent'
 import ButtonComponent from '@/components/ButtonComponent'
+import SpinnerComponent from '@/components/SpinnerComponent';
 
 export default function Signin() {
 
   const [email, setEmail]=useState("")
   const [password, setPassword]=useState("")
+  const [loading, setLoading]=useState(false)
 
   const userSignin = async () => {
     try {
+      setLoading(true)
       const userCredential = await signInWithEmailAndPassword(auth, email, password)
       const user = userCredential.user;
       if(!user) {
-        const e={
+        const e = {
           code: 404,
           message: 'Could not authenticate user!'
         }
         throw e
       }
+      setLoading(false)
       router.navigate('/')
     } catch(e: any) {
+      setLoading(false)
       const errorCode = e.code;
       const errorMessage = e.message;
     }
@@ -73,6 +78,12 @@ export default function Signin() {
   //   }
   // }
 
+  if (loading) {
+    return (
+      <SpinnerComponent />
+    )
+  }
+
   return (
     <KeyboardAwareScrollView>
       <View className="h-screen w-screen px-8 flex flex-col justify-center">
@@ -107,7 +118,7 @@ export default function Signin() {
           />
         </View>
         <ButtonComponent
-          styles="rounded-2xl py-3 h-auto"
+          buttonStyles="rounded-2xl py-3 h-auto"
           msg="Get Started"
           onclick={userSignin}
         />

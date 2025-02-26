@@ -5,7 +5,7 @@ import { onAuthStateChanged} from "firebase/auth";
 
 export const useIsAuth = () => {
     const [loading, setLoading]=useState(false)
-    const [userId, setUserId]=useState<string | null>('')
+    const [userId, setUserId]=useState<string | null>('no userId')
 
     useEffect(() => {
         setLoading(true)
