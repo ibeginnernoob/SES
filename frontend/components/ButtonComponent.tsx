@@ -1,15 +1,26 @@
-import { View } from "react-native";
-import { Button, ButtonText } from "@/components/ui/button"
+import { View } from 'react-native'
+import { Button, ButtonText } from '@/components/ui/button'
 
-export default function ButtonComponent({msg,styles}:{
-    msg:string,
-    styles:string
-}){
-    return(
-        <View>
-            <Button size="md" variant="solid" action="primary" className={`${styles}`}>
-                <ButtonText>{msg}</ButtonText>
-            </Button>
-        </View>
-    )
+export default function ButtonComponent({
+  msg,
+  styles,
+  onclick,
+}: {
+  msg: string
+  styles: string
+  onclick: () => void
+}) {
+  return (
+    <View>
+      <Button
+        size="md"
+        variant="solid"
+        action="primary"
+        className={`${styles}`}
+        onPress={onclick}
+      >
+        <ButtonText>{msg}</ButtonText>
+      </Button>
+    </View>
+  )
 }

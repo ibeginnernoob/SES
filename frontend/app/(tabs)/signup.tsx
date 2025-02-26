@@ -1,28 +1,117 @@
-import { View, Text } from "react-native"
-import { router } from "expo-router";
+import { View, Text } from 'react-native'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { router } from 'expo-router'
+import ky from 'ky';
 
-import InputComponent from "@/components/InputComponent"
-import ButtonComponent from "@/components/ButtonComponent"
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from '@/firebaseConfig.js';
 
-export default function Signin(){
-    return(
-        <View className="h-screen w-screen px-8 flex flex-col justify-center">
-            <View className="flex items-center">
-                <Text className="text-4xl font-semibold">Sign Up With Email</Text>
-                <Text className="text-gray-500 mt-1 text-base">Already have an account? <Text className="underline" onPress={()=>{
-                    router.navigate('/signin')
-                }}>Sign In!</Text></Text>
-            </View>
-            <View>
-                <InputComponent styles="py-3 h-auto mt-4 mb-3" placeholder="Email" type="email" />
-            </View>
-            <View>
-                <InputComponent styles="py-3 h-auto mt-3 mb-3" placeholder="Password" type="password" />
-            </View>
-            <View>
-                <InputComponent styles="py-3 h-auto mt-3 mb-8" placeholder="Confirm Password" type="password" />
-            </View>
-            <ButtonComponent styles="rounded-2xl py-3 h-auto" msg="Get Started" />
-        </View>
+const BACKEND_URL = 'http://10.0.3.248:3000'
+
+import InputComponent from '@/components/InputComponent'
+import ButtonComponent from '@/components/ButtonComponent'
+import { useState } from 'react'
+
+export default function Signin() {
+
+  const [email, setEmail]=useState("")
+  const [password, setPassword]=useState("")
+  const [confirmPassword, setConfirmPassword]=useState("")
+  const [loading, setLoading]=useState(false)
+
+  const createUser = async () => {
+    try {
+      setLoading(true)
+      if (password !== confirmPassword) {
+        const e = {
+          code: 404,
+          message: 'password does not match confirm password field!'
+        }
+        throw e
+      }
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password)
+      const user = userCredential.user;
+      const res: Response = await ky.post(`${BACKEND_URL}/api/v1/auth/signup`, {
+        json: {
+          email: email,
+          password:password,
+          fireBaseId: user.uid
+        }
+      }).json()
+      if(res.status.toString() as string != '201') {
+        await user.delete()
+        const e = {
+          code: 404,
+          message: 'User creation failed!'
+        }
+        throw e
+      }
+      setLoading(false)
+      router.navigate('/')
+    } catch(e: any) {
+      setLoading(false)
+      console.log(e)
+      const errorCode = e.code;
+      const errorMessage = e.message;
+    }
+  }
+
+  if(loading) {
+    return (
+      <View>
+        <Text className="text-2xl font-semibold">Loading ...</Text>
+      </View>
     )
+  }
+
+  return (
+    <KeyboardAwareScrollView>
+      <View className="h-screen w-screen px-8 flex flex-col justify-center">
+        <View className="flex items-center">
+          <Text className="text-4xl font-semibold">Sign Up With Email</Text>
+          <Text className="text-gray-500 mt-1 text-base">
+            Already have an account?{' '}
+            <Text
+              className="underline"
+              onPress={() => {
+                router.navigate('/signin')
+              }}
+            >
+              Sign In!
+            </Text>
+          </Text>
+        </View>
+        <View>
+          <InputComponent
+            styles="py-3 h-auto mt-4 mb-3"
+            placeholder="Email"
+            type="email"
+            setValue={setEmail}
+          />
+        </View>
+        <View>
+          <InputComponent
+            styles="py-3 h-auto mt-3 mb-3"
+            placeholder="Password"
+            type="password"
+            setValue={setPassword}
+          />
+        </View>
+        <View>
+          <InputComponent
+            styles="py-3 h-auto mt-3 mb-8"
+            placeholder="Confirm Password"
+            type="password"
+            setValue={setConfirmPassword}
+          />
+        </View>
+        <ButtonComponent
+          styles="rounded-2xl py-3 h-auto"
+          msg="Get Started"
+          onclick={createUser}
+        />
+      </View>
+    </KeyboardAwareScrollView>
+    
+  )
 }
