@@ -14,7 +14,6 @@ export default function LogoutButton({ buttonStyles, textStyles } : {
     const logout = async () => {
         try {
             await signOut(auth)
-            router.navigate('/signin')
         } catch(e: any) {
             const errorCode = e.code;
             const errorMessage = e.message;
