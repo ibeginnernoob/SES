@@ -14,6 +14,7 @@ import TopBar from '@/components/TopBar'
 import SpinnerComponent from '@/components/SpinnerComponent'
 import SelectOptionComponent from '@/components/SelectOptionComponent'
 import SideBarComponent from '@/components/SideBarComponent';
+import ButtonComponent from '@/components/ButtonComponent';
 
 export default function Home() {
   const [userDetails, setUserDetails] = useState({
@@ -43,8 +44,6 @@ export default function Home() {
   if(userId === null && !loading) {
     router.navigate('/signin')
   }
-
-  // age, height, weight, gender, Symptoms
   
   return (
     <KeyboardAwareScrollView>
@@ -84,6 +83,14 @@ export default function Home() {
             <Text className='pl-4 mb-2 text-base font-semibold'>Symptoms</Text>
             <TextAreaComponent />
           </View>
+          <ButtonComponent
+            msg='Start chatting!'
+            onclick={() => {
+
+            }}
+            buttonStyles='mt-16 px-16 h-12 rounded-lg'
+            textStyles='text-lg'
+          />
         </View>
       </View>
     </KeyboardAwareScrollView>

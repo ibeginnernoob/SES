@@ -1,6 +1,6 @@
 import { View, Text } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { router } from 'expo-router'
+import { router, useFocusEffect } from 'expo-router'
 import ky from 'ky';
 
 import { createUserWithEmailAndPassword } from "firebase/auth";
@@ -11,7 +11,8 @@ const BACKEND_URL = 'http://10.0.3.248:3000'
 import InputComponent from '@/components/InputComponent'
 import ButtonComponent from '@/components/ButtonComponent'
 import SpinnerComponent from '@/components/SpinnerComponent';
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
+import AlertComponent from '@/components/AlertComponent';
 
 export default function Signin() {
 
@@ -20,13 +21,27 @@ export default function Signin() {
   const [confirmPassword, setConfirmPassword]=useState("")
   const [loading, setLoading]=useState(false)
 
+  const [errorMessage, setErrorMessage]=useState("")
+  const [invalidInputs, setInvalidInputs]=useState<string[]>([])
+
+  useFocusEffect(
+    useCallback(() => {
+      return () => {
+        setErrorMessage("")
+        setInvalidInputs([])
+        setEmail("")
+        setPassword("")
+        setConfirmPassword("")
+      };
+    }, [])
+  );
+
   const createUser = async () => {
     try {
       setLoading(true)
       if (password !== confirmPassword) {
         const e = {
-          code: 404,
-          message: 'password does not match confirm password field!'
+          message: 'Password does not match confirm password field!'
         }
         throw e
       }
@@ -51,12 +66,32 @@ export default function Signin() {
       router.navigate('/')
     } catch(e: any) {
       setLoading(false)
-      console.log(e)
-      const errorCode = e.code;
       const errorMessage = e.message;
+      if(errorMessage === 'Password does not match confirm password field!') {
+        setInvalidInputs(prevState => {
+          setErrorMessage('Password does not match confirm password field')
+          return ['confirmPassword']
+        })
+      } else if(errorMessage === 'Firebase: Error (auth/email-already-in-use).') {
+        setInvalidInputs(prevState => {
+          setErrorMessage('Email already in use')
+          return ['email']
+        })
+      } else if(errorMessage === 'Firebase: Password should be at least 6 characters (auth/weak-password).') {
+        setInvalidInputs(prevState => {
+          setErrorMessage('Password should be at least 6 characters')
+          return ['password']
+        })
+      } else if(errorMessage === 'Firebase: Error (auth/missing-password).') {
+        setInvalidInputs(prevState => {
+          setErrorMessage('Missing Password')
+          return ['password']
+        })
+      } else {
+        setErrorMessage('Something went wrong. Pls try again later.')
+      }
     }
   }
-
   if(loading) {
       return (
         <SpinnerComponent />
@@ -86,6 +121,7 @@ export default function Signin() {
             placeholder="Email"
             type="email"
             setValue={setEmail}
+            isInvalid={getInputValidity('email')}
           />
         </View>
         <View>
@@ -94,6 +130,7 @@ export default function Signin() {
             placeholder="Password"
             type="password"
             setValue={setPassword}
+            isInvalid={getInputValidity('password')}
           />
         </View>
         <View>
@@ -102,6 +139,7 @@ export default function Signin() {
             placeholder="Confirm Password"
             type="password"
             setValue={setConfirmPassword}
+            isInvalid={getInputValidity('confirmPassword')}
           />
         </View>
         <ButtonComponent
@@ -109,8 +147,17 @@ export default function Signin() {
           msg="Get Started"
           onclick={createUser}
         />
+        {errorMessage !=='' && (
+          <AlertComponent
+            alertMsg={errorMessage}
+            positioning='mt-48'
+          />
+        )}
       </View>
     </KeyboardAwareScrollView>
-    
   )
+
+  function getInputValidity(inputType: string) {
+    return invalidInputs.includes(inputType)
+  }
 }

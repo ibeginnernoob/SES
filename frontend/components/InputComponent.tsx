@@ -7,12 +7,15 @@ export default function InputComponent({
   type,
   styles,
   placeholder,
-  setValue
+  setValue,
+  isInvalid
 }: {
   type: string
   styles: string
   placeholder: string,
   setValue: (parameter: string) => void
+  isInvalid: boolean
+  
 }) {
 
   const [showPassword, setShowPassword]=useState(false)
@@ -23,7 +26,7 @@ export default function InputComponent({
         variant="outline"
         size="md"
         isDisabled={false}
-        isInvalid={false}
+        isInvalid={isInvalid}
         isReadOnly={false}
         className={`rounded-3xl py-2 ${styles}`}
       >

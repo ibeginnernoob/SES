@@ -23,14 +23,9 @@ export default function SelectOptionComponent() {
                     <SelectDragIndicatorWrapper>
                         <SelectDragIndicator />
                     </SelectDragIndicatorWrapper>
-                    <SelectItem label="UX Research" value="ux" />
-                    <SelectItem label="Web Development" value="web" />
-                    <SelectItem
-                        label="Cross Platform Development Process"
-                        value="Cross Platform Development Process"
-                    />
-                    <SelectItem label="UI Designing" value="ui" isDisabled={true} />
-                    <SelectItem label="Backend Development" value="backend" />
+                    <SelectItem label="Male" value="male" />
+                    <SelectItem label="Female" value="female" />
+                    <SelectItem label="Rather not say" value="NA" />
                 </SelectContent>
             </SelectPortal>
         </Select>
