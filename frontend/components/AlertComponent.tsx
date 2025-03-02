@@ -7,7 +7,7 @@ export default function AlertComponent({ alertMsg, positioning } : {
     positioning?: string
 }) {
   return (
-    <View className={`absolute top-0 w-screen mt-72 flex flex-row justify-center ${positioning}`}>
+    <View className={`absolute top-0 w-screen flex flex-row justify-center ${positioning}`}>
         <Alert action="muted" variant="solid" className="w-[60%] px-12 flex flex-row justify-center items-center bg-red-600">
             <AlertIcon as={InfoIcon} size="sm" className="text-white mr-2" />
             <AlertText className="text-white">

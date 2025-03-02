@@ -5,8 +5,9 @@ import { Avatar, AvatarFallbackText, AvatarImage } from "./ui/avatar";
 import { Dispatch, SetStateAction, useState } from "react";
 import { Icon, MenuIcon } from "./ui/icon";
 
-export default function TopBar({ setSideBarVisibility } : {
-    setSideBarVisibility: Dispatch<SetStateAction<boolean>>
+export default function TopBar({ setSideBarVisibility, userEmail } : {
+    setSideBarVisibility: Dispatch<SetStateAction<boolean>>,
+    userEmail: string
 }) {
     return (
         <View>
@@ -32,7 +33,7 @@ export default function TopBar({ setSideBarVisibility } : {
                     />
                 </View>
                 <Avatar className="">
-                    <AvatarFallbackText>Adheil Gupta</AvatarFallbackText>
+                    <AvatarFallbackText>{userEmail}</AvatarFallbackText>
                     {/* <AvatarImage
                         source={{
                             uri: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60",

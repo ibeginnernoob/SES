@@ -6,12 +6,12 @@ export default function TextAreaComponent() {
       isReadOnly={false}
       isInvalid={false}
       isDisabled={false}
-      className="w-full px-3 py-1 rounded-xl h-48"
+      className="w-full px-1 rounded-lg h-52"
     >
       <TextareaInput
         placeholder="Enter symptoms ..."
         style={{ textAlignVertical: 'top' }}
-        className="text-base"
+        className="text-[13px]"
       />
     </Textarea>
   )

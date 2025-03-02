@@ -67,6 +67,7 @@ export default function Signin() {
     } catch(e: any) {
       setLoading(false)
       const errorMessage = e.message;
+      console.log(errorMessage)
       if(errorMessage === 'Password does not match confirm password field!') {
         setInvalidInputs(prevState => {
           setErrorMessage('Password does not match confirm password field')
@@ -86,6 +87,11 @@ export default function Signin() {
         setInvalidInputs(prevState => {
           setErrorMessage('Missing Password')
           return ['password']
+        })
+      } else if(errorMessage === 'Firebase: Error (auth/invalid-email).') {
+        setInvalidInputs(prevState => {
+          setErrorMessage('Invalid Email')
+          return ['email']
         })
       } else {
         setErrorMessage('Something went wrong. Pls try again later.')
@@ -150,7 +156,7 @@ export default function Signin() {
         {errorMessage !=='' && (
           <AlertComponent
             alertMsg={errorMessage}
-            positioning='mt-48'
+            positioning='mt-40'
           />
         )}
       </View>

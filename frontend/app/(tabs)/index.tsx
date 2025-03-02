@@ -27,7 +27,7 @@ export default function Home() {
 
   const [showSideBar, setShowSideBar]=useState(false)
 
-  const {loading, userId}=useIsAuth()
+  const {loading, userId, userEmail}=useIsAuth()
 
   useFocusEffect(
     useCallback(() => {
@@ -55,11 +55,12 @@ export default function Home() {
         />
         <TopBar
           setSideBarVisibility={setShowSideBar}
+          userEmail={userEmail}
         />
         <View className="flex flex-col items-center">
-          <Text className='mt-6 mb-0 text-3xl font-bold'>New Chat</Text>
-          <Text className='mb-5 text-base text-gray-500'>Fill this form out to start chatting with our model!</Text>
-          <View className='flex flex-row w-full justify-between px-10 mb-5'>
+          <Text className='mt-8 mb-1 text-3xl font-bold'>New Chat</Text>
+          <Text className='mb-6 text-sm text-gray-500'>Fill this form out to start chatting with our model!</Text>
+          <View className='flex flex-row w-full justify-between px-10 mb-8'>
             <View>
               <Text className='mb-2 text-base font-semibold'>Gender</Text>
               <SelectOptionComponent />
@@ -69,7 +70,7 @@ export default function Home() {
               <DropDownComponent type="age" />
             </View>
           </View>
-          <View className='flex flex-row w-full justify-between px-10 mb-8'>
+          <View className='flex flex-row w-full justify-between px-10 mb-10'>
             <View>
               <Text className='mb-2 text-base font-semibold'>{`Weight (Kg)`}</Text>
               <DropDownComponent type="weight" />
@@ -79,8 +80,8 @@ export default function Home() {
               <DropDownComponent type="height" />
             </View>
           </View>
-          <View className='px-6 w-screen'>
-            <Text className='pl-4 mb-2 text-base font-semibold'>Symptoms</Text>
+          <View className='px-10 w-screen'>
+            <Text className='mb-2 text-base font-semibold'>Symptoms</Text>
             <TextAreaComponent />
           </View>
           <ButtonComponent
@@ -88,8 +89,8 @@ export default function Home() {
             onclick={() => {
 
             }}
-            buttonStyles='mt-16 px-16 h-12 rounded-lg'
-            textStyles='text-lg'
+            buttonStyles='mt-16 px-16 h-12 rounded-base'
+            textStyles='text-base'
           />
         </View>
       </View>

@@ -1,5 +1,4 @@
 import { View, Text } from 'react-native'
-import { router } from 'expo-router'
 
 import ButtonComponent from '@/components/ButtonComponent'
 
@@ -25,7 +24,7 @@ export default function LogoutButton({ buttonStyles, textStyles } : {
             <ButtonComponent
                 buttonStyles={`rounded-2xl py-3 h-auto ${buttonStyles}`}
                 textStyles={`${textStyles}`}
-                msg="Logout"
+                msg="Sign Out"
                 onclick={logout}
             />
         </View>

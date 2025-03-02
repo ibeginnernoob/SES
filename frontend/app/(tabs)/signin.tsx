@@ -155,6 +155,7 @@ export default function Signin() {
         {errorMessage !== '' && (
           <AlertComponent
             alertMsg={errorMessage}
+            positioning='mt-44'
           />
         )}
       </View>
