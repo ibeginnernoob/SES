@@ -3,11 +3,13 @@ import { Button, ButtonText } from '@/components/ui/button'
 
 export default function ButtonComponent({
   msg,
-  styles,
+  buttonStyles,
+  textStyles,
   onclick,
 }: {
   msg: string
-  styles: string
+  buttonStyles?: string
+  textStyles?: string
   onclick: () => void
 }) {
   return (
@@ -16,10 +18,10 @@ export default function ButtonComponent({
         size="md"
         variant="solid"
         action="primary"
-        className={`${styles}`}
+        className={`${buttonStyles}`}
         onPress={onclick}
       >
-        <ButtonText>{msg}</ButtonText>
+        <ButtonText className={`${textStyles}`}>{msg}</ButtonText>
       </Button>
     </View>
   )
