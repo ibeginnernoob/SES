@@ -17,13 +17,11 @@ import SideBarComponent from '@/components/SideBarComponent';
 import ButtonComponent from '@/components/ButtonComponent';
 
 export default function Home() {
-  const [userDetails, setUserDetails] = useState({
-    weight: '',
-    age: '',
-    sex: '',
-    height: '',
-    symptoms: '',
-  })
+  const [age, setAge]=useState< string | null >(null)
+  const [gender, setGender]=useState< string | null >(null)
+  const [weight, setWeight]=useState< string | null >(null)
+  const [height, setHeight]=useState< string | null >(null)
+  const [symptoms, setSymptoms]=useState< string | null >(null)
 
   const [showSideBar, setShowSideBar]=useState(false)
 
@@ -31,7 +29,14 @@ export default function Home() {
 
   useFocusEffect(
     useCallback(() => {
-      return () => setShowSideBar(false);
+      return () => {
+        setShowSideBar(false);
+        setAge(null)
+        setGender(null)
+        setWeight(null)
+        setHeight(null)
+        setSymptoms(null)
+      }
     }, [])
   );
 
@@ -63,31 +68,31 @@ export default function Home() {
           <View className='flex flex-row w-full justify-between px-10 mb-8'>
             <View>
               <Text className='mb-2 text-base font-semibold'>Gender</Text>
-              <SelectOptionComponent />
+              <SelectOptionComponent inputValue={gender} setInputValue={setGender} />
             </View>
             <View>
               <Text className='mb-2 text-base font-semibold'>{`Age (Years)`}</Text>
-              <DropDownComponent type="age" />
+              <DropDownComponent type="age" inputValue={age} setInputValue={setAge} />
             </View>
           </View>
           <View className='flex flex-row w-full justify-between px-10 mb-10'>
             <View>
               <Text className='mb-2 text-base font-semibold'>{`Weight (Kg)`}</Text>
-              <DropDownComponent type="weight" />
+              <DropDownComponent type="weight" inputValue={weight} setInputValue={setWeight} />
             </View>
             <View>
               <Text className='mb-2 text-base font-semibold'>{'Height (cm)'}</Text>
-              <DropDownComponent type="height" />
+              <DropDownComponent type="height" inputValue={height} setInputValue={setHeight} />
             </View>
           </View>
           <View className='px-10 w-screen'>
             <Text className='mb-2 text-base font-semibold'>Symptoms</Text>
-            <TextAreaComponent />
+            <TextAreaComponent inputValue={symptoms} setInputValue={setSymptoms} />
           </View>
           <ButtonComponent
             msg='Start chatting!'
             onclick={() => {
-
+              router.navigate('/chat')
             }}
             buttonStyles='mt-16 px-16 h-12 rounded-base'
             textStyles='text-base'

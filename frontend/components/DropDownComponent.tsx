@@ -15,16 +15,19 @@ import { Fragment, useState } from 'react'
 import { ScrollView, Text } from 'react-native'
 import { StyleSheet } from 'react-native'
 
-export default function DropDownComponent({ type }: { type: string }) {
-  const [selectedValue, setSelectedValue] = useState<string | null>(null)
+export default function DropDownComponent({ type, inputValue, setInputValue } : { 
+  type: string,
+  inputValue: string | null,
+  setInputValue: (para: string) => void
+}) {
 
   return (
     <Fragment>
       <Select
         className="w-40"
-        selectedValue={selectedValue}
+        selectedValue={inputValue}
         onValueChange={(value) => {
-          setSelectedValue(value)
+          setInputValue(value)
         }}
       >
         <SelectTrigger

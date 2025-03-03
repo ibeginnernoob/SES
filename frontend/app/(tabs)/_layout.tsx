@@ -43,6 +43,12 @@ export default function TabLayout() {
           title: 'Signup',
         }}
       />
+      <Tabs.Screen
+        name="chat"
+        options={{
+          title: 'Chat',
+        }}
+      />
     </Tabs>
   )
 }

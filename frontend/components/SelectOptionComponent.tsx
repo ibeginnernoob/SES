@@ -2,15 +2,17 @@ import { Select, SelectTrigger, SelectInput, SelectIcon, SelectPortal, SelectBac
 import { ChevronDownIcon } from './ui/icon';
 import { useState } from 'react';
 
-export default function SelectOptionComponent() {
-    const [selectedValue, setSelectedValue] = useState<string | null>(null)
+export default function SelectOptionComponent({ inputValue, setInputValue } : {
+    inputValue: string | null,
+    setInputValue: (para: string) => void
+}) {
 
     return (
         <Select
             className='w-40'
-            selectedValue={selectedValue}
+            selectedValue={inputValue}
             onValueChange={(value) => {
-            setSelectedValue(value)
+                setInputValue(value)
             }}
         >
             <SelectTrigger variant="outline" size="lg" className="flex flex-row justify-between">

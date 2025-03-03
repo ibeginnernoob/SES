@@ -1,6 +1,9 @@
 import { Textarea, TextareaInput } from '@/components/ui/textarea'
 
-export default function TextAreaComponent() {
+export default function TextAreaComponent({ inputValue, setInputValue } : {
+  inputValue: string | null,
+  setInputValue: (para: string) => void
+}) {
   return (
     <Textarea
       isReadOnly={false}
@@ -12,6 +15,9 @@ export default function TextAreaComponent() {
         placeholder="Enter symptoms ..."
         style={{ textAlignVertical: 'top' }}
         className="text-[13px]"
+        onChangeText={(text) => {
+          setInputValue(text)
+        }}
       />
     </Textarea>
   )
