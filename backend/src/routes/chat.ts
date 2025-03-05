@@ -57,18 +57,47 @@ router.get(
     }
 );
 
-router.get(
+router.post(
     '/new-chat/:fireBaseId',
     async (req: Request, res: Response, next: NextFunction) => {
         try {
             const fireBaseId = req.params.fireBaseId;
+            // extract data from req body
+            //create prompt
+            const prompt: string = "";
 
             const newChat = new Chat({
                 ownerFireBaseId: fireBaseId,
                 prompts: [],
                 responses: [],
             });
+
             const savedChat = await newChat.save();
+
+            const MLResponse = await axios.post(
+                'link to the model',
+                {
+                    prompt: prompt,
+                },
+                {
+                    headers: {},
+                }
+            );
+
+            // some error 
+            if(MLResponse.status !== 200) {
+                await Chat.deleteOne({
+                    _id: savedChat._id
+                })
+                const e = {
+                    msg: 'Something went wrong'
+                }
+                throw e
+            }
+
+            Prompt.create({
+                
+            })
 
             res.status(200).json({
                 msg: 'New chat successfully created!',

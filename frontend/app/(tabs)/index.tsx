@@ -46,7 +46,7 @@ export default function Home() {
     )
   }
 
-  if(userId === null && !loading) {
+  if(userId === 'NA' && !loading) {
     router.navigate('/signin')
   }
   

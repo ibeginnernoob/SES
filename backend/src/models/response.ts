@@ -9,7 +9,7 @@ const responseSchema = new Schema({
         type: Date,
         default: Date.now(),
     },
-    response: {
+    text: {
         type: String,
         required: true,
     },

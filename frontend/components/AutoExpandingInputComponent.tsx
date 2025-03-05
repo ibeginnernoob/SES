@@ -1,10 +1,12 @@
 import { View, Keyboard, Platform } from "react-native";
-import { useState, useRef } from "react";
+import { useState, useRef, SetStateAction, Dispatch } from "react";
 
 //@ts-ignore
 import {AutoGrowingTextInput} from 'react-native-autogrow-textinput';
 
-export default function AutoExpandingInputComponent({ text, setText, isFocused, setIsFocused, positioning, styles } : {
+export default function AutoExpandingInputComponent({ height, setHeight, text, setText, isFocused, setIsFocused, positioning, styles } : {
+    height: number,
+    setHeight: Dispatch<SetStateAction<number>>,
     text: string,
     setText: React.Dispatch<React.SetStateAction<string>>,
     isFocused: boolean,
@@ -12,7 +14,6 @@ export default function AutoExpandingInputComponent({ text, setText, isFocused, 
     positioning: string,
     styles: string
 }) {
-    const [height, setHeight]=useState(35)
 
     return (
         <View className={`px-4 ${positioning}`}>

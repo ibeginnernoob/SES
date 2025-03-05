@@ -5,7 +5,7 @@ import { onAuthStateChanged} from "firebase/auth";
 
 export const useIsAuth = () => {
     const [loading, setLoading]=useState(false)
-    const [userId, setUserId]=useState<string | null>('no userId')
+    const [userId, setUserId]=useState<string | null>(null)
     const [userEmail, setUserEmail]=useState<string>("")
 
     useEffect(() => {
@@ -16,7 +16,7 @@ export const useIsAuth = () => {
                 setUserEmail(user.email!)
             }
             else {
-                setUserId(null)
+                setUserId('NA')
             }
         });
         setLoading(false)

@@ -13,6 +13,7 @@ import PromptResponseWindow from "@/components/PromptResponseWindow";
 export default function Chat() {
     const [text, setText]=useState('')
     const [isFocused, setIsFocused]=useState(false)
+    const [height, setHeight]=useState(35)
 
     const [showSideBar, setShowSideBar]=useState(false)
 
@@ -24,47 +25,15 @@ export default function Chat() {
         )
       }
     
-      if(userId === null && !loading) {
+      if(userId === 'NA' && !loading) {
         router.navigate('/signin')
       }
 
     return (
-        // <TouchableWithoutFeedback onPress={() => {
-        //     setIsFocused(false)
-        //     Keyboard.dismiss()
-        // }} accessible={false}>
-        //     <Fragment>
-        //       <View className="relative h-screen">
-        //           <SideBarComponent
-        //               showSideBar={showSideBar}
-        //               setShowSideBar={setShowSideBar}
-        //               activePage='Home'
-        //           />
-        //           <TopBar
-        //               setSideBarVisibility={setShowSideBar}
-        //               userEmail={userEmail}
-        //               page='chat'
-        //           />              
-        //           <View className="z-0 h-[75%]">
-        //             <PromptResponseWindow />
-        //           </View>
-        //           <View className={`z-10 bg-white absolute ${isFocused ? 'bottom-[340px]' : 'bottom-20'} w-full`}>
-        //             <AutoExpandingInputComponent
-        //                 text={text}
-        //                 setText={setText}
-        //                 isFocused={isFocused}
-        //                 setIsFocused={setIsFocused}
-        //                 positioning={""}
-        //                 styles={""}
-        //             />
-        //           </View>
-        //       </View>
-        //     </Fragment>
-        // </TouchableWithoutFeedback>
         <TouchableWithoutFeedback onPress={() => {
           setIsFocused(false)
           Keyboard.dismiss()
-      }} accessible={false}>
+          }} accessible={false}>
           <View className="relative h-screen">
             <SideBarComponent
                 showSideBar={showSideBar}
@@ -79,15 +48,22 @@ export default function Chat() {
             <View className="z-0 h-[75%]">
                 <PromptResponseWindow />
             </View>
-            <View className={`z-10 bg-white absolute ${isFocused ? 'bottom-0 h-[400px]' : 'bottom-0 h-[115px]'} w-full flex-col justify-start pt-4`}>
-                <AutoExpandingInputComponent
-                    text={text}
-                    setText={setText}
-                    isFocused={isFocused}
-                    setIsFocused={setIsFocused}
-                    positioning={""}
-                    styles={"rounded-xl"}
-                />
+            <View
+              className="z-10 bg-white absolute bottom-0 w-full flex-col justify-start pt-4"
+              style={{
+                height: isFocused ? Math.min(365 + height, 575) : Math.min(80 + height, 290),
+              }}
+            >
+              <AutoExpandingInputComponent
+                  height={height}
+                  setHeight={setHeight}
+                  text={text}
+                  setText={setText}
+                  isFocused={isFocused}
+                  setIsFocused={setIsFocused}
+                  positioning={""}
+                  styles={"rounded-xl"}
+              />
             </View>
         </View>
       </TouchableWithoutFeedback>
