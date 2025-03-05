@@ -6,7 +6,7 @@ import SideBarComponent from "@/components/SideBarComponent";
 import SpinnerComponent from "@/components/SpinnerComponent";
 import { router } from "expo-router";
 
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { useIsAuth } from "@/hooks/useIsAuth";
 import PromptResponseWindow from "@/components/PromptResponseWindow";
 
@@ -33,28 +33,63 @@ export default function Chat() {
         //     setIsFocused(false)
         //     Keyboard.dismiss()
         // }} accessible={false}>
-        //     <View className="relative h-screen">
-        //         <SideBarComponent
-        //             showSideBar={showSideBar}
-        //             setShowSideBar={setShowSideBar}
-        //             activePage='Home'
-        //         />
-        //         <TopBar
-        //             setSideBarVisibility={setShowSideBar}
-        //             userEmail={userEmail}
-        //             page='chat'
-        //         />
-        //         <Text>This is the chat page!</Text>
-        //         <AutoExpandingInputComponent
-        //             text={text}
-        //             setText={setText}
-        //             isFocused={isFocused}
-        //             setIsFocused={setIsFocused}
-        //             positioning={`absolute ${isFocused ? 'bottom-[350px]' : 'bottom-20'} w-full`}
-        //             styles={""}
-        //         />
-        //     </View>
+        //     <Fragment>
+        //       <View className="relative h-screen">
+        //           <SideBarComponent
+        //               showSideBar={showSideBar}
+        //               setShowSideBar={setShowSideBar}
+        //               activePage='Home'
+        //           />
+        //           <TopBar
+        //               setSideBarVisibility={setShowSideBar}
+        //               userEmail={userEmail}
+        //               page='chat'
+        //           />              
+        //           <View className="z-0 h-[75%]">
+        //             <PromptResponseWindow />
+        //           </View>
+        //           <View className={`z-10 bg-white absolute ${isFocused ? 'bottom-[340px]' : 'bottom-20'} w-full`}>
+        //             <AutoExpandingInputComponent
+        //                 text={text}
+        //                 setText={setText}
+        //                 isFocused={isFocused}
+        //                 setIsFocused={setIsFocused}
+        //                 positioning={""}
+        //                 styles={""}
+        //             />
+        //           </View>
+        //       </View>
+        //     </Fragment>
         // </TouchableWithoutFeedback>
-        <PromptResponseWindow />
+        <TouchableWithoutFeedback onPress={() => {
+          setIsFocused(false)
+          Keyboard.dismiss()
+      }} accessible={false}>
+          <View className="relative h-screen">
+            <SideBarComponent
+                showSideBar={showSideBar}
+                setShowSideBar={setShowSideBar}
+                activePage='Home'
+            />
+            <TopBar
+                setSideBarVisibility={setShowSideBar}
+                userEmail={userEmail}
+                page='chat'
+            />              
+            <View className="z-0 h-[75%]">
+                <PromptResponseWindow />
+            </View>
+            <View className={`z-10 bg-white absolute ${isFocused ? 'bottom-0 h-[400px]' : 'bottom-0 h-[115px]'} w-full flex-col justify-start pt-4`}>
+                <AutoExpandingInputComponent
+                    text={text}
+                    setText={setText}
+                    isFocused={isFocused}
+                    setIsFocused={setIsFocused}
+                    positioning={""}
+                    styles={"rounded-xl"}
+                />
+            </View>
+        </View>
+      </TouchableWithoutFeedback>
     )
 }

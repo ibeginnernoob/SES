@@ -1,5 +1,6 @@
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { View, Text } from "react-native";
+import { Fragment } from "react";
 
 const chat = {
     prompts: [
@@ -10,7 +11,43 @@ const chat = {
         {
             id: "some id",
             text: 'What is this?'
-        }
+        },
+        {
+            id: "some id",
+            text: 'What is this?'
+        },
+        {
+            id: "some id",
+            text: 'What is this?'
+        },
+        {
+            id: "some id",
+            text: 'What is this?'
+        },
+        {
+            id: "some id",
+            text: 'What is this?'
+        },
+        {
+            id: "some id",
+            text: 'What is this?'
+        },
+        {
+            id: "some id",
+            text: 'What is this?'
+        },
+        {
+            id: "some id",
+            text: 'What is this?'
+        },
+        {
+            id: "some id",
+            text: 'What is this?'
+        },
+        {
+            id: "some id",
+            text: 'What is this?'
+        },
     ],
     responses: [
         {
@@ -20,7 +57,43 @@ const chat = {
         {
             id: "some id",
             text: 'This is an apple!'
-        }
+        },
+        {
+            id: "some id",
+            text: 'This is an apple!'
+        },
+        {
+            id: "some id",
+            text: 'This is an apple!'
+        },
+        {
+            id: "some id",
+            text: 'This is an apple!'
+        },
+        {
+            id: "some id",
+            text: 'This is an apple!'
+        },
+        {
+            id: "some id",
+            text: 'This is an apple!'
+        },
+        {
+            id: "some id",
+            text: 'This is an apple!'
+        },
+        {
+            id: "some id",
+            text: 'This is an apple!'
+        },
+        {
+            id: "some id",
+            text: 'This is an apple!'
+        },
+        {
+            id: "some id",
+            text: 'This is an apple!'
+        },
     ]
 }
 
@@ -44,15 +117,19 @@ export default function PromptResponseWindow({ chatId, firebaseId } : {
     }
 
     return (
-        <View>
+        <View className="py-4 w-screen h-full">
             <KeyboardAwareScrollView>
-                <View className="">
+                <View className="flex flex-col items-start">
                     {getTextArray().map(message => {
                         return (
-                            <View key={message.id}>
-                                <Text>{message.prompt}</Text>
-                                <Text>{message.response}</Text>
-                            </View>
+                            <Fragment key={message.id}>
+                                <View className="bg-blue-200 px-4 py-2 rounded-md max-w-[75%] self-end">
+                                    <Text>{message.prompt}</Text>
+                                </View>
+                                <View className="bg-green-200 px-4 py-2 rounded-md max-w-[75%] self-start">
+                                    <Text>{message.response}</Text>
+                                </View>
+                            </Fragment>
                         )
                     })}
                 </View>
