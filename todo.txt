@@ -1,0 +1,4 @@
+integrate gemini for chatting - backend
+
+test the chat page keyboard for disappearence in android devices - frontend
+
