@@ -10,7 +10,7 @@ export const useIsAuth = () => {
 
     useEffect(() => {
         setLoading(true)
-        onAuthStateChanged(auth, (user) => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {
                 setUserId(user.uid)
                 setUserEmail(user.email!)
@@ -18,8 +18,11 @@ export const useIsAuth = () => {
             else {
                 setUserId('NA')
             }
+            setLoading(false)
         });
-        setLoading(false)
+
+        // understand why and how this works
+        return () => unsubscribe();
     }, [])
 
     return {

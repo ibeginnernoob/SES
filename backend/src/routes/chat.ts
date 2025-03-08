@@ -108,13 +108,10 @@ router.post(
 
             try {                
                 const MLResponse = await axios.post(
-                    'link to the model',
+                    'http://localhost:3001/gemini',
                     {
                         prompt: prompt,
                     },
-                    {
-                        headers: {},
-                    }
                 );
 
                 if(MLResponse.status !== 200) {
@@ -126,10 +123,11 @@ router.post(
 
                 try {
                     await ResponseModel.create({
-                        chat: savedChat._id
+                        chat: savedChat._id,
+                        text: MLResponse.data.response
                     })        
                 } catch (responseSavingError) {
-                    await ResponseModel.deleteOne({
+                    await Prompt.deleteOne({
                         _id: savedPromptId
                     })
                     await Chat.deleteOne({
@@ -141,7 +139,7 @@ router.post(
                     });
                 }
             } catch (modelResError) {
-                await ResponseModel.deleteOne({
+                await Prompt.deleteOne({
                     _id: savedPromptId
                 })
                 await Chat.deleteOne({
@@ -176,13 +174,10 @@ router.post(
             const prompt = req.body.prompt;
 
             const MLResponse = await axios.post(
-                '',
+                'http://localhost:3001/gemini',
                 {
                     prompt: prompt,
                 },
-                {
-                    headers: {},
-                }
             );
 
             if (!MLResponse || MLResponse.status !== 200) {

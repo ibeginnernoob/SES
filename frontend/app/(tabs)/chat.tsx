@@ -6,7 +6,7 @@ import SideBarComponent from "@/components/SideBarComponent";
 import SpinnerComponent from "@/components/SpinnerComponent";
 import { router } from "expo-router";
 
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useIsAuth } from "@/hooks/useIsAuth";
 import PromptResponseWindow from "@/components/PromptResponseWindow";
 
@@ -18,6 +18,11 @@ export default function Chat() {
     const [showSideBar, setShowSideBar]=useState(false)
 
     const {loading, userId, userEmail}=useIsAuth()
+    const [chat, setChat] = useState<any>({})
+
+    useEffect(() => {
+      // set chat <= fetch chat
+    }, [])
 
     if(loading) {
         return (
