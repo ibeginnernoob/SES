@@ -1,6 +1,6 @@
-import { View } from "react-native";
-import { Spinner } from "./ui/spinner";
-import colors from "tailwindcss/colors"
+import { View } from 'react-native'
+import { Spinner } from './ui/spinner'
+import colors from 'tailwindcss/colors'
 
 export default function SpinnerComponent() {
     return (

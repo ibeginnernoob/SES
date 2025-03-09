@@ -1,14 +1,10 @@
 import mongoose, { Schema, model } from 'mongoose';
 
 const chatSchema = new Schema({
-    owner: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        ref: 'User',
-    },
     ownerFireBaseId: {
         type: String,
-        required: true
+        required: true,
+        ref: 'User',
     },
     title: {
         type: String,
