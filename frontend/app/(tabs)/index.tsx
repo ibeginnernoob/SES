@@ -18,6 +18,8 @@ import SideBarComponent from '@/components/SideBarComponent'
 import ButtonComponent from '@/components/ButtonComponent'
 
 export default function Home() {
+	const updateChatId = useChatId((state: any) => state.updateChatId)
+
     const [age, setAge] = useState<string | null>(null)
     const [gender, setGender] = useState<string | null>(null)
     const [weight, setWeight] = useState<string | null>(null)
@@ -62,9 +64,7 @@ export default function Home() {
                 }
                 throw e
             }
-            const chatId = res.data.chatId
-            const updateChatId = useChatId((state: any) => state.updateChatId)
-            updateChatId(chatId)
+            updateChatId(res.chatId)
             setCreateChatLoad(false)
             router.navigate('/chat')
         } catch (e: any) {
