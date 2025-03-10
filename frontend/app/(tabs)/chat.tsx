@@ -38,7 +38,7 @@ export default function Chat() {
             }}
             accessible={false}
         >
-            <View className="relative h-screen">
+            <View className="relative h-screen bg-white">
                 <SideBarComponent
                     showSideBar={showSideBar}
                     setShowSideBar={setShowSideBar}
@@ -50,7 +50,7 @@ export default function Chat() {
                     page="chat"
                 />
                 <View className="z-0 h-[75%]">
-                    <PromptResponseWindow />
+                    <PromptResponseWindow chat={chat} />
                 </View>
                 <View
                     className="z-10 bg-white absolute bottom-0 w-full flex-col justify-start pt-4"

@@ -149,7 +149,10 @@ export default function Home() {
                     </View>
                     <ButtonComponent
                         msg="Start chatting!"
-                        onclick={createChat}
+                        onclick={() => {
+							updateChatId("67cf09901083643c6d71e0d5")
+							router.navigate('/chat')
+						}}
                         buttonStyles="mt-16 px-16 h-12 rounded-base"
                         textStyles="text-base"
                     />
