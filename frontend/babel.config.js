@@ -7,8 +7,6 @@ module.exports = function (api) {
       'nativewind/babel',
     ],
     plugins: [
-      'react-native-reanimated/plugin',
-      'react-native-paper/babel',
       [
         'module-resolver',
         {
@@ -19,6 +17,8 @@ module.exports = function (api) {
           },
         },
       ],
+      'react-native-paper/babel',
+      'react-native-reanimated/plugin'
     ],
   };
 };

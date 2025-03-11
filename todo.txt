@@ -1,0 +1,27 @@
+to be done - integrate gemini for chatting - backend
+
+to be done - test the chat page keyboard for disappearence in android devices - frontend
+
+!!! to be dones -
+
+to be done - Microservice for each model [API]
+
+for each micro service -
+
+API -> route -> hit to get response
+
+
+
+
+
+
+
+
+
+
+
+
+
+can dos ->
+
+authentication for each microservice

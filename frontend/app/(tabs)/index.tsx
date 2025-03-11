@@ -5,8 +5,12 @@ import { useState, useEffect, useCallback } from 'react'
 import { View, Text, TextInput, TouchableOpacity } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { router, useFocusEffect } from 'expo-router'
+import ky from 'ky';
 
 import { useIsAuth } from '@/hooks/useIsAuth'
+
+const BACKEND_URL = 'http://10.0.3.248:3000'
+import useStore from '@/store/chatId';
 
 import DropDownComponent from '@/components/DropDownComponent'
 import TextAreaComponent from '@/components/TextAreaComponent'
@@ -15,6 +19,7 @@ import SpinnerComponent from '@/components/SpinnerComponent'
 import SelectOptionComponent from '@/components/SelectOptionComponent'
 import SideBarComponent from '@/components/SideBarComponent';
 import ButtonComponent from '@/components/ButtonComponent';
+import { create } from 'zustand';
 
 export default function Home() {
   const [age, setAge]=useState< string | null >(null)
@@ -40,13 +45,42 @@ export default function Home() {
     }, [])
   );
 
+  const createChat = async () => {
+    try {
+      const res: any = await ky.post(`${BACKEND_URL}/api/v1/auth/signup`, {
+        json: {
+          age: age,
+          gender: gender,
+          height: height,
+          weight: weight,
+          symptoms: symptoms
+        }
+      }).json()
+
+      if (res.status === 500) {
+        const e = {
+          msg: "Chat creation failed!"
+        }
+        throw e
+      }
+
+      const chatId = res.data.chatId
+      const updateChatId = useStore((state: any) => state.updateChatId)
+
+      updateChatId(chatId)
+      router.navigate('/chat')
+    } catch (e: any) {
+      console.log(e)
+    }
+  }
+
   if(loading) {
     return (
       <SpinnerComponent />
     )
   }
 
-  if(userId === null && !loading) {
+  if(userId === 'NA' && !loading) {
     router.navigate('/signin')
   }
   
@@ -91,9 +125,7 @@ export default function Home() {
           </View>
           <ButtonComponent
             msg='Start chatting!'
-            onclick={() => {
-              router.navigate('/chat')
-            }}
+            onclick={createChat}
             buttonStyles='mt-16 px-16 h-12 rounded-base'
             textStyles='text-base'
           />
