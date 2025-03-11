@@ -30,6 +30,10 @@ export default function Chat() {
         router.navigate('/signin')
     }
 
+	if ( chat && chat.length === 0 && !loadChat) {
+		router.navigate('/')
+	}
+
     return (
         <TouchableWithoutFeedback
             onPress={() => {
@@ -42,7 +46,7 @@ export default function Chat() {
                 <SideBarComponent
                     showSideBar={showSideBar}
                     setShowSideBar={setShowSideBar}
-                    activePage="Home"
+                    activePage=""
                 />
                 <TopBar
                     setSideBarVisibility={setShowSideBar}

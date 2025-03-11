@@ -7,7 +7,7 @@ import useChatId from '@/store/chatId'
 const BACKEND_URL = 'http://10.0.3.248:3000'
 
 export const useGetChat = () => {
-    const [chat, setChat] = useState<any>([])
+    const [chat, setChat] = useState<any>(null)
     const [loadChat, setLoadChat] = useState(false)
 
 	const chatId = useChatId((state: any) => state.chatId)
@@ -23,6 +23,7 @@ export const useGetChat = () => {
 				setChat(res.chat)
 			} catch (e) {
 				console.log(e);
+				setChat([])
 			} finally {
 				setLoadChat(false)
 			}

@@ -1,9 +1,10 @@
 import { Drawer } from 'react-native-paper'
-import { View, Text } from 'react-native'
+import { View, Text, TouchableOpacity } from 'react-native'
 import { useState } from 'react'
 import Modal from 'react-native-modal'
 import LogoutButton from './LogoutButton'
 import { Icon, EditIcon, MessageCircleIcon } from './ui/icon'
+import { router } from 'expo-router'
 
 export default function SideBarComponent({
     showSideBar,
@@ -25,42 +26,50 @@ export default function SideBarComponent({
         >
             <View className="bg-white h-screen relative">
                 <View className="z-10 mt-32 mx-3">
-                    <View
-                        className={`mb-2 pl-4 py-2 rounded-md ${activePage === 'Home' ? 'bg-blue-100' : null}`}
-                    >
-                        <View
-                            className={`font-semibold flex flex-row items-center ${activePage === 'Home' ? 'text-sky-600' : null}`}
-                        >
-                            <Icon
-                                className={`mr-3 ${activePage === 'Home' ? 'text-sky-600' : null}`}
-                                as={EditIcon}
-                                size="md"
-                            />
-                            <Text
-                                className={`${activePage === 'Home' ? 'text-sky-600' : null}`}
-                            >
-                                Start New Chat
-                            </Text>
-                        </View>
-                    </View>
-                    <View
-                        className={`mb-2 pl-4 py-2 rounded-md ${activePage === 'Chats' ? 'bg-blue-100' : null}`}
-                    >
-                        <View
-                            className={`font-semibold flex flex-row items-center ${activePage === 'Chats' ? 'text-sky-600' : null}`}
-                        >
-                            <Icon
-                                className={`mr-3 ${activePage === 'Chats' ? 'text-sky-600' : null}`}
-                                as={MessageCircleIcon}
-                                size="md"
-                            />
-                            <Text
-                                className={`${activePage === 'Chats' ? 'text-sky-600' : null}`}
-                            >
-                                Your Chats
-                            </Text>
-                        </View>
-                    </View>
+					<TouchableOpacity onPress={() => {
+						router.navigate('/')
+					}}>
+						<View
+							className={`mb-2 pl-4 py-2 rounded-md ${activePage === 'Home' ? 'bg-blue-100' : null}`}
+						>
+							<View
+								className={`font-semibold flex flex-row items-center`}
+							>
+								<Icon
+									className={`mr-3 ${activePage === 'Home' ? 'text-sky-600' : null}`}
+									as={EditIcon}
+									size="md"
+								/>
+								<Text
+									className={`${activePage === 'Home' ? 'text-sky-600' : null}`}
+								>
+									Start New Chat
+								</Text>
+							</View>
+						</View>
+					</TouchableOpacity>
+                    <TouchableOpacity onPress={() => {
+						router.navigate('/chats')
+					}}>
+						<View
+							className={`mb-2 pl-4 py-2 rounded-md ${activePage === 'Chats' ? 'bg-blue-100' : null}`}
+						>
+							<View
+								className={`font-semibold flex flex-row items-center`}
+							>
+								<Icon
+									className={`mr-3 ${activePage === 'Chats' ? 'text-sky-600' : null}`}
+									as={MessageCircleIcon}
+									size="md"
+								/>
+								<Text
+									className={`${activePage === 'Chats' ? 'text-sky-600' : null}`}
+								>
+									Your Chats
+								</Text>
+							</View>
+						</View>
+					</TouchableOpacity>
                 </View>
                 <View className="absolute bottom-20 w-full flex flex-row justify-center">
                     <LogoutButton

@@ -1,40 +1,37 @@
 import { Router, Request, Response, NextFunction } from 'express';
-import mongoose from 'mongoose';
 import axios from 'axios';
 
 import Chat from '../models/chat';
 import ResponseModel from '../models/response';
 import Prompt from '../models/prompt';
-
-import { GoogleGenerativeAI } from '@google/generative-ai';
 import User from '../models/user';
 
 const router = Router();
 
-// router.get(
-//     '/chats/:fireBaseId',
-//     async (req: Request, res: Response, next: NextFunction) => {
-//         try {
-//             const fireBaseId = req.params.fireBaseId;
+router.get(
+    '/chats/:fireBaseId',
+    async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            const fireBaseId = req.params.fireBaseId;
 
-//             const chats = await Chat.find(
-//                 {
-//                     ownerFireBaseId: fireBaseId,
-//                 },
-//                 '_id, title'
-//             );
+            const chats = await Chat.find(
+                {
+                    ownerFireBaseId: fireBaseId,
+                },
+                '_id title createdAt'
+            );
 
-//             res.status(200).json({
-//                 chats: chats,
-//             });
-//         } catch (e) {
-//             console.log(e);
-//             res.status(500).json({
-//                 msg: 'Something went wrong!',
-//             });
-//         }
-//     }
-// );
+            res.status(200).json({
+                chats: chats,
+            });
+        } catch (e) {
+            console.log(e);
+            res.status(500).json({
+                msg: 'Something went wrong!',
+            });
+        }
+    }
+);
 
 router.get(
     '/chat/:chatId',
