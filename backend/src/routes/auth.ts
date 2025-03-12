@@ -10,19 +10,19 @@ router.post(
         try {
             const email = req.body.email;
             const password = req.body.password;
-            const fireBaseId = req.body.fireBaseId;
+            const userFireBaseId = req.body.fireBaseId;
 
             const createUser = new User({
                 email: email,
                 password: password,
-                fireBaseId: fireBaseId,
-                chat_ids: []
+                userFireBaseId: userFireBaseId,
+                chat_ids: [],
             });
             await createUser.save();
 
             res.status(201).json({
                 msg: 'User creation successful!',
-                status: 201
+                status: 201,
             });
         } catch (e) {
             console.log(e);

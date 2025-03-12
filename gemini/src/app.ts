@@ -1,12 +1,16 @@
 import express from "express"
 import { Request, Response, NextFunction } from "express"
 import * as dotenv from 'dotenv';
+import cors from 'cors';
 
 const app = express()
 
 dotenv.config();
 
 import { GoogleGenerativeAI } from "@google/generative-ai"
+
+app.use(cors());
+app.use(express.json());
 
 app.post('/gemini', async (req: Request, res: Response, next: NextFunction) => {
     try {

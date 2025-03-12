@@ -1,13 +1,17 @@
-import { View, TouchableOpacity } from "react-native";
-import { Image } from "./ui/image";
-import { StyleSheet } from "react-native";
-import { Avatar, AvatarFallbackText, AvatarImage } from "./ui/avatar";
-import { Dispatch, SetStateAction, useState } from "react";
-import { Icon, MenuIcon } from "./ui/icon";
+import { View, TouchableOpacity } from 'react-native'
+import { Image } from './ui/image'
+import { StyleSheet } from 'react-native'
+import { Avatar, AvatarFallbackText, AvatarImage } from './ui/avatar'
+import { Dispatch, SetStateAction, useState } from 'react'
+import { Icon, MenuIcon } from './ui/icon'
 
-export default function TopBar({ setSideBarVisibility, userEmail, page } : {
-    setSideBarVisibility: Dispatch<SetStateAction<boolean>>,
-    userEmail: string,
+export default function TopBar({
+    setSideBarVisibility,
+    userEmail,
+    page,
+}: {
+    setSideBarVisibility: Dispatch<SetStateAction<boolean>>
+    userEmail: string
     page?: string
 }) {
     return (
@@ -17,7 +21,7 @@ export default function TopBar({ setSideBarVisibility, userEmail, page } : {
                     <TouchableOpacity
                         className="px-2 py-2 rounded-full flex flex-col justify-center items-center active:bg-sky-200"
                         onPress={() => {
-                            setSideBarVisibility(prevState => !prevState)
+                            setSideBarVisibility((prevState) => !prevState)
                         }}
                     >
                         <Icon
@@ -30,8 +34,8 @@ export default function TopBar({ setSideBarVisibility, userEmail, page } : {
                         <Image
                             className="ml-4"
                             source={require('../assets/logo.png')}
-                            alt='Logo'
-                            size='sm'
+                            alt="Logo"
+                            size="sm"
                         />
                     )}
                 </View>
@@ -44,7 +48,7 @@ export default function TopBar({ setSideBarVisibility, userEmail, page } : {
                     borderBottomColor: 'black',
                     borderBottomWidth: StyleSheet.hairlineWidth,
                     marginTop: 10,
-                    borderColor: 'darkgray'
+                    borderColor: 'darkgray',
                 }}
             />
         </View>

@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
 import authRouter from './auth';
-import chatRouter from './chat'
+import chatRouter from './chat';
 
 const router = Router();
 
