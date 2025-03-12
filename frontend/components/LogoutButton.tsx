@@ -3,19 +3,21 @@ import { View, Text } from 'react-native'
 import ButtonComponent from '@/components/ButtonComponent'
 
 import { auth } from '@/firebaseConfig'
-import { signOut } from "firebase/auth";
+import { signOut } from 'firebase/auth'
 
-export default function LogoutButton({ buttonStyles, textStyles } : {
-    buttonStyles?: string,
+export default function LogoutButton({
+    buttonStyles,
+    textStyles,
+}: {
+    buttonStyles?: string
     textStyles?: string
 }) {
-
     const logout = async () => {
         try {
             await signOut(auth)
-        } catch(e: any) {
-            const errorCode = e.code;
-            const errorMessage = e.message;
+        } catch (e: any) {
+            const errorCode = e.code
+            const errorMessage = e.message
         }
     }
 

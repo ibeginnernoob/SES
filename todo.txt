@@ -11,7 +11,11 @@ for each micro service -
 API -> route -> hit to get response
 
 
+latest todo ->
 
+fetch chat -> chatId from global state
+
+render chat in chat page
 
 
 

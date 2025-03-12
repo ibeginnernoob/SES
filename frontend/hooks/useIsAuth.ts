@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react'
-import { auth } from '@/firebaseConfig.js'
 
-import { onAuthStateChanged} from "firebase/auth";
+import { auth } from '@/firebaseConfig.js'
+import { onAuthStateChanged } from 'firebase/auth'
 
 export const useIsAuth = () => {
-    const [loading, setLoading]=useState(false)
-    const [userId, setUserId]=useState<string | null>(null)
-    const [userEmail, setUserEmail]=useState<string>("")
+    const [loading, setLoading] = useState(false)
+    const [userId, setUserId] = useState<string | null>(null)
+    const [userEmail, setUserEmail] = useState<string>('')
 
     useEffect(() => {
         setLoading(true)
@@ -14,20 +14,19 @@ export const useIsAuth = () => {
             if (user) {
                 setUserId(user.uid)
                 setUserEmail(user.email!)
-            }
-            else {
+            } else {
                 setUserId('NA')
             }
             setLoading(false)
-        });
+        })
 
         // understand why and how this works
-        return () => unsubscribe();
+        return () => unsubscribe()
     }, [])
 
     return {
         loading,
         userId,
-        userEmail
+        userEmail,
     }
 }
