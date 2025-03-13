@@ -1,10 +1,12 @@
 import { Drawer } from 'react-native-paper'
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, Dimensions } from 'react-native'
 import { useState } from 'react'
 import Modal from 'react-native-modal'
 import LogoutButton from './LogoutButton'
 import { Icon, EditIcon, MessageCircleIcon } from './ui/icon'
 import { router } from 'expo-router'
+
+const { height } = Dimensions.get('screen')
 
 export default function SideBarComponent({
     showSideBar,
@@ -24,7 +26,10 @@ export default function SideBarComponent({
             animationIn={'slideInLeft'}
             animationOut={'slideInLeft'}
         >
-            <View className="bg-white h-screen relative">
+            <View className="bg-white h-screen relative"
+				style={{
+					height: height
+				}}>
                 <View className="z-10 mt-32 mx-3">
 					<TouchableOpacity onPress={() => {
 						router.navigate('/')
@@ -73,8 +78,8 @@ export default function SideBarComponent({
                 </View>
                 <View className="absolute bottom-20 w-full flex flex-row justify-center">
                     <LogoutButton
-                        buttonStyles="py-3 px-10 rounded-lg w-full"
-                        textStyles="text-base"
+                        buttonStyles="py-3 px-10 rounded-lg w-full bg-white border-[1px]"
+                        textStyles="text-base text-black"
                     />
                 </View>
             </View>

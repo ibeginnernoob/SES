@@ -1,7 +1,8 @@
-import { View, Text, TouchableWithoutFeedback, Keyboard } from 'react-native'
-import { Fragment, useEffect, useState } from 'react'
+import { View, Text, TouchableWithoutFeedback, Keyboard, TouchableOpacity } from 'react-native'
+import { Fragment, useEffect, useMemo, useState } from 'react'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { router } from 'expo-router'
+import { Icon, ArrowUpIcon } from '@/components/ui/icon'
 
 import { useGetChat } from '@/hooks/useGetChat'
 import { useIsAuth } from '@/hooks/useIsAuth'
@@ -21,6 +22,13 @@ export default function Chat() {
 
     const { loading, userId, userEmail } = useIsAuth()
     const { loadChat, chat } = useGetChat()
+
+	const isChatDisabled = useMemo(() => {
+		if (text === '') {
+			return true
+		}
+		return false
+	}, [text])
 
     if (loading || loadChat) {
         return <SpinnerComponent />
@@ -53,27 +61,40 @@ export default function Chat() {
                     userEmail={userEmail}
                     page="chat"
                 />
-                <View className="z-0 h-[75%]">
+                <View className="z-0 h-[80%]">
                     <PromptResponseWindow chat={chat} />
                 </View>
                 <View
-                    className="z-10 bg-white absolute bottom-0 w-full flex-col justify-start pt-4"
+                    className="z-10 bg-white absolute bottom-0 w-full flex-col justify-start pt-3 border-t-[0.2px] border-gray-300"
                     style={{
                         height: isFocused
-                            ? Math.min(365 + height, 575)
-                            : Math.min(80 + height, 290),
+						? Math.min(360 + height, 575)
+						: Math.min(50 + height, 290)
                     }}
                 >
-                    <AutoExpandingInputComponent
-                        height={height}
-                        setHeight={setHeight}
-                        text={text}
-                        setText={setText}
-                        isFocused={isFocused}
-                        setIsFocused={setIsFocused}
-                        positioning={''}
-                        styles={'rounded-xl'}
-                    />
+                    <View className='flex flex-row justify-between items-end mx-6'>
+						<AutoExpandingInputComponent
+							height={height}
+							setHeight={setHeight}
+							text={text}
+							setText={setText}
+							isFocused={isFocused}
+							setIsFocused={setIsFocused}
+							positioning={'flex-1'}
+							styles={'rounded-xl'}
+						/>
+						<TouchableOpacity
+							disabled={isChatDisabled}
+						>
+							<View className={`bg-black rounded-full p-2 flex justify-center ml-4 items-center ${isChatDisabled ? 'opacity-50' : ''}`}>
+								<Icon
+									className='text-white'
+									as={ArrowUpIcon}
+									size='md'
+								/>
+							</View>
+						</TouchableOpacity>
+					</View>
                 </View>
             </View>
         </TouchableWithoutFeedback>

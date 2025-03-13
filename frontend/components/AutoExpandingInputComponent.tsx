@@ -24,7 +24,7 @@ export default function AutoExpandingInputComponent({
     styles: string
 }) {
     return (
-        <View className={`px-4 ${positioning}`}>
+        <View className={`${positioning}`}>
             <AutoGrowingTextInput
                 onChangeText={(text: string) => {
                     setText(text)
@@ -41,11 +41,11 @@ export default function AutoExpandingInputComponent({
                     padding: 8,
                     borderWidth: 1,
                     borderColor: isFocused ? 'black' : '#ccc',
-                    textAlignVertical: 'bottom',
+                    textAlignVertical: 'center',
                 }}
                 onFocus={() => setIsFocused(true)}
                 onBlur={() => setIsFocused(false)}
-                placeholder="Chat away..."
+                placeholder="Chat away"
                 className={`rounded-lg ${styles}`}
             />
         </View>

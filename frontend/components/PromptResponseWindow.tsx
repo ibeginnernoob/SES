@@ -42,7 +42,8 @@ export default function PromptResponseWindow({
 							<View className="flex flex-row items-start my-4 w-full mx-4">
 								<View className="flex justify-center items-center h-10 w-10 border-[0.25px] rounded-full mr-4">
 									<Image
-										className="h-6 w-6 p-2"
+										// seperate for ios and android
+										className="h-8 w-8 p-2"
 										source={require('../assets/chatgpt-logo.svg.png')}
 										alt="Logo"
 										size="sm"
