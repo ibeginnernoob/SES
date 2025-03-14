@@ -1,31 +1,52 @@
-import { Select, SelectTrigger, SelectInput, SelectIcon, SelectPortal, SelectBackdrop, SelectContent, SelectDragIndicatorWrapper, SelectDragIndicator, SelectItem } from '@/components/ui/select';
-import { ChevronDownIcon } from './ui/icon';
-import { useState } from 'react';
+import {
+    Select,
+    SelectTrigger,
+    SelectInput,
+    SelectIcon,
+    SelectPortal,
+    SelectBackdrop,
+    SelectContent,
+    SelectDragIndicatorWrapper,
+    SelectDragIndicator,
+    SelectItem,
+} from '@/components/ui/select'
+import { ChevronDownIcon } from './ui/icon'
+import { useState } from 'react'
 
-export default function SelectOptionComponent() {
-    const [selectedValue, setSelectedValue] = useState<string | null>(null)
-
+export default function SelectOptionComponent({
+	styles,
+    inputValue,
+    setInputValue,
+}: {
+    inputValue: string | null
+    setInputValue: (para: string) => void
+	styles?: string
+}) {
     return (
         <Select
-            className='w-40'
-            selectedValue={selectedValue}
+            className={`${styles}`}
+            selectedValue={inputValue}
             onValueChange={(value) => {
-            setSelectedValue(value)
+                setInputValue(value)
             }}
         >
-            <SelectTrigger variant="outline" size="lg" className="flex flex-row justify-between">
-                <SelectInput className='text-sm' placeholder="Select option" />
-                <SelectIcon className='mr-3' as={ChevronDownIcon} />
+            <SelectTrigger
+                variant="outline"
+                size="lg"
+                className="flex flex-row justify-between"
+            >
+                <SelectInput className="text-sm" placeholder="Select option" />
+                <SelectIcon className="mr-3" as={ChevronDownIcon} />
             </SelectTrigger>
-            <SelectPortal>
+            <SelectPortal className=''>
                 <SelectBackdrop />
-                <SelectContent>
+                <SelectContent className={`pt-2 pb-10`}>
                     <SelectDragIndicatorWrapper>
                         <SelectDragIndicator />
                     </SelectDragIndicatorWrapper>
-                    <SelectItem label="Male" value="male" />
+                    <SelectItem className='pt-3' label="Male" value="male" />
                     <SelectItem label="Female" value="female" />
-                    <SelectItem label="Rather not say" value="NA" />
+                    <SelectItem label="Rather Not Say" value="NA" />
                 </SelectContent>
             </SelectPortal>
         </Select>

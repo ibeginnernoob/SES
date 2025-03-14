@@ -1,13 +1,18 @@
-import { View, TouchableOpacity } from "react-native";
-import { Image } from "./ui/image";
-import { StyleSheet } from "react-native";
-import { Avatar, AvatarFallbackText, AvatarImage } from "./ui/avatar";
-import { Dispatch, SetStateAction, useState } from "react";
-import { Icon, MenuIcon } from "./ui/icon";
+import { View, TouchableOpacity } from 'react-native'
+import { Image } from './ui/image'
+import { StyleSheet } from 'react-native'
+import { Avatar, AvatarFallbackText, AvatarImage } from './ui/avatar'
+import { Dispatch, SetStateAction, useState } from 'react'
+import { Icon, MenuIcon } from './ui/icon'
 
-export default function TopBar({ setSideBarVisibility, userEmail } : {
-    setSideBarVisibility: Dispatch<SetStateAction<boolean>>,
+export default function TopBar({
+    setSideBarVisibility,
+    userEmail,
+    page,
+}: {
+    setSideBarVisibility: Dispatch<SetStateAction<boolean>>
     userEmail: string
+    page?: string
 }) {
     return (
         <View>
@@ -16,7 +21,7 @@ export default function TopBar({ setSideBarVisibility, userEmail } : {
                     <TouchableOpacity
                         className="px-2 py-2 rounded-full flex flex-col justify-center items-center active:bg-sky-200"
                         onPress={() => {
-                            setSideBarVisibility(prevState => !prevState)
+                            setSideBarVisibility((prevState) => !prevState)
                         }}
                     >
                         <Icon
@@ -25,20 +30,16 @@ export default function TopBar({ setSideBarVisibility, userEmail } : {
                             size="xl"
                         />
                     </TouchableOpacity>
-                    <Image
-                        className="ml-4"
-                        source={require('../assets/logo.png')}
-                        alt='Logo'
-                        size='sm'
-                    />
+                    {page !== 'chat' && (
+                        <Image
+                            className="ml-4 w-12 h-12"
+                            source={require('../assets/logo.png')}
+                            alt="Logo"
+                        />
+                    )}
                 </View>
-                <Avatar className="">
+                <Avatar className=" h-10 w-10">
                     <AvatarFallbackText>{userEmail}</AvatarFallbackText>
-                    {/* <AvatarImage
-                        source={{
-                            uri: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60",
-                        }}
-                    /> */}
                 </Avatar>
             </View>
             <View
@@ -46,7 +47,7 @@ export default function TopBar({ setSideBarVisibility, userEmail } : {
                     borderBottomColor: 'black',
                     borderBottomWidth: StyleSheet.hairlineWidth,
                     marginTop: 10,
-                    borderColor: 'darkgray'
+                    borderColor: 'darkgray',
                 }}
             />
         </View>

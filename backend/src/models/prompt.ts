@@ -9,7 +9,7 @@ const promptSchema = new Schema({
         type: Date,
         default: Date.now(),
     },
-    prompt: {
+    text: {
         type: String,
         required: true,
     },

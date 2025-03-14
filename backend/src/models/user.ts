@@ -7,16 +7,16 @@ const userSchema = new Schema({
         unique: true,
     },
     password: {
-        type: String
+        type: String,
     },
-    fireBaseId: {
+    userFireBaseId: {
         type: String,
         unique: true,
-        required: true
+        required: true,
     },
     chat_ids: [
         {
-            type: mongoose.Schema.Types.ObjectId,
+            type: String,
             ref: 'Chat',
         },
     ],
