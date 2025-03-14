@@ -1,7 +1,10 @@
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { View, Text, ScrollView } from 'react-native'
+import { useRef, useEffect } from 'react'
 import { Image } from './ui/image'
 import { Fragment } from 'react'
+import { Spinner } from './ui/spinner'
+import colors from 'tailwindcss/colors'
 
 export default function PromptResponseWindow({
     chatId,
@@ -12,6 +15,12 @@ export default function PromptResponseWindow({
     firebaseId?: string
 	chat: any
 }) {
+	const scrollViewRef = useRef<ScrollView>(null);
+
+	useEffect(() => {
+		scrollViewRef.current?.scrollToEnd({ animated: true });
+	}, [chat]);
+
     const getTextArray = () => {
 		if (!chat || chat.length === 0 || !chat[0].prompts || !chat[0].responses) {
             return [];
@@ -31,7 +40,7 @@ export default function PromptResponseWindow({
     }
 
 	return (
-		<ScrollView>
+		<ScrollView ref={scrollViewRef}>
 			<View className="bg-white w-screen h-full">
 				<View className="flex flex-col items-start bg-white">
 					{getTextArray().map((message) => (
@@ -49,8 +58,13 @@ export default function PromptResponseWindow({
 										size="sm"
 									/>
 								</View>
-								<View className="max-w-[75%]" pointerEvents="box-none">
-									<Text>{message.response}</Text>
+								<View className="max-w-[75%] pt-2" pointerEvents="box-none">
+									{message.response === '' ? (
+										<Spinner size="large" color={colors.indigo[600]} />
+									) : (
+										<Text>{message.response}</Text>
+									)}
+									
 								</View>
 							</View>
 						</Fragment>

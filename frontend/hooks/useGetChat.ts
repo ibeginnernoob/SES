@@ -35,5 +35,6 @@ export const useGetChat = () => {
     return {
         chat,
         loadChat,
+		setChat
     }
 }
