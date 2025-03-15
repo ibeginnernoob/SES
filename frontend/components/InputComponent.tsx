@@ -26,7 +26,8 @@ export default function InputComponent({
                 isDisabled={false}
                 isInvalid={isInvalid}
                 isReadOnly={false}
-                className={`rounded-3xl py-2 ${styles}`}
+                className={`py-2 border-none ${styles}`}
+				
             >
                 {getInputIcon()}
                 <InputField
@@ -36,6 +37,7 @@ export default function InputComponent({
                     onChangeText={(text) => {
                         setValue(text)
                     }}
+					autoCapitalize='none'
                 />
                 {getShowPasswordIcon()}
             </Input>

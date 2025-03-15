@@ -123,12 +123,12 @@ export default function Signin() {
 
     return (
         <KeyboardAwareScrollView>
-            <View className="h-screen w-screen px-8 flex flex-col justify-center">
-                <View className="flex items-center">
-                    <Text className="text-4xl font-semibold">
-                        Sign Up With Email
+            <View className="h-screen w-screen flex flex-col mt-60">
+                <View className="flex">
+                    <Text className="mx-8 text-5xl font-semibold">
+                        Create Your Free Account
                     </Text>
-                    <Text className="text-gray-500 mt-1 text-base">
+                    <Text className="text-gray-500 mt-1 ml-8 text-base">
                         Already have an account?{' '}
                         <Text
                             className="underline"
@@ -140,18 +140,18 @@ export default function Signin() {
                         </Text>
                     </Text>
                 </View>
-                <View>
+                <View className='mt-10'>
                     <InputComponent
-                        styles="py-3 h-auto mt-4 mb-3"
+                        styles="py-4 h-auto mx-8"
                         placeholder="Email"
                         type="email"
                         setValue={setEmail}
                         isInvalid={getInputValidity('email')}
                     />
                 </View>
-                <View>
+                <View className='my-6'>
                     <InputComponent
-                        styles="py-3 h-auto mt-3 mb-3"
+                        styles="py-4 h-auto mx-8"
                         placeholder="Password"
                         type="password"
                         setValue={setPassword}
@@ -160,7 +160,7 @@ export default function Signin() {
                 </View>
                 <View>
                     <InputComponent
-                        styles="py-3 h-auto mt-3 mb-8"
+                        styles="py-4 h-auto mx-8"
                         placeholder="Confirm Password"
                         type="password"
                         setValue={setConfirmPassword}
@@ -168,14 +168,15 @@ export default function Signin() {
                     />
                 </View>
                 <ButtonComponent
-                    buttonStyles="rounded-2xl py-3 h-auto"
+                    buttonStyles="mt-12 py-4 mx-8 h-auto bg-orange-600"
                     msg="Get Started"
+					textStyles='text-base'
                     onclick={createUser}
                 />
                 {errorMessage !== '' && (
                     <AlertComponent
                         alertMsg={errorMessage}
-                        positioning="mt-40"
+                        positioning="mt-[-110px]"
                     />
                 )}
             </View>

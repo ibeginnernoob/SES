@@ -32,14 +32,13 @@ export default function TopBar({
                     </TouchableOpacity>
                     {page !== 'chat' && (
                         <Image
-                            className="ml-4"
+                            className="ml-4 w-12 h-12"
                             source={require('../assets/logo.png')}
                             alt="Logo"
-                            size="sm"
                         />
                     )}
                 </View>
-                <Avatar className="">
+                <Avatar className=" h-10 w-10">
                     <AvatarFallbackText>{userEmail}</AvatarFallbackText>
                 </Avatar>
             </View>

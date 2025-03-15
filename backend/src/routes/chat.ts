@@ -1,5 +1,6 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import axios from 'axios';
+import mongoose from 'mongoose';
 
 import Chat from '../models/chat';
 import ResponseModel from '../models/response';
@@ -84,7 +85,7 @@ router.post(
 
             try {
                 const savedPrompt = await Prompt.create({
-                    chatId: savedChat._id,
+                    chat: savedChat._id,
                     text: prompt,
                 });
 				await Chat.updateOne({
@@ -174,96 +175,115 @@ router.post(
     }
 );
 
-// router.post(
-//     '/chat/:id',
-//     async (req: Request, res: Response, next: NextFunction) => {
-//         const session = await mongoose.startSession();
+router.post(
+    '/chat/:chatId',
+    async (req: Request, res: Response, next: NextFunction) => {
 
-//         try {
-//             const chatId = req.params.id;
-//             const prompt = req.body.prompt;
+		let savedPromptId: string;
+		let savedResponseId: string;
+		let savedChatHistory: any;
 
-//             const MLResponse = await axios.post(
-//                 'http://localhost:3001/gemini',
-//                 {
-//                     prompt: prompt,
-//                 },
-//             );
+        try {
+            const chatId = req.params.chatId;
+            const prompt = req.body.prompt;
+			
+			try {
+				const chatHistory = await Chat.findOne({
+					_id: chatId,
+				}).populate('responses prompts');
 
-//             if (!MLResponse || MLResponse.status !== 200) {
-//                 throw new Error('The ML model did not work!');
-//             }
+				savedChatHistory = chatHistory
+			} catch (chatLoadError) {
+				console.log(chatLoadError)
+				res.status(500).json({
+					msg: 'Something went wrong!'
+				})
+				return
+			}
 
-//             await session.withTransaction(async () => {
-//                 const newPrompt = new Prompt({
-//                     chat: chatId,
-//                     prompt: prompt,
-//                 });
-//                 const savedPrompt = await newPrompt.save();
+            const MLResponse = await axios.post(
+                'http://localhost:3001/gemini',
+                {
+                    prompt: prompt,
+					chatHistory: savedChatHistory
+                },
+            );
 
-//                 await Chat.findByIdAndUpdate(
-//                     chatId,
-//                     {
-//                         $push: {
-//                             prompts: savedPrompt._id,
-//                         },
-//                     },
-//                     { session }
-//                 );
+            if (MLResponse.status !== 200) {
+				const e = {
+					msg: 'Something went wrong',
+				};
+				throw e;
+			}
 
-//                 const newResponse = new ResponseModel({
-//                     chat: chatId,
-//                     response: MLResponse.data.resString,
-//                 });
-//                 const savedResponse = await newResponse.save();
+			try {
+				const newPrompt = new Prompt({
+					chat: chatId,
+					text: prompt,
+				});
+				const DBRes = await newPrompt.save();
+				savedPromptId = DBRes._id.toString()
+			} catch (promptSavingError) {
+				console.log(promptSavingError)
+				res.status(500).json({
+					msg: 'Soemthing went wrong!'
+				})
+				return
+			}
 
-//                 await Chat.findByIdAndUpdate(
-//                     chatId,
-//                     {
-//                         $push: {
-//                             responses: savedResponse._id,
-//                         },
-//                     },
-//                     { session }
-//                 );
-//             });
+			try {
+				const newResponse = new ResponseModel({
+					chat: chatId,
+					text: MLResponse.data.response,
+				});
+				const DBRes = await newResponse.save();
+				savedResponseId = DBRes._id.toString()
+			} catch (ResponseSavingError) {
+				console.log(ResponseSavingError)
+				await Prompt.deleteOne({
+					_id: savedPromptId
+				})
+				res.status(500).json({
+					msg: 'Soemthing went wrong!'
+				})
+				return
+			}
 
-//             await session.commitTransaction();
-//             await session.endSession();
+			try {
+				await Chat.findByIdAndUpdate(
+					chatId,
+					{
+						$push: {
+							prompts: savedPromptId,
+							responses: savedResponseId
+						},
+					}
+				);
+			} catch (chatUpdateError) {
+				await Prompt.deleteOne({
+					_id: savedPromptId
+				})
+				await ResponseModel.deleteOne({
+					_id: savedResponseId
+				})
+				console.log(chatUpdateError)
+				res.status(500).json({
+					msg: 'Something went wrong!'
+				})
+				return
+			}
 
-//             res.status(200).json({
-//                 msg: 'Response successfully generated, prompt and response successfully stored!',
-//             });
-//         } catch (e) {
-//             await session.abortTransaction();
-//             await session.endSession();
-//             console.log(e);
-//             res.status(500).json({
-//                 msg: 'Something went wrong!',
-//             });
-//         }
-//     }
-// );
-
-// microservices
-// router.get('/testing', async (req: Request, res: Response, next: NextFunction) => {
-//     try {
-//         const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
-//         const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
-
-//         const prompt = "Explain how AI works";
-
-//         const result = await model.generateContent(prompt);
-//         console.log(result);
-//         res.status(200).json({
-//             response: result.response.text()
-//         })
-//     } catch (e) {
-//         console.log(e)
-//         res.status(500).json({
-//             msg: 'Something went wrong!'
-//         })
-//     }
-// })
+            res.status(200).json({
+                msg: 'Response successfully generated, prompt and response successfully stored!',
+				response: MLResponse.data.response
+            });
+        } catch (modelResError) {
+            console.log(modelResError);
+            res.status(500).json({
+                msg: 'Something went wrong!',
+            });
+        }
+    }
+);
 
 export default router;

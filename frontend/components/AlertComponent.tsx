@@ -16,14 +16,16 @@ export default function AlertComponent({
             <Alert
                 action="muted"
                 variant="solid"
-                className="w-[60%] px-12 flex flex-row justify-center items-center bg-red-600"
+                className="bg-red-600 w-full px-4 rounded-none"
             >
-                <AlertIcon
-                    as={InfoIcon}
-                    size="sm"
-                    className="text-white mr-2"
-                />
-                <AlertText className="text-white">{alertMsg}</AlertText>
+                <View className='flex flex-row justify-center items-center py-1'>
+					<AlertIcon
+						as={InfoIcon}
+						size="md"
+						className="text-white mr-3"
+					/>
+					<AlertText className="text-white text-lg">{alertMsg}</AlertText>
+				</View>
             </Alert>
         </View>
     )

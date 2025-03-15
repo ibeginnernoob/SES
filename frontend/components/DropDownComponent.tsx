@@ -12,8 +12,10 @@ import {
 } from '@/components/ui/select'
 import { ChevronDownIcon } from '@/components/ui/icon'
 import { Fragment, useState } from 'react'
-import { ScrollView, Text } from 'react-native'
+import { ScrollView, Text, Dimensions } from 'react-native'
 import { StyleSheet } from 'react-native'
+
+const { width } = Dimensions.get("window");
 
 export default function DropDownComponent({
     type,
@@ -27,7 +29,7 @@ export default function DropDownComponent({
     return (
         <Fragment>
             <Select
-                className="w-40"
+                className=""
                 selectedValue={inputValue}
                 onValueChange={(value) => {
                     setInputValue(value)
@@ -44,9 +46,9 @@ export default function DropDownComponent({
                     />
                     <SelectIcon className="mr-3" as={ChevronDownIcon} />
                 </SelectTrigger>
-                <SelectPortal>
+                <SelectPortal className=''>
                     <SelectBackdrop />
-                    <SelectContent>
+                    <SelectContent className={`pt-2 text-left`}>
                         <SelectDragIndicatorWrapper>
                             <SelectDragIndicator />
                         </SelectDragIndicatorWrapper>
@@ -104,12 +106,15 @@ export default function DropDownComponent({
     }
 }
 
-function getDropDownItem(age: number, index: number) {
-    return <SelectItem key={index} label={`${age}`} value={`${age}`} />
+function getDropDownItem(value: number, index: number) {
+    return <SelectItem className='px-4' key={index} label={`${value}`} value={`${value}`} />
 }
 
 const styles = StyleSheet.create({
     scrollView: {
         maxHeight: 300,
+		width: width,
+		paddingBottom: 20,
+		marginBottom: 20
     },
 })
