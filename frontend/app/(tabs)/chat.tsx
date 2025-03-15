@@ -4,6 +4,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { router } from 'expo-router'
 import { Icon, ArrowUpIcon } from '@/components/ui/icon'
 
+
 import { useGetChat } from '@/hooks/useGetChat'
 import { useIsAuth } from '@/hooks/useIsAuth'
 import useChatId from '@/store/chatId'
