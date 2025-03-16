@@ -1,7 +1,8 @@
 import { useState, useCallback } from 'react'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { View, Text, Alert } from 'react-native'
-import { router, useFocusEffect } from 'expo-router'
+import { router } from 'expo-router'
+import { useFocusEffect } from '@react-navigation/native'
 
 import { auth } from '@/firebaseConfig'
 import { signInWithEmailAndPassword, GoogleAuthProvider } from 'firebase/auth'

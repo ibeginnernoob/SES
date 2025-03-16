@@ -6,11 +6,13 @@ export default function ButtonComponent({
     buttonStyles,
     textStyles,
     onclick,
+	isDisabled
 }: {
     msg: string
     buttonStyles?: string
     textStyles?: string
     onclick: () => void
+	isDisabled?: boolean
 }) {
     return (
         <View>
@@ -18,8 +20,9 @@ export default function ButtonComponent({
                 size="md"
                 variant="solid"
                 action="primary"
-                className={`${buttonStyles}`}
+                className={`${buttonStyles} ${isDisabled ? "opacity-60" : ""}`}
                 onPress={onclick}
+				disabled={isDisabled}
             >
                 <ButtonText className={`${textStyles}`}>{msg}</ButtonText>
             </Button>

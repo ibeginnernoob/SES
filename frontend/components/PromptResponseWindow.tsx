@@ -1,5 +1,5 @@
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { View, Text, ScrollView } from 'react-native'
+import { View, Text, ScrollView, Animated } from 'react-native'
 import { useRef, useEffect } from 'react'
 import { Image } from './ui/image'
 import { Fragment } from 'react'
@@ -16,6 +16,17 @@ export default function PromptResponseWindow({
 	chat: any
 }) {
 	const scrollViewRef = useRef<ScrollView>(null);
+
+	const opacity = useRef(new Animated.Value(0)).current;
+	useEffect(() => {
+		Animated.loop(
+			Animated.sequence([
+				Animated.timing(opacity, { toValue: 1, duration: 800, useNativeDriver: true }),
+				Animated.timing(opacity, { toValue: 0, duration: 800, useNativeDriver: true }),
+			])
+		).start();
+	}, []);
+
 
 	useEffect(() => {
 		scrollViewRef.current?.scrollToEnd({ animated: true });
@@ -60,11 +71,10 @@ export default function PromptResponseWindow({
 								</View>
 								<View className="max-w-[75%] pt-2" pointerEvents="box-none">
 									{message.response === '' ? (
-										<Spinner size="large" color={colors.indigo[600]} />
+										<Animated.Text style={{ fontSize: 14, opacity }}>Analyzing...</Animated.Text>
 									) : (
-										<Text>{message.response}</Text>
+										<Text>{message.response}</Text>										
 									)}
-									
 								</View>
 							</View>
 						</Fragment>
@@ -74,6 +84,40 @@ export default function PromptResponseWindow({
 		</ScrollView>
 	);
 }
+
+
+// import { View, Text, Animated, Easing } from "react-native";
+// import { useEffect, useRef } from "react";
+
+// export default function AnalyzingText() {
+// 	const dots = useRef(new Animated.Value(0)).current;
+
+// 	useEffect(() => {
+// 		const loopAnimation = () => {
+// 			Animated.sequence([
+// 				Animated.timing(dots, { toValue: 1, duration: 500, useNativeDriver: true, easing: Easing.linear }),
+// 				Animated.timing(dots, { toValue: 2, duration: 500, useNativeDriver: true, easing: Easing.linear }),
+// 				Animated.timing(dots, { toValue: 3, duration: 500, useNativeDriver: true, easing: Easing.linear }),
+// 			]).start(() => {
+// 				dots.setValue(0);
+// 				loopAnimation();
+// 			});
+// 		};
+// 		loopAnimation();
+// 	}, [dots]);
+
+// 	const getText = () => {
+// 		const dotCount = Math.round(dots.__getValue());
+// 		return `Analyzing${".".repeat(dotCount)}`;
+// 	};
+
+// 	return (
+// 		<View style={{ alignItems: "center", justifyContent: "center", marginTop: 20 }}>
+// 			<Text style={{ fontSize: 18, fontWeight: "bold" }}>{getText()}</Text>
+// 		</View>
+// 	);
+// }
+
 
 
 // <View className="bg-white w-screen h-full">

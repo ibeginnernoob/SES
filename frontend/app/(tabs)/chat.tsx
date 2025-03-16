@@ -1,7 +1,8 @@
 import { View, Text, TouchableWithoutFeedback, Keyboard, TouchableOpacity } from 'react-native'
-import { Fragment, useEffect, useMemo, useState } from 'react'
+import { Fragment, useEffect, useMemo, useState, useCallback } from 'react'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { router } from 'expo-router'
+import { router} from 'expo-router'
+import { useFocusEffect } from '@react-navigation/native'
 import { Icon, ArrowUpIcon } from '@/components/ui/icon'
 
 import { useGetChat } from '@/hooks/useGetChat'
@@ -28,6 +29,15 @@ export default function Chat() {
     const { loadChat, chat, setChat } = useGetChat()
 
 	const chatId = useChatId((state: any) => state.chatId)
+
+	useFocusEffect(
+		useCallback(() => {
+			return () => {
+				setShowSideBar(false)
+				setIsFocused(false)
+			}
+		}, []),
+	)
 
 	const isChatDisabled = useMemo(() => {
 		if (text === '') {
