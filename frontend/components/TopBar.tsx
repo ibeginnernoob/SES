@@ -1,9 +1,11 @@
-import { View, TouchableOpacity } from 'react-native'
+import { View, TouchableOpacity, Text } from 'react-native'
 import { Image } from './ui/image'
 import { StyleSheet } from 'react-native'
 import { Avatar, AvatarFallbackText, AvatarImage } from './ui/avatar'
 import { Dispatch, SetStateAction, useState } from 'react'
-import { Icon, MenuIcon } from './ui/icon'
+import { ChevronDownIcon, Icon, MenuIcon } from './ui/icon'
+import AIModelChooseModal from './AIModelChooseModal'
+import useModel from '@/store/model'
 
 export default function TopBar({
     setSideBarVisibility,
@@ -14,8 +16,16 @@ export default function TopBar({
     userEmail: string
     page?: string
 }) {
+	const [showModelSwitch, setModelSwitch] = useState(false)
+
+	const modelName = useModel((state: any) => state.modelName)
+
     return (
         <View>
+			<AIModelChooseModal
+				showModelSwitchModal={showModelSwitch}
+				setShowModalSwitchModal={setModelSwitch}
+			/>
             <View className="flex flex-row items-center justify-between px-7 mt-16">
                 <View className="flex flex-row items-center">
                     <TouchableOpacity
@@ -30,15 +40,26 @@ export default function TopBar({
                             size="xl"
                         />
                     </TouchableOpacity>
-                    {page !== 'chat' && (
+                    {/* {page !== 'chat' && (
                         <Image
                             className="ml-4 w-12 h-12"
                             source={require('../assets/logo.png')}
                             alt="Logo"
                         />
-                    )}
+                    )} */}					
                 </View>
-                <Avatar className=" h-10 w-10">
+				<TouchableOpacity onPress={() => {
+					setModelSwitch(prevState => !prevState)
+				}}>
+					<View className='flex flex-row items-center py-2 px-2'>
+						<Text className='mr-2'>{modelName}</Text>
+						<Icon
+							as={ChevronDownIcon}
+							size='sm'
+						/>
+					</View>
+				</TouchableOpacity>
+                <Avatar className="h-10 w-10">
                     <AvatarFallbackText>{userEmail}</AvatarFallbackText>
                 </Avatar>
             </View>

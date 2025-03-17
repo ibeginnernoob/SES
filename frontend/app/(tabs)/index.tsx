@@ -1,7 +1,8 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useMemo } from 'react'
 import { View, Text, TextInput, TouchableOpacity } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { router, useFocusEffect } from 'expo-router'
+import { router } from 'expo-router'
+import { useFocusEffect } from '@react-navigation/native'
 import ky from 'ky'
 
 import { useIsAuth } from '@/hooks/useIsAuth'
@@ -44,6 +45,13 @@ export default function Home() {
             }
         }, []),
     )
+
+	const isCreateChatDisabled = useMemo(() => {
+		if (age === null || gender === null || weight === null || height === null || symptoms === '' || symptoms === null) {
+			return true
+		}
+		return false
+	}, [age, gender, weight, height, symptoms])
 
     const createChat = async () => {
         try {
@@ -155,12 +163,10 @@ export default function Home() {
                     <View className='w-screen flex flex-row justify-end mt-10 pr-8 mb-20'>
 						<ButtonComponent
 							msg="Create Chat!"
-							onclick={() => {
-								updateChatId("67cf09901083643c6d71e0d5")
-								router.navigate('/chat')
-							}}
+							onclick={createChat}
 							buttonStyles="w-[120px] h-[45px] rounded-base bg-green-500"
 							textStyles="text-sm"
+							isDisabled={isCreateChatDisabled}
 						/>
 					</View>
                 </View>

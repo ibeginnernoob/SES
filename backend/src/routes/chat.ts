@@ -74,9 +74,11 @@ router.post(
                 weight: string;
                 symptoms: string;
             } = req.body;
+			const title = `${userDetails.age} · ${userDetails.gender} · ${userDetails.weight} kg · ${userDetails.height} cm · ${userDetails.symptoms}`;
             const prompt: string = `Generate evidence-based health recommendations for a person with the following profile:\n\nAge: ${userDetails.age}\nGender: ${userDetails.gender}\nHeight: ${userDetails.height}\nWeight: ${userDetails.weight}\nSymptoms: ${userDetails.symptoms}\n\nPlease provide:\n1. A brief assessment of their health metrics\n2. 3-5 specific next steps they should take\n3. When they should consider seeking professional medical care\n4. Any lifestyle modifications that may help address their symptoms\n\nFormat the response in clear sections with actionable advice. Include appropriate disclaimers about not replacing professional medical advice.`;
 
             const newChat = new Chat({
+				title: title,
                 ownerFireBaseId: userFireBaseId,
                 prompts: [],
                 responses: [],

@@ -1,6 +1,7 @@
 import { View, ScrollView, Text, TouchableOpacity } from "react-native";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { router } from "expo-router";
+import { useFocusEffect } from "@react-navigation/native";
 
 import { useIsAuth } from "@/hooks/useIsAuth";
 import { useGetChats } from "@/hooks/useGetChats";
@@ -18,6 +19,14 @@ export default function Chats() {
 	const { loading, userId, userEmail } = useIsAuth()
 	const { loadChats, chats } = useGetChats(userId)
 
+	useFocusEffect(
+		useCallback(() => {
+			return () => {
+				setShowSideBar(false)
+			}
+		}, []),
+	)
+
 	if (loading || loadChats) {
 		return <SpinnerComponent />
 	}
@@ -33,10 +42,10 @@ export default function Chats() {
 				setSideBarVisibility={setShowSideBar}
 				userEmail={userEmail}			
 			/>
-			<View className="mt-10 mb-6 w-full">
-				<Text className="text-center text-3xl">Your Chats ...</Text>
+			<View className="mt-5">
+				<Text className="inline-block text-center py-4 border-b-[0.2px] text-5xl">Chats</Text>
 			</View>
-			{(chats && chats.length > 0) && <View className="flex-1 mb-5">
+			{(chats && chats.length > 0) && <View className="flex-1 mb-20">
 				<ScrollView>
 					<View className="px-8">
 						{chats.map((chat: {
@@ -44,12 +53,11 @@ export default function Chats() {
 							title: string
 						}) => {
 							return (						
-								<TouchableOpacity onPress={() => {
+								<TouchableOpacity key={chat._id} onPress={() => {
 									updateChatId(chat._id)
 									router.navigate('/chat')
 								}}>
 									<View className="my-4 py-2 px-4 rounded-2xl border-[1px] border-solid">
-										{/* title are blank for now */}
 										<Text className="text-lg">{chat.title}</Text>
 									</View>
 								</TouchableOpacity>

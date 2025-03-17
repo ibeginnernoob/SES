@@ -6,7 +6,6 @@ import LogoutButton from './LogoutButton'
 import { Icon, EditIcon, MessageCircleIcon } from './ui/icon'
 import { router } from 'expo-router'
 
-const { height } = Dimensions.get('screen')
 
 export default function SideBarComponent({
     showSideBar,
@@ -18,18 +17,15 @@ export default function SideBarComponent({
     activePage: string
 }) {
     return (
-        <Modal
-            className="mt-0 w-[70%] mx-0"
-            isVisible={showSideBar}
-            onBackdropPress={() => setShowSideBar(false)}
-            swipeDirection="left"
-            animationIn={'slideInLeft'}
-            animationOut={'slideInLeft'}
+		<Modal
+			style={{margin: 0, width: '70%'}}
+			isVisible={showSideBar}
+			onBackdropPress={() => setShowSideBar(false)}
+			swipeDirection="left"
+			animationIn={'slideInLeft'}
+			animationOut={'slideOutLeft'}
         >
-            <View className="bg-white h-screen relative"
-				style={{
-					height: height
-				}}>
+            <View className="bg-white flex flex-col left-0 h-screen fixed top-0 bottom-0">
                 <View className="z-10 mt-32 mx-3">
 					<TouchableOpacity onPress={() => {
 						router.navigate('/')
@@ -85,19 +81,4 @@ export default function SideBarComponent({
             </View>
         </Modal>
     )
-}
-
-{
-    /* <Drawer.Section title="Some title">
-    <Drawer.Item
-        label="First Item"
-        // active={active === 'first'}
-        // onPress={() => setActive('first')}
-    />
-    <Drawer.Item
-        label="Second Item"
-        // active={active === 'second'}
-        // onPress={() => setActive('second')}
-    />
-</Drawer.Section> */
 }
