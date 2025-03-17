@@ -96,10 +96,10 @@ export default function Home() {
                 <View className="flex flex-col">
                     <View className='mx-8 pt-6 pb-3 border-b-[0.5px] border-gray-300'>
 						<Text className="text-3xl mb-1 font-bold">
-							Welcome Back
+							Welcome
 						</Text>
 						<Text className="text-sm text-gray-500 pl-1">
-							Get answers to all ur medical queries!
+							Get answers to all your medical queries!
 						</Text>
 					</View>
                     <View className="mt-5 mx-8">

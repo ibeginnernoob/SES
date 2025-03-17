@@ -1,23 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { useNavigation } from "expo-router";
+import { useNavigation } from "@react-navigation/native";
+import { SideBarComponent } from "./components/SideBarComponent";
+
+//import SideBarComponent from "./components/SideBarComponent";
+
+
+const Stack = createStackNavigator();
 
 type RootStackParamList = {
   Home: undefined;
   Chat: undefined;
 };
 
-type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, "Home">;
-
-const Stack = createStackNavigator();
-
 const HomeScreen = () => {
-  const navigation = useNavigation<HomeScreenNavigationProp>();
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+  const [showSideBar, setShowSideBar] = useState(false);
 
   return (
     <View style={styles.container}>
+      <SideBarComponent showSideBar={showSideBar} setShowSideBar={setShowSideBar} activePage="Home" />
+      
+      <TouchableOpacity style={styles.menuButton} onPress={() => setShowSideBar(true)}>
+        <Text style={styles.menuText}>☰</Text>
+      </TouchableOpacity>
+
       <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/883/883407.png" }} style={styles.logo} />
       <Text style={styles.title}>Welcome to Health AI</Text>
       <Text style={styles.subtitle}>Your trusted AI-powered medical assistant.</Text>
@@ -42,7 +51,6 @@ const ChatScreen = () => (
   </View>
 );
 
-
 export default function App() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -59,6 +67,19 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     padding: 20,
+  },
+  menuButton: {
+    position: "absolute",
+    top: 40,
+    left: 20,
+    backgroundColor: "#1976D2",
+    padding: 10,
+    borderRadius: 5,
+  },
+  menuText: {
+    color: "white",
+    fontSize: 20,
+    fontWeight: "bold",
   },
   logo: {
     width: 100,
