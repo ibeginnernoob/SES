@@ -22,6 +22,9 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
+		<TopBar
+			setShowSideBar={setShowSideBar}
+		/>
       <SideBarComponent showSideBar={showSideBar} setShowSideBar={setShowSideBar} activePage="Home" />
       
       <TouchableOpacity style={styles.menuButton} onPress={() => setShowSideBar(true)}>
@@ -67,7 +70,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#E3F2FD",
     alignItems: "center",
     justifyContent: "center",
-    padding: 20,
   },
   menuButton: {
     position: "absolute",

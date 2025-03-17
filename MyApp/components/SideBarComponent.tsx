@@ -23,8 +23,9 @@ const SideBarComponent: React.FC<SideBarProps> = ({ showSideBar, setShowSideBar,
       animationIn="slideInLeft"
       animationOut="slideOutLeft"
       style={{ margin: 0 }}
+	  className='w-screen'
     >
-      <View style={{ backgroundColor: 'white', height, padding: 20 }}>
+      <View style={{ backgroundColor: 'white', height, padding: 20, width: '70%' }}>
         <TouchableOpacity
           onPress={() => {
             navigation.navigate('Chat' as never);

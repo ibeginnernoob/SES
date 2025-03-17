@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     backgroundColor: "#1976D2",
     paddingVertical: 15,
-    paddingHorizontal: 20,
+	width: '100%',
   },
   menuButton: {
     padding: 5,
