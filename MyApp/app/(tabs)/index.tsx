@@ -3,9 +3,10 @@ import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { useNavigation } from "@react-navigation/native";
-import { SideBarComponent } from "./components/SideBarComponent";
 
-//import SideBarComponent from "./components/SideBarComponent";
+import  SideBarComponent  from "@/components/SideBarComponent";
+import TopBar from "@/components/TopBar";
+
 
 
 const Stack = createStackNavigator();

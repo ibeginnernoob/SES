@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Dimensions } from 'react-native';
-import { Modal } from 'react-native'; 
+import Modal from 'react-native-modal'; 
 import LogoutButton from './LogoutButton';
 import { Icon, EditIcon, MessageCircleIcon } from "./icon";
 import { useNavigation } from '@react-navigation/native';
@@ -18,12 +18,11 @@ const SideBarComponent: React.FC<SideBarProps> = ({ showSideBar, setShowSideBar,
 
   return (
     <Modal
-    //   isVisible={!!showSideBar} 
-    //   onBackdropPress={() => setShowSideBar(false)}
-    //   swipeDirection={['left']}
-    //   animationIn="slideInLeft"
-    //   animationOut="slideOutLeft"
-    //   style={{ margin: 0 }}
+      isVisible={showSideBar} 
+      onBackdropPress={() => setShowSideBar(false)}
+      animationIn="slideInLeft"
+      animationOut="slideOutLeft"
+      style={{ margin: 0 }}
     >
       <View style={{ backgroundColor: 'white', height, padding: 20 }}>
         <TouchableOpacity
