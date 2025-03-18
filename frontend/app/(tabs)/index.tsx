@@ -7,6 +7,7 @@ import ky from 'ky'
 
 import { useIsAuth } from '@/hooks/useIsAuth'
 import useChatId from '@/store/chatId'
+import useModel from '@/store/model'
 
 const BACKEND_URL = 'http://10.0.3.248:3000'
 
@@ -20,6 +21,7 @@ import ButtonComponent from '@/components/ButtonComponent'
 
 export default function Home() {
 	const updateChatId = useChatId((state: any) => state.updateChatId)
+	const modelName = useModel((state: any) => state.modelName)
 
     const [age, setAge] = useState<string | null>(null)
     const [gender, setGender] = useState<string | null>(null)
@@ -63,6 +65,7 @@ export default function Home() {
                         height: height,
                         weight: weight,
                         symptoms: symptoms,
+						modelName: modelName
                     },
                 })
                 .json()

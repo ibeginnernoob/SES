@@ -3,8 +3,6 @@ import { View, Text, ScrollView, Animated } from 'react-native'
 import { useRef, useEffect } from 'react'
 import { Image } from './ui/image'
 import { Fragment } from 'react'
-import { Spinner } from './ui/spinner'
-import colors from 'tailwindcss/colors'
 
 export default function PromptResponseWindow({
     chatId,
@@ -44,6 +42,7 @@ export default function PromptResponseWindow({
                 id: j,
                 prompt: chat[0].prompts[j - 1].text,
                 response: chat[0].responses[j - 1].text,
+				responseGeneratedBy: chat[0].responses[j - 1].generatedBy
             }
             messages.push(message)
         }
@@ -61,13 +60,47 @@ export default function PromptResponseWindow({
 							</View>
 							<View className="flex flex-row items-start my-4 w-full mx-4">
 								<View className="flex justify-center items-center h-10 w-10 border-[0.25px] rounded-full mr-4">
-									<Image
-										// seperate for ios and android
+									{/* seperate for ios and android */}
+									{
+										message.responseGeneratedBy === 'ChatGPT' && (
+											<Image									
+												className="h-8 w-8 p-2"
+												source={require('../assets/model-icons/chatgpt-logo.svg.png')}
+												alt="Logo"
+												size="sm"
+											/>
+										)
+									}
+									{
+										message.responseGeneratedBy === 'Claude' && (
+											<Image																					
+												className="h-8 w-8 p-1"
+												source={require('../assets/model-icons/claude-logo.png')}
+												alt="Logo"
+												size="sm"
+											/>
+										)
+									}
+									{
+										message.responseGeneratedBy === 'Gemini' && (
+											<Image																					
+												className="h-9 w-9 p-1"
+												source={require('../assets/model-icons/gemini-logo.png')}
+												alt="Logo"
+												size="sm"
+											/>
+										)
+									}
+									{/* <Image									
 										className="h-8 w-8 p-2"
-										source={require('../assets/chatgpt-logo.svg.png')}
+										source={require('../assets/model-icons/chatgpt-logo.svg.png')}
+										// className="h-8 w-8 p-1"
+										// source={require('../assets/model-icons/claude-logo.png')}
+										// className="h-9 w-9 p-1"
+										// source={require('../assets/model-icons/gemini-logo.png')}
 										alt="Logo"
 										size="sm"
-									/>
+									/> */}
 								</View>
 								<View className="max-w-[75%] pt-2" pointerEvents="box-none">
 									{message.response === '' ? (

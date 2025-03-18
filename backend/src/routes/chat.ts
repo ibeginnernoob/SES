@@ -1,6 +1,5 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import axios from 'axios';
-import mongoose from 'mongoose';
 
 import Chat from '../models/chat';
 import ResponseModel from '../models/response';
@@ -73,6 +72,7 @@ router.post(
                 height: string;
                 weight: string;
                 symptoms: string;
+				modelName: string;
             } = req.body;
 			const title = `${userDetails.age} · ${userDetails.gender} · ${userDetails.weight} kg · ${userDetails.height} cm · ${userDetails.symptoms}`;
             const prompt: string = `Generate evidence-based health recommendations for a person with the following profile:\n\nAge: ${userDetails.age}\nGender: ${userDetails.gender}\nHeight: ${userDetails.height}\nWeight: ${userDetails.weight}\nSymptoms: ${userDetails.symptoms}\n\nPlease provide:\n1. A brief assessment of their health metrics\n2. 3-5 specific next steps they should take\n3. When they should consider seeking professional medical care\n4. Any lifestyle modifications that may help address their symptoms\n\nFormat the response in clear sections with actionable advice. Include appropriate disclaimers about not replacing professional medical advice.`;
@@ -114,6 +114,7 @@ router.post(
                         prompt: prompt,
                     }
                 );
+				// const MLResponse: any = await startTalkWithChoosenLLM(userDetails.modelName, prompt)
                 if (MLResponse.status !== 200) {
                     const e = {
                         msg: 'Something went wrong',
@@ -124,6 +125,7 @@ router.post(
                     const savedResponse = await ResponseModel.create({
                         chat: savedChat._id,
                         text: MLResponse.data.response,
+						generatedBy: userDetails.modelName
                     });
 					await Chat.updateOne({
 						_id: savedChat._id
@@ -188,6 +190,7 @@ router.post(
         try {
             const chatId = req.params.chatId;
             const prompt = req.body.prompt;
+			const modelName = req.body.modelName
 			
 			try {
 				const chatHistory = await Chat.findOne({
@@ -210,6 +213,7 @@ router.post(
 					chatHistory: savedChatHistory
                 },
             );
+			// const MLResponse: any = await talkToChoosenLLM(modelName, prompt, savedChatHistory)
 
             if (MLResponse.status !== 200) {
 				const e = {
@@ -228,7 +232,7 @@ router.post(
 			} catch (promptSavingError) {
 				console.log(promptSavingError)
 				res.status(500).json({
-					msg: 'Soemthing went wrong!'
+					msg: 'Something went wrong!'
 				})
 				return
 			}
@@ -237,6 +241,7 @@ router.post(
 				const newResponse = new ResponseModel({
 					chat: chatId,
 					text: MLResponse.data.response,
+					generatedBy: modelName
 				});
 				const DBRes = await newResponse.save();
 				savedResponseId = DBRes._id.toString()
@@ -289,3 +294,56 @@ router.post(
 );
 
 export default router;
+
+const startTalkWithChoosenLLM = async (modelName: string, prompt: string) => {
+	try {
+		let modelURL: string;
+
+		if (modelName === 'ChatGPT') {
+			modelURL = 'http://localhost:3003/chatgpt'
+		} else if (modelName === 'Claude') {
+			modelURL = 'http://localhost:3002/claude'
+		} else if (modelName === 'Gemini') {
+			modelURL = 'http://localhost:3001/gemini'
+		}
+
+		// URL string to modelURL
+		const MLResponse = await axios.post(
+			'http://localhost:3001/gemini',
+			{
+				prompt: prompt
+			},
+		);
+
+		return MLResponse
+	} catch(e :any) {
+		console.log(e)
+	}
+}
+
+const talkToChoosenLLM = async (modelName: string, prompt: string, savedChatHistory: any) => {
+	try {
+		let modelURL: string;
+
+		if (modelName === 'ChatGPT') {
+			modelURL = 'http://localhost:3003/chatgpt'
+		} else if (modelName === 'Claude') {
+			modelURL = 'http://localhost:3002/claude'
+		} else if (modelName === 'Gemini') {
+			modelURL = 'http://localhost:3001/gemini'
+		}
+
+		// URL string to modelURL
+		const MLResponse = await axios.post(
+			'http://localhost:3001/gemini',
+			{
+				prompt: prompt,
+				chatHistory: savedChatHistory
+			},
+		);
+
+		return MLResponse
+	} catch(e :any) {
+		console.log(e)
+	}
+}
