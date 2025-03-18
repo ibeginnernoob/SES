@@ -1,34 +1,43 @@
-import { View, Text } from 'react-native'
+import React from 'react';
+import { TouchableOpacity, Text, StyleSheet, Alert } from 'react-native';
 
-import ButtonComponent from '@/components/ButtonComponent'
+import { StyleProp, ViewStyle, TextStyle } from 'react-native';
 
-import { auth } from '@/firebaseConfig'
-import { signOut } from 'firebase/auth'
-
-export default function LogoutButton({
-    buttonStyles,
-    textStyles,
-}: {
-    buttonStyles?: string
-    textStyles?: string
-}) {
-    const logout = async () => {
-        try {
-            await signOut(auth)
-        } catch (e: any) {
-            const errorCode = e.code
-            const errorMessage = e.message
-        }
-    }
-
-    return (
-        <View>
-            <ButtonComponent
-                buttonStyles={`rounded-2xl py-3 h-auto ${buttonStyles}`}
-                textStyles={`${textStyles}`}
-                msg="Sign Out"
-                onclick={logout}
-            />
-        </View>
-    )
+interface LogoutButtonProps {
+  buttonStyles?: StyleProp<ViewStyle>;
+  textStyles?: StyleProp<TextStyle>;
 }
+
+const LogoutButton: React.FC<LogoutButtonProps> = ({ buttonStyles, textStyles }) => {
+  const handleLogout = () => {
+    Alert.alert('Logout', 'Are you sure you want to log out?', [
+      { text: 'Cancel', style: 'cancel' },
+      { text: 'Logout', onPress: () => console.log('User Logged Out') },
+    ]);
+  };
+
+  return (
+    <TouchableOpacity style={[styles.button, buttonStyles]} onPress={handleLogout}>
+      <Text style={[styles.text, textStyles]}>Logout</Text>
+    </TouchableOpacity>
+  );
+};
+
+const styles = StyleSheet.create({
+  button: {
+    paddingVertical: 12,
+    paddingHorizontal: 25,
+    borderRadius: 5,
+    backgroundColor: 'red',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+  },
+  text: {
+    fontSize: 16,
+    color: 'white',
+    fontWeight: 'bold',
+  },
+});
+
+export default LogoutButton;

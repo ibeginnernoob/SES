@@ -74,8 +74,8 @@ export default function SideBarComponent({
                 </View>
                 <View className="absolute bottom-20 w-full flex flex-row justify-center">
                     <LogoutButton
-                        buttonStyles="py-3 px-10 rounded-lg w-full bg-white border-[1px]"
-                        textStyles="text-base text-black"
+						buttonStyles={{ paddingVertical: 12, paddingHorizontal: 40, borderRadius: 8, width: '100%', backgroundColor: 'white', borderWidth: 1 }}
+						textStyles={{ fontSize: 16, color: 'black' }}
                     />
                 </View>
             </View>

@@ -17,7 +17,7 @@ import SpinnerComponent from '@/components/SpinnerComponent'
 import AutoExpandingInputComponent from '@/components/AutoExpandingInputComponent'
 import ky from 'ky'
 
-const BACKEND_URL = 'http://10.0.3.248:3000'
+const BACKEND_URL = 'http://10.0.10.73:3000'
 
 export default function Chat() {
     const [text, setText] = useState('')

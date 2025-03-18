@@ -55,6 +55,12 @@ export default function TabLayout() {
                     title: 'Chats',
                 }}
             />
+			<Tabs.Screen
+                name="form"
+                options={{
+                    title: 'Form',
+                }}
+            />
         </Tabs>
     )
 }
