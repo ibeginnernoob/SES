@@ -26,25 +26,27 @@ const HomeScreen = () => {
 			setSideBarVisibility={setShowSideBar}
 			userEmail="user@example.com"
 		/>
-	  <SideBarComponent showSideBar={showSideBar} setShowSideBar={setShowSideBar} activePage="Home" />
+	  	<SideBarComponent showSideBar={showSideBar} setShowSideBar={setShowSideBar} activePage="Home" />
 	  
-	  <TouchableOpacity style={styles.menuButton} onPress={() => setShowSideBar(true)}>
-		<Text style={styles.menuText}>☰</Text>
-	  </TouchableOpacity>
+		<TouchableOpacity style={styles.menuButton} onPress={() => setShowSideBar(true)}>
+			<Text style={styles.menuText}>☰</Text>
+		</TouchableOpacity>
 
-	  <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/883/883407.png" }} style={styles.logo} />
-	  <Text style={styles.title}>Welcome to Health AI</Text>
-	  <Text style={styles.subtitle}>Your trusted AI-powered medical assistant.</Text>
+		<Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/883/883407.png" }} style={styles.logo} />
+		<Text style={styles.title}>Welcome to Health AI</Text>
+		<Text style={styles.subtitle}>Your trusted AI-powered medical assistant.</Text>
 
-	  <View style={styles.promptContainer}>
-		<Text style={styles.prompt}> "What are the symptoms of Viral?"</Text>
-		<Text style={styles.prompt}> "Can I take Paracetamol for a headache?"</Text>
-		<Text style={styles.prompt}> "Is this rash on my neck normal?"</Text>
-	  </View>
+		<View style={styles.promptContainer}>
+			<Text style={styles.prompt}> "What are the symptoms of Viral?"</Text>
+			<Text style={styles.prompt}> "Can I take Paracetamol for a headache?"</Text>
+			<Text style={styles.prompt}> "Is this rash on my neck normal?"</Text>
+		</View>
 
-	  <TouchableOpacity style={styles.button} onPress={() => router.navigate("/form")}>
-		<Text style={styles.buttonText}>Ask Your Question</Text>
-	  </TouchableOpacity>
+		<TouchableOpacity style={styles.button} onPress={() => {
+			router.navigate("/form")
+		}}>
+			<Text style={styles.buttonText}>Ask Your Question</Text>
+		</TouchableOpacity>
 	</View>
   );
 };
@@ -130,4 +132,4 @@ const styles = StyleSheet.create({
 	fontSize: 18,
 	fontWeight: "bold",
   },
-});
+})
