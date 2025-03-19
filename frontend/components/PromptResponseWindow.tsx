@@ -60,7 +60,17 @@ export default function PromptResponseWindow({
 							</View>
 							<View className="flex flex-row items-start my-4 w-full mx-4">
 								<View className="flex justify-center items-center h-10 w-10 border-[0.25px] rounded-full mr-4">
-									{/* seperate for ios and android */}
+									{/* seperate for ios and android */}									
+									{
+										message.responseGeneratedBy === 'Grok' && (
+											<Image									
+												className="h-9 w-9 p-2"
+												source={require('../assets/model-icons/grok-logo.png')}
+												alt="Logo"
+												size="sm"
+											/>
+										)
+									}
 									{
 										message.responseGeneratedBy === 'ChatGPT' && (
 											<Image									
@@ -91,16 +101,6 @@ export default function PromptResponseWindow({
 											/>
 										)
 									}
-									{/* <Image									
-										className="h-8 w-8 p-2"
-										source={require('../assets/model-icons/chatgpt-logo.svg.png')}
-										// className="h-8 w-8 p-1"
-										// source={require('../assets/model-icons/claude-logo.png')}
-										// className="h-9 w-9 p-1"
-										// source={require('../assets/model-icons/gemini-logo.png')}
-										alt="Logo"
-										size="sm"
-									/> */}
 								</View>
 								<View className="max-w-[75%] pt-2" pointerEvents="box-none">
 									{message.response === '' ? (
