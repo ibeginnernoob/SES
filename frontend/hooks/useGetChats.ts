@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
+import { useFocusEffect } from "@react-navigation/native";
 import ky from "ky";
 
 import useChatId from '@/store/chatId'
@@ -9,30 +10,33 @@ export function useGetChats( firebaseId : string | null) {
 	const [chats, setChats] = useState<any>(null)
 	const [loadChats, setLoadChats] = useState<boolean>(false)
 
-	useEffect(() => {
-		const fetchChats = async () => {
-			try {
-				setLoadChats(true);
-				if (!firebaseId) {
-					const e = {
-						msg: 'Could not detect valid user Id.'
-					}
-					throw e
+	const fetchChats = async () => {
+		try {
+			setLoadChats(true);
+			if (!firebaseId) {
+				const e = {
+					msg: 'Could not detect valid user Id.'
 				}
-				const res: any = await ky
-                .get(`${BACKEND_URL}/api/v1/user/chats/${firebaseId}`)
-				.json()
-				setChats(res.chats)
-			} catch (e) {
-				console.log(e);
-				setChats([])
-			} finally {
-				setLoadChats(false)
+				throw e
 			}
+			console.log('custom hook runs!')
+			const res: any = await ky
+			.get(`${BACKEND_URL}/api/v1/user/chats/${firebaseId}`)
+			.json()
+			setChats(res.chats)
+		} catch (e) {
+			console.log(e);
+			setChats([])
+		} finally {
+			setLoadChats(false)
 		}
-	
-		fetchChats()
-	}, [firebaseId])
+	}
+
+	useFocusEffect(
+		useCallback(() => {
+			fetchChats();
+		}, [firebaseId])
+	);
 
 	return {
 		loadChats,

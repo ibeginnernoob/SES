@@ -1,12 +1,15 @@
 import { View, Text, TouchableWithoutFeedback, Keyboard, TouchableOpacity } from 'react-native'
-import { Fragment, useEffect, useMemo, useState } from 'react'
+import { Fragment, useEffect, useMemo, useState, useCallback } from 'react'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { router } from 'expo-router'
+import { router} from 'expo-router'
+import { useFocusEffect } from '@react-navigation/native'
 import { Icon, ArrowUpIcon } from '@/components/ui/icon'
+
 
 import { useGetChat } from '@/hooks/useGetChat'
 import { useIsAuth } from '@/hooks/useIsAuth'
 import useChatId from '@/store/chatId'
+import useModel from '@/store/model'
 
 import PromptResponseWindow from '@/components/PromptResponseWindow'
 import TopBar from '@/components/TopBar'
@@ -28,6 +31,16 @@ export default function Chat() {
     const { loadChat, chat, setChat } = useGetChat()
 
 	const chatId = useChatId((state: any) => state.chatId)
+	const modelName = useModel((state: any) => state.modelName)
+
+	useFocusEffect(
+		useCallback(() => {
+			return () => {
+				setShowSideBar(false)
+				setIsFocused(false)
+			}
+		}, []),
+	)
 
 	const isChatDisabled = useMemo(() => {
 		if (text === '') {
@@ -60,7 +73,8 @@ export default function Chat() {
 							text: prompt
 						}],
 						responses: [...prevState[0].responses, {					
-							text: ''
+							text: '',
+							generatedBy: modelName
 						}]
 					}
 				]
@@ -68,7 +82,8 @@ export default function Chat() {
 			setText('')
 			const res: any = await ky.post(`${BACKEND_URL}/api/v1/user/chat/${chatId}`,{
 				json: {
-					prompt: prompt
+					prompt: prompt,
+					modelName: modelName
 				}
 			}	
 			).json()
@@ -79,6 +94,7 @@ export default function Chat() {
 						responses: prevState[0].responses.map((responseBody: any, index: number) => {
 							if (index === prevState[0].responses.length - 1) {
 								return {
+									...responseBody,
 									text: res.response
 								}
 							}
