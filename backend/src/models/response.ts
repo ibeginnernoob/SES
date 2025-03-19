@@ -13,6 +13,11 @@ const responseSchema = new Schema({
         type: String,
         required: true,
     },
+	generatedBy: {
+		type: String,
+		required: true,
+		default: ""
+	}
 });
 
 const Response = model('Response', responseSchema);
