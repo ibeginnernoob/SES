@@ -1,135 +1,48 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
 import { router } from 'expo-router';
-import { useIsAuth } from "@/hooks/useIsAuth";
 
-import  SideBarComponent  from "@/components/SideBarComponent";
-import TopBar from "@/components/TopBar";
-import SpinnerComponent from "@/components/SpinnerComponent";
+import { LinearGradient } from "expo-linear-gradient";
 
 export default function Home() {
-  const [showSideBar, setShowSideBar] = useState(false);
-
-  const { loading, userId, userEmail } = useIsAuth()
-
-   if (loading) {
-		return <SpinnerComponent />
-	}
-	if (userId === 'NA' && !loading) {
-		router.navigate('/signin')
-	}
 
   return (
-	<View
-		className=""
+	<LinearGradient		
+		colors={['#A3BFFA', '#1E3A8A']}
+		start={{ x: 0, y: 0 }}
+		end={{ x: 0, y: 1 }}
+		style={styles.container}
 	>
-		<SideBarComponent showSideBar={showSideBar} setShowSideBar={setShowSideBar} activePage="Home" />
-		<TopBar
-			setSideBarVisibility={setShowSideBar}
-			userEmail={userEmail}
-		/>	  	
-		<TouchableOpacity style={styles.menuButton} onPress={() => setShowSideBar(true)}>
-			<Text style={styles.menuText}>☰</Text>
-		</TouchableOpacity>
-
-		<Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/883/883407.png" }} style={styles.logo} />
-		<Text style={styles.title}>Welcome to Health AI</Text>
-		<Text style={styles.subtitle}>Your trusted AI-powered medical assistant.</Text>
-
-		<View style={styles.promptContainer}>
-			<Text style={styles.prompt}> "What are the symptoms of Viral?"</Text>
-			<Text style={styles.prompt}> "Can I take Paracetamol for a headache?"</Text>
-			<Text style={styles.prompt}> "Is this rash on my neck normal?"</Text>
+		<View className="flex flex-col items-center justify-center">
+			<Image
+				source={require('../../assets/app-images/output_transparent.png')}
+				alt="App Logo"
+				className="h-[300px] w-[300px] mb-[-70px] mt-[-100px]"
+			/>
+			<Text className="text-white text-4xl font-bold">Health AI</Text>
+			<Text className="my-1 text-white font-semibold">Your trusted AI-powered medical assistant.</Text>
+			<View className="my-10 flex flex-col justify-center items-center bg-white px-4 py-4 rounded-xl border-1 border-blue-950">
+				<Text className="">"What are the symptoms of Viral?"</Text>
+				<Text className="my-1">"Can I take Paracetamol for a headache?"</Text>
+				<Text>"Is this rash on my neck normal?"</Text>
+			</View>
+			<TouchableOpacity 
+				onPress={() => {
+					router.navigate("/form")
+				}}
+				className="mt-10 rounded-xl bg-cyan-500"
+			>
+				<Text className="text-lg px-8 py-4 text-white">Ask Your Question</Text>
+			</TouchableOpacity>
 		</View>
-
-		<TouchableOpacity style={styles.button} onPress={() => {
-			router.navigate("/form")
-		}}>
-			<Text style={styles.buttonText}>Ask Your Question</Text>
-		</TouchableOpacity>
-	</View>
+	</LinearGradient>
   );
 };
 
-// const ChatScreen = () => (
-//   <View style={styles.container}>
-// 	<Text style={styles.title}>Chat with AI</Text>
-// 	<Text style={styles.subtitle}>Describe your symptoms or ask a health-related question.</Text>
-//   </View>
-// );
-
-// export default function App() {
-//   return (
-// 	<Stack.Navigator screenOptions={{ headerShown: false }}>
-// 	  <Stack.Screen name="Home" component={HomeScreen} />
-// 	  <Stack.Screen name="Chat" component={ChatScreen} />
-// 	</Stack.Navigator>
-//   );
-// }
-
 const styles = StyleSheet.create({
-  container: {
-	flex: 1,
-	backgroundColor: "#E3F2FD",
-	alignItems: "center",
-	justifyContent: "center",
-  },
-  menuButton: {
-	position: "absolute",
-	top: 40,
-	left: 20,
-	backgroundColor: "#1976D2",
-	padding: 10,
-	borderRadius: 5,
-  },
-  menuText: {
-	color: "white",
-	fontSize: 20,
-	fontWeight: "bold",
-  },
-  logo: {
-	width: 100,
-	height: 100,
-	marginBottom: 20,
-  },
-  title: {
-	fontSize: 28,
-	fontWeight: "bold",
-	color: "#1565C0",
-	textAlign: "center",
-  },
-  subtitle: {
-	fontSize: 16,
-	color: "#444",
-	textAlign: "center",
-	marginBottom: 20,
-  },
-  promptContainer: {
-	backgroundColor: "#FFFFFF",
-	padding: 15,
-	borderRadius: 10,
-	marginBottom: 20,
-	width: "100%",
-	shadowColor: "#000",
-	shadowOffset: { width: 0, height: 2 },
-	shadowOpacity: 0.2,
-	shadowRadius: 4,
-  },
-  prompt: {
-	color: "#1565C0",
-	fontSize: 16,
-	marginVertical: 5,
-  },
-  button: {
-	backgroundColor: "#1976D2",
-	paddingVertical: 15,
-	paddingHorizontal: 40,
-	borderRadius: 25,
-	marginTop: 10,
-  },
-  buttonText: {
-	color: "white",
-	fontSize: 18,
-	fontWeight: "bold",
-  },
-})
+	container: {
+		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
+});
