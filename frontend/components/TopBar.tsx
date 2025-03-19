@@ -16,59 +16,49 @@ export default function TopBar({
     userEmail: string
     page?: string
 }) {
-	const [showModelSwitch, setModelSwitch] = useState(false)
+    const [showModelSwitch, setModelSwitch] = useState(false)
 
-	const modelName = useModel((state: any) => state.modelName)
+    const modelName = useModel((state: any) => state.modelName)
 
     return (
-        <View>
-			<AIModelChooseModal
-				showModelSwitchModal={showModelSwitch}
-				setShowModalSwitchModal={setModelSwitch}
-			/>
-            <View className="flex flex-row items-center justify-between px-7 mt-16">
-                <View className="flex flex-row items-center">
-                    <TouchableOpacity
-                        className="px-2 py-2 rounded-full flex flex-col justify-center items-center active:bg-sky-200"
-                        onPress={() => {
-                            setSideBarVisibility((prevState) => !prevState)
-                        }}
-                    >
+        <View className="w-full bg-white shadow-md py-4 px-6 absolute top-0 z-10">
+            <AIModelChooseModal
+                showModelSwitchModal={showModelSwitch}
+                setShowModalSwitchModal={setModelSwitch}
+            />
+            <View className="flex flex-row items-center justify-between">
+                <TouchableOpacity
+                    className="px-3 py-2 rounded-full active:bg-sky-200"
+                    onPress={() => {
+                        setSideBarVisibility((prevState) => !prevState)
+                    }}
+                >
+                    <Icon
+                        as={MenuIcon}
+                        className="active:opacity-80"
+                        size="xl"
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => {
+                    setModelSwitch(prevState => !prevState)
+                }}>
+                    <View className='flex flex-row items-center py-2 px-4 absolut top-14 bg-gray-100 rounded-lg'>
+                        <Text className='mr-2 font-semibold text-lg'>{modelName}</Text>
                         <Icon
-                            as={MenuIcon}
-                            className="active:opacity-80"
-                            size="xl"
+                            as={ChevronDownIcon}
+                            size='sm'
                         />
-                    </TouchableOpacity>
-                    {/* {page !== 'chat' && (
-                        <Image
-                            className="ml-4 w-12 h-12"
-                            source={require('../assets/logo.png')}
-                            alt="Logo"
-                        />
-                    )} */}					
-                </View>
-				<TouchableOpacity onPress={() => {
-					setModelSwitch(prevState => !prevState)
-				}}>
-					<View className='flex flex-row items-center py-2 px-2'>
-						<Text className='mr-2'>{modelName}</Text>
-						<Icon
-							as={ChevronDownIcon}
-							size='sm'
-						/>
-					</View>
-				</TouchableOpacity>
-                <Avatar className="h-10 w-10">
+                    </View>
+                </TouchableOpacity>
+                <Avatar className="h-10 w-10 border-2 border-gray-300">
                     <AvatarFallbackText>{userEmail}</AvatarFallbackText>
                 </Avatar>
             </View>
             <View
                 style={{
-                    borderBottomColor: 'black',
+                    borderBottomColor: 'darkgray',
                     borderBottomWidth: StyleSheet.hairlineWidth,
-                    marginTop: 10,
-                    borderColor: 'darkgray',
+                    marginTop: 14,
                 }}
             />
         </View>

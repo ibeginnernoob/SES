@@ -1,3 +1,4 @@
+import { router } from 'expo-router';
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet, Alert } from 'react-native';
 
@@ -12,7 +13,10 @@ const LogoutButton: React.FC<LogoutButtonProps> = ({ buttonStyles, textStyles })
   const handleLogout = () => {
     Alert.alert('Logout', 'Are you sure you want to log out?', [
       { text: 'Cancel', style: 'cancel' },
-      { text: 'Logout', onPress: () => console.log('User Logged Out') },
+      { text: 'Logout', onPress: () => {
+		console.log('User Logged Out')
+		router.navigate("/signin");
+	} },
     ]);
   };
 
