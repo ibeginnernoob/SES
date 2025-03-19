@@ -1,33 +1,33 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
-import { createStackNavigator } from "@react-navigation/stack";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { router} from 'expo-router';
-import { useNavigation } from "@react-navigation/native";
+import { router } from 'expo-router';
+import { useIsAuth } from "@/hooks/useIsAuth";
 
 import  SideBarComponent  from "@/components/SideBarComponent";
 import TopBar from "@/components/TopBar";
+import SpinnerComponent from "@/components/SpinnerComponent";
 
-
-const Stack = createStackNavigator();
-
-type RootStackParamList = {
-  Home: undefined;
-  Chat: undefined;
-};
-
-const HomeScreen = () => {
-  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+export default function Home() {
   const [showSideBar, setShowSideBar] = useState(false);
 
+  const { loading, userId, userEmail } = useIsAuth()
+
+   if (loading) {
+		return <SpinnerComponent />
+	}
+	if (userId === 'NA' && !loading) {
+		router.navigate('/signin')
+	}
+
   return (
-	<View style={styles.container}>
+	<View
+		className=""
+	>
+		<SideBarComponent showSideBar={showSideBar} setShowSideBar={setShowSideBar} activePage="Home" />
 		<TopBar
 			setSideBarVisibility={setShowSideBar}
-			userEmail="user@example.com"
-		/>
-	  	<SideBarComponent showSideBar={showSideBar} setShowSideBar={setShowSideBar} activePage="Home" />
-	  
+			userEmail={userEmail}
+		/>	  	
 		<TouchableOpacity style={styles.menuButton} onPress={() => setShowSideBar(true)}>
 			<Text style={styles.menuText}>☰</Text>
 		</TouchableOpacity>
@@ -51,21 +51,21 @@ const HomeScreen = () => {
   );
 };
 
-const ChatScreen = () => (
-  <View style={styles.container}>
-	<Text style={styles.title}>Chat with AI</Text>
-	<Text style={styles.subtitle}>Describe your symptoms or ask a health-related question.</Text>
-  </View>
-);
+// const ChatScreen = () => (
+//   <View style={styles.container}>
+// 	<Text style={styles.title}>Chat with AI</Text>
+// 	<Text style={styles.subtitle}>Describe your symptoms or ask a health-related question.</Text>
+//   </View>
+// );
 
-export default function App() {
-  return (
-	<Stack.Navigator screenOptions={{ headerShown: false }}>
-	  <Stack.Screen name="Home" component={HomeScreen} />
-	  <Stack.Screen name="Chat" component={ChatScreen} />
-	</Stack.Navigator>
-  );
-}
+// export default function App() {
+//   return (
+// 	<Stack.Navigator screenOptions={{ headerShown: false }}>
+// 	  <Stack.Screen name="Home" component={HomeScreen} />
+// 	  <Stack.Screen name="Chat" component={ChatScreen} />
+// 	</Stack.Navigator>
+//   );
+// }
 
 const styles = StyleSheet.create({
   container: {

@@ -58,7 +58,7 @@ export default function TabLayout() {
 			<Tabs.Screen
                 name="form"
                 options={{
-                    title: 'Form',
+                    title: 'FormPage',
                 }}
             />
         </Tabs>

@@ -19,7 +19,7 @@ import SelectOptionComponent from '@/components/SelectOptionComponent'
 import SideBarComponent from '@/components/SideBarComponent'
 import ButtonComponent from '@/components/ButtonComponent'
 
-export default function Home() {
+export default function FormPage() {
 	const updateChatId = useChatId((state: any) => state.updateChatId)
 
     const [age, setAge] = useState<string | null>(null)
