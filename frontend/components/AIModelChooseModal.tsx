@@ -16,6 +16,10 @@ const models = [
 	{
 		name: 'Gemini',
 		image: require('../assets/model-icons/gemini-logo.png')
+	},
+	{
+		name: 'Grok',
+		image: require('../assets/model-icons/grok-logo.png')
 	}
 ]
 

@@ -46,7 +46,7 @@ export default function TopBar({
                             source={require('../assets/logo.png')}
                             alt="Logo"
                         />
-                    )} */}					
+                    )} */}			
                 </View>
 				<TouchableOpacity onPress={() => {
 					setModelSwitch(prevState => !prevState)
