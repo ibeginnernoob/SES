@@ -17,15 +17,15 @@ export default function Home() {
 			<Image
 				source={require('../../assets/app-images/output_transparent.png')}
 				alt="App Logo"
-				className="h-[300px] w-[300px] mb-[-70px] mt-[-100px]"
+				className="h-[350px] w-[350px] mb-[-80px] mt-[-100px]"
 			/>
 			<Text className="text-white text-4xl font-bold">Health AI</Text>
 			<Text className="my-1 text-white font-semibold">Your trusted AI-powered medical assistant.</Text>
-			<View className="my-10 flex flex-col justify-center items-center bg-white px-4 py-4 rounded-xl border-1 border-blue-950">
+			{/* <View className="my-10 flex flex-col justify-center items-center bg-white px-4 py-4 rounded-xl border-1 border-blue-950">
 				<Text className="">"What are the symptoms of Viral?"</Text>
 				<Text className="my-1">"Can I take Paracetamol for a headache?"</Text>
 				<Text>"Is this rash on my neck normal?"</Text>
-			</View>
+			</View> */}
 			<TouchableOpacity 
 				onPress={() => {
 					router.navigate("/form")

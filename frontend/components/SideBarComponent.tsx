@@ -113,7 +113,7 @@ export default function SideBarComponent({
             <View className="bg-white flex flex-col left-0 h-screen fixed top-0 bottom-0">
                 <View className="z-10 mt-32 mx-3">
 					<TouchableOpacity onPress={() => {
-						router.navigate('/')
+						router.navigate('/form')
 					}}>
 						<View
 							className={`mb-2 pl-4 py-2 rounded-md ${activePage === 'Home' ? 'bg-blue-100' : null}`}
