@@ -8,7 +8,7 @@ import ky from 'ky'
 import { useIsAuth } from '@/hooks/useIsAuth'
 import useChatId from '@/store/chatId'
 
-const BACKEND_URL = 'http://10.0.3.248:3000'
+const BACKEND_URL = 'http://10.0.10.73:3000'
 import useStore from '@/store/chatId';
 
 import DropDownComponent from '@/components/DropDownComponent'
