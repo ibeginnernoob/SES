@@ -19,7 +19,6 @@ export function useGetChats( firebaseId : string | null) {
 				}
 				throw e
 			}
-			console.log('custom hook runs!')
 			const res: any = await ky
 			.get(`${BACKEND_URL}/api/v1/user/chats/${firebaseId}`)
 			.json()

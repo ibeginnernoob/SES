@@ -7,9 +7,9 @@ import ky from 'ky'
 
 import { useIsAuth } from '@/hooks/useIsAuth'
 import useChatId from '@/store/chatId'
+import useModel from '@/store/model'
 
 const BACKEND_URL = 'http://10.0.10.73:3000'
-import useStore from '@/store/chatId';
 
 import DropDownComponent from '@/components/DropDownComponent'
 import TextAreaComponent from '@/components/TextAreaComponent'
@@ -18,9 +18,11 @@ import SpinnerComponent from '@/components/SpinnerComponent'
 import SelectOptionComponent from '@/components/SelectOptionComponent'
 import SideBarComponent from '@/components/SideBarComponent'
 import ButtonComponent from '@/components/ButtonComponent'
+import { Modal } from 'react-native-paper'
 
 export default function FormPage() {
 	const updateChatId = useChatId((state: any) => state.updateChatId)
+	const modelName = useModel((state: any) => state.modelName)
 
     const [age, setAge] = useState<string | null>(null)
     const [gender, setGender] = useState<string | null>(null)
@@ -64,6 +66,7 @@ export default function FormPage() {
                         height: height,
                         weight: weight,
                         symptoms: symptoms,
+						modelName: modelName,
                     },
                 })
                 .json()

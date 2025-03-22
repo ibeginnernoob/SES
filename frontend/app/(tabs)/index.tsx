@@ -4,48 +4,64 @@ import { router } from 'expo-router';
 import { LinearGradient } from "expo-linear-gradient";
 
 export default function Home() {
-  const scaleAnim = useRef(new Animated.Value(1)).current; 
-  const textOpacity = useRef(new Animated.Value(0)).current; 
-  const textTranslateY = useRef(new Animated.Value(20)).current; 
+  const scaleAnim = useRef(new Animated.Value(1)).current; // Logo scale animation
+  const textOpacity = useRef(new Animated.Value(0)).current; // Text opacity
+  const textTranslateY = useRef(new Animated.Value(20)).current; // Text position
+  const buttonOpacity = useRef(new Animated.Value(0)).current; // Button opacity
+  const buttonTranslateY = useRef(new Animated.Value(20)).current; // Button position
 
   useEffect(() => {
-    // Logo Animation 
-    Animated.loop(
-      Animated.sequence([
-        Animated.timing(scaleAnim, {
-          toValue: 1.2,
-          duration: 1200,
-          useNativeDriver: true,
-        }),
-        Animated.timing(scaleAnim, {
-          toValue: 0.9,
-          duration: 800,
-          useNativeDriver: true,
-        }),
-        Animated.timing(scaleAnim, {
-          toValue: 1,
-          duration: 1000,
-          useNativeDriver: true,
-        }),
-        Animated.delay(1500), 
-      ])
-    ).start();
+   
+    Animated.sequence([
+      Animated.timing(scaleAnim, {
+        toValue: 1.2,
+        duration: 700,
+        useNativeDriver: true,
+      }),
+      Animated.timing(scaleAnim, {
+        toValue: 0.9,
+        duration: 500,
+        useNativeDriver: true,
+      }),
+      Animated.timing(scaleAnim, {
+        toValue: 1,
+        duration: 800,
+        useNativeDriver: true,
+      }),
+      Animated.delay(500), 
+    ]).start();
 
     // Text Animation 
     setTimeout(() => {
       Animated.parallel([
         Animated.timing(textOpacity, {
           toValue: 1,
-          duration: 1000,
+          duration: 800,
           useNativeDriver: true,
         }),
         Animated.timing(textTranslateY, {
           toValue: 0,
-          duration: 1000,
+          duration: 800,
           useNativeDriver: true,
         }),
       ]).start();
-    }, 4500); // Start after logo animation
+    }, 2500);
+
+    // Button Animation 
+    setTimeout(() => {
+      Animated.parallel([
+        Animated.timing(buttonOpacity, {
+          toValue: 1,
+          duration: 800,
+          useNativeDriver: true,
+        }),
+        Animated.timing(buttonTranslateY, {
+          toValue: 0,
+          duration: 800,
+          useNativeDriver: true,
+        }),
+      ]).start();
+    }, 3300);
   }, []);
 
   return (
@@ -56,13 +72,14 @@ export default function Home() {
       style={styles.container}
     >
       <View className="flex flex-col items-center justify-center">
+        
         <Animated.Image
           source={require('../../assets/app-images/output_transparent.png')}
           alt="App Logo"
           style={[styles.logo, { transform: [{ scale: scaleAnim }] }]}
         />
         
-        
+    
         <Animated.Text 
           style={[
             styles.title, 
@@ -81,12 +98,20 @@ export default function Home() {
           Your trusted AI-powered medical assistant.
         </Animated.Text>
 
-        <TouchableOpacity 
-          onPress={() => router.navigate("/form")}
-          className="mt-10 rounded-xl bg-cyan-500"
+     
+        <Animated.View 
+          style={{
+            opacity: buttonOpacity,
+            transform: [{ translateY: buttonTranslateY }],
+          }}
         >
-          <Text className="text-lg px-8 py-4 text-white">Ask Your Question</Text>
-        </TouchableOpacity>
+          <TouchableOpacity 
+            onPress={() => router.navigate("/form")}
+            className="mt-10 rounded-xl bg-cyan-500"
+          >
+            <Text className="text-lg px-8 py-4 text-white">Ask Your Question</Text>
+          </TouchableOpacity>
+        </Animated.View>
       </View>
     </LinearGradient>
   );

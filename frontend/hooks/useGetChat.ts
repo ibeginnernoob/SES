@@ -16,7 +16,6 @@ export const useGetChat = () => {
 		const fetchChat = async () => {
 			try {
 				setLoadChat(true);
-				console.log('custom hook runs!')
 				const res: any = await ky
                 .get(`${BACKEND_URL}/api/v1/user/chat/${chatId}`)
 				.json()
