@@ -4,7 +4,7 @@ import ky from "ky";
 
 import useChatId from '@/store/chatId'
 
-const BACKEND_URL = 'http://10.0.10.73:3000'
+const BACKEND_URL = 'http://10.0.3.248:3000'
 
 export function useGetChats( firebaseId : string | null) {
 	const [chats, setChats] = useState<any>(null)

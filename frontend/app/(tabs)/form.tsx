@@ -9,7 +9,7 @@ import { useIsAuth } from '@/hooks/useIsAuth'
 import useChatId from '@/store/chatId'
 import useModel from '@/store/model'
 
-const BACKEND_URL = 'http://10.0.10.73:3000'
+const BACKEND_URL = 'http://10.0.3.248:3000'
 
 import DropDownComponent from '@/components/DropDownComponent'
 import TextAreaComponent from '@/components/TextAreaComponent'

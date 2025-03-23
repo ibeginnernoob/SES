@@ -8,7 +8,7 @@ import ky from 'ky'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '@/firebaseConfig.js'
 
-const BACKEND_URL = 'http://10.0.10.73:3000'
+const BACKEND_URL = 'http://10.0.3.248:3000'
 
 import InputComponent from '@/components/InputComponent'
 import ButtonComponent from '@/components/ButtonComponent'
