@@ -10,15 +10,15 @@ router.post(
         try {
             const email = req.body.email;
             const password = req.body.password;
-            const userFireBaseId = req.body.fireBaseId;
+            const fireBaseId = req.body.fireBaseId;
 
-            const createUser = new User({
+            const user = new User({
                 email: email,
                 password: password,
-                userFireBaseId: userFireBaseId,
-                chat_ids: [],
+                firebaseId: fireBaseId,
+                chats: [],
             });
-            await createUser.save();
+            await user.save();
 
             res.status(201).json({
                 msg: 'User creation successful!',
@@ -27,7 +27,7 @@ router.post(
         } catch (e) {
             console.log(e);
             res.status(500).json({
-                msg: 'Something went wrong!',
+                msg: 'User creation failed!',
             });
         }
     }

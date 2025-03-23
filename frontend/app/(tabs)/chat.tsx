@@ -1,53 +1,53 @@
-import { View, Text, TouchableWithoutFeedback, Keyboard, TouchableOpacity } from 'react-native'
-import { Fragment, useEffect, useMemo, useState, useCallback } from 'react'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { router} from 'expo-router'
+import {
+    View,
+    TouchableWithoutFeedback,
+    Keyboard,
+} from 'react-native'
+import { useMemo, useState, useCallback } from 'react'
+import { router } from 'expo-router'
 import { useFocusEffect } from '@react-navigation/native'
-import { Icon, ArrowUpIcon } from '@/components/ui/icon'
-
 
 import { useGetChat } from '@/hooks/useGetChat'
 import { useIsAuth } from '@/hooks/useIsAuth'
 import useChatId from '@/store/chatId'
-import useModel from '@/store/model'
+import useModel from '@/store/modelName'
 
 import PromptResponseWindow from '@/components/PromptResponseWindow'
 import TopBar from '@/components/TopBar'
 import SideBarComponent from '@/components/SideBarComponent'
 import SpinnerComponent from '@/components/SpinnerComponent'
 import AutoExpandingInputComponent from '@/components/AutoExpandingInputComponent'
-import ky from 'ky'
-
-const BACKEND_URL = 'http://10.0.3.248:3000'
+import { updateChat } from '@/utils/chat/updateChat'
+import SendMessageButton from '@/components/ChatPageComponents/SendMessageButton'
 
 export default function Chat() {
-    const [text, setText] = useState('')
+    const [prompt, setPrompt] = useState('')
     const [isFocused, setIsFocused] = useState(false)
     const [height, setHeight] = useState(35)
 
     const [showSideBar, setShowSideBar] = useState(false)
 
-    const { loading, userId, userEmail } = useIsAuth()
+    const { loading, userId, email } = useIsAuth()
     const { loadChat, chat, setChat } = useGetChat()
 
-	const chatId = useChatId((state: any) => state.chatId)
-	const modelName = useModel((state: any) => state.modelName)
+    const chatId = useChatId((state: any) => state.chatId)
+    const modelName = useModel((state: any) => state.modelName)
 
-	useFocusEffect(
-		useCallback(() => {
-			return () => {
-				setShowSideBar(false)
-				setIsFocused(false)
-			}
-		}, []),
-	)
+    useFocusEffect(
+        useCallback(() => {
+            return () => {
+                setShowSideBar(false)
+                setIsFocused(false)
+            }
+        }, []),
+    )
 
-	const isChatDisabled = useMemo(() => {
-		if (text === '') {
-			return true
-		}
-		return false
-	}, [text])
+    const isChatDisabled = useMemo(() => {
+        if (prompt === '') {
+            return true
+        }
+        return false
+    }, [prompt])
 
     if (loading || loadChat) {
         return <SpinnerComponent />
@@ -57,65 +57,18 @@ export default function Chat() {
         router.navigate('/signin')
     }
 
-	if ( chat && chat.length === 0 && !loadChat) {
-		router.navigate('/')
-	}
+    if (chat && chat.length === 0 && !loadChat) {
+        router.navigate('/')
+    }
 
-	const updateChat = async () => {
-		const prompt = text;
-		console.log(chat)
-		try {
-			setChat((prevState: any) => {
-				return [
-					{
-						...prevState[0],
-						prompts: [...prevState[0].prompts, {					
-							text: prompt
-						}],
-						responses: [...prevState[0].responses, {					
-							text: '',
-							generatedBy: modelName
-						}]
-					}
-				]
-			})
-			setText('')
-			const res: any = await ky.post(`${BACKEND_URL}/api/v1/user/chat/${chatId}`,{
-				json: {
-					prompt: prompt,
-					modelName: modelName
-				}
-			}	
-			).json()
-			setChat((prevState: any) => {
-				return [
-					{
-						...prevState[0],
-						responses: prevState[0].responses.map((responseBody: any, index: number) => {
-							if (index === prevState[0].responses.length - 1) {
-								return {
-									...responseBody,
-									text: res.response
-								}
-							}
-							return responseBody
-						})						
-					}
-				]
-			})
-		} catch (e: any) {
-			console.log(e)
-			setChat((prevState: any) => {
-				return [
-					{
-						...prevState[0],
-						prompts: prevState[0].prompts.slice(0, -1),
-						responses: prevState[0].responses.slice(0, -1)						
-					}
-				]
-			})
-			setText(prompt)
-		}
+	const callUpdateChat = async () => {
+		await updateChat({
+			prompt: prompt,
+			chatId: chatId,
+			modelName: modelName,
+			setPrompt: setPrompt,
+			setChat: setChat
+		})
 	}
 
     return (
@@ -134,8 +87,7 @@ export default function Chat() {
                 />
                 <TopBar
                     setSideBarVisibility={setShowSideBar}
-                    userEmail={userEmail}
-                    page="chat"
+                    email={email}
                 />
                 <View className="z-0 h-[80%]">
                     <PromptResponseWindow chat={chat} />
@@ -144,34 +96,26 @@ export default function Chat() {
                     className="z-10 bg-white absolute bottom-0 w-full flex-col justify-start pt-3 border-t-[0.2px] border-gray-300"
                     style={{
                         height: isFocused
-						? Math.min(360 + height, 575)
-						: Math.min(50 + height, 290)
+                            ? Math.min(360 + height, 575)
+                            : Math.min(50 + height, 290),
                     }}
                 >
-                    <View className='flex flex-row justify-between items-end mx-6'>
-						<AutoExpandingInputComponent
-							height={height}
-							setHeight={setHeight}
-							text={text}
-							setText={setText}
-							isFocused={isFocused}
-							setIsFocused={setIsFocused}
-							positioning={'flex-1'}
-							styles={'rounded-xl'}
+                    <View className="flex flex-row justify-between items-end mx-6">
+                        <AutoExpandingInputComponent
+                            height={height}
+                            setHeight={setHeight}
+                            text={prompt}
+                            setText={setPrompt}
+                            isFocused={isFocused}
+                            setIsFocused={setIsFocused}
+                            positioning={'flex-1'}
+                            styles={'rounded-xl'}
+                        />
+                        <SendMessageButton
+							isChatDisabled={isChatDisabled}
+							callUpdateChat={callUpdateChat}
 						/>
-						<TouchableOpacity
-							disabled={isChatDisabled}
-							onPress={updateChat}
-						>
-							<View className={`bg-black rounded-full p-2 flex justify-center ml-4 items-center ${isChatDisabled ? 'opacity-50' : ''}`}>
-								<Icon
-									className='text-white'
-									as={ArrowUpIcon}
-									size='md'
-								/>
-							</View>
-						</TouchableOpacity>
-					</View>
+                    </View>
                 </View>
             </View>
         </TouchableWithoutFeedback>

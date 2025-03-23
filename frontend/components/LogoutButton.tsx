@@ -1,37 +1,43 @@
-import { router } from 'expo-router';
-import React from 'react';
-import { TouchableOpacity, Text, StyleSheet, Alert, View } from 'react-native';
-import ButtonComponent from './ButtonComponent';
+import { router } from 'expo-router'
+import React from 'react'
+import { Alert, View } from 'react-native'
 import { auth } from '@/firebaseConfig'
 import { signOut } from 'firebase/auth'
 
+import ButtonComponent from './ButtonComponent'
+
 interface LogoutButtonProps {
-  buttonStyles?: string
-  textStyles?: string
+    buttonStyles?: string
+    textStyles?: string
 }
 
-const LogoutButton: React.FC<LogoutButtonProps> = ({ buttonStyles, textStyles }) => {
-	const logout = async () => {
+const LogoutButton: React.FC<LogoutButtonProps> = ({
+    buttonStyles,
+    textStyles,
+}) => {
+    const logout = async () => {
         try {
             await signOut(auth)
         } catch (e: any) {
-            const errorCode = e.code
-            const errorMessage = e.message
+            console.log(e)
         }
     }
 
-	const handleLogout = () => {
-		Alert.alert('Logout', 'Are you sure you want to log out?', [
-			{ text: 'Cancel', style: 'cancel' },
-			{ text: 'Logout', onPress: async () => {
-				await logout()
-				router.navigate("/signin");
-			} },
-		]);
-	};
+    const handleLogout = () => {
+        Alert.alert('Logout', 'Are you sure you want to log out?', [
+            { text: 'Cancel', style: 'cancel' },
+            {
+                text: 'Logout',
+                onPress: async () => {
+                    await logout()
+                    router.navigate('/signin')
+                },
+            },
+        ])
+    }
 
-	return (
-		<View>
+    return (
+        <View>
             <ButtonComponent
                 buttonStyles={`rounded-2xl py-3 h-auto ${buttonStyles}`}
                 textStyles={`${textStyles}`}
@@ -39,7 +45,7 @@ const LogoutButton: React.FC<LogoutButtonProps> = ({ buttonStyles, textStyles })
                 onclick={handleLogout}
             />
         </View>
-	);
-};
+    )
+}
 
-export default LogoutButton;
+export default LogoutButton
