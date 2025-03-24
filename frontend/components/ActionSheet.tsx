@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import {
     Actionsheet,
     ActionsheetContent,
@@ -8,10 +9,9 @@ import {
     ActionsheetBackdrop,
 } from '@/components/ui/actionsheet'
 import { Button, ButtonText } from '@/components/ui/button'
-import React from 'react'
 
 function ActionSheetComponent() {
-    const [showActionsheet, setShowActionsheet] = React.useState(false)
+    const [showActionsheet, setShowActionsheet] = useState(false)
     const handleClose = () => setShowActionsheet(false)
 
     return (

@@ -1,4 +1,5 @@
 import { View } from 'react-native'
+
 import { Button, ButtonText } from '@/components/ui/button'
 
 export default function ButtonComponent({
@@ -6,13 +7,13 @@ export default function ButtonComponent({
     buttonStyles,
     textStyles,
     onclick,
-	isDisabled
+    isDisabled,
 }: {
     msg: string
     buttonStyles?: string
     textStyles?: string
     onclick: () => void
-	isDisabled?: boolean
+    isDisabled?: boolean
 }) {
     return (
         <View>
@@ -20,9 +21,9 @@ export default function ButtonComponent({
                 size="md"
                 variant="solid"
                 action="primary"
-                className={`${buttonStyles} ${isDisabled ? "opacity-60" : ""}`}
+                className={`${buttonStyles} ${isDisabled ? 'opacity-60' : ''}`}
                 onPress={onclick}
-				disabled={isDisabled}
+                disabled={isDisabled}
             >
                 <ButtonText className={`${textStyles}`}>{msg}</ButtonText>
             </Button>

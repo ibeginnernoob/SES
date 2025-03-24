@@ -49,13 +49,13 @@ export default function TabLayout() {
                     title: 'Chat',
                 }}
             />
-			<Tabs.Screen
+            <Tabs.Screen
                 name="chats"
                 options={{
                     title: 'Chats',
                 }}
             />
-			<Tabs.Screen
+            <Tabs.Screen
                 name="form"
                 options={{
                     title: 'FormPage',

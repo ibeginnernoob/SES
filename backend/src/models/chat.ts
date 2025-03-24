@@ -1,7 +1,7 @@
 import mongoose, { Schema, model } from 'mongoose';
 
 const chatSchema = new Schema({
-    ownerFireBaseId: {
+    firebaseId: {
         type: String,
         required: true,
         ref: 'User',

@@ -3,11 +3,11 @@ import { Textarea, TextareaInput } from '@/components/ui/textarea'
 export default function TextAreaComponent({
     inputValue,
     setInputValue,
-	placeholder
+    placeholder,
 }: {
     inputValue: string | null
     setInputValue: (para: string) => void
-	placeholder: string
+    placeholder: string
 }) {
     return (
         <Textarea

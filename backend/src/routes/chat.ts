@@ -1,22 +1,24 @@
 import { Router, Request, Response, NextFunction } from 'express';
-import axios from 'axios';
+import { AxiosResponse } from 'axios';
 
 import Chat from '../models/chat';
 import ResponseModel from '../models/response';
 import Prompt from '../models/prompt';
 import User from '../models/user';
+import deleteRecords from '../utils/deleteIfFail';
+import { continueChat, startChat } from '../utils/chat';
 
 const router = Router();
 
 router.get(
-    '/chats/:fireBaseId',
+    '/chats/:id',
     async (req: Request, res: Response, next: NextFunction) => {
         try {
-            const fireBaseId = req.params.fireBaseId;
+            const firebaseId = req.params.id;
 
             const chats = await Chat.find(
                 {
-                    ownerFireBaseId: fireBaseId,
+                    firebaseId: firebaseId,
                 },
                 '_id title createdAt'
             );
@@ -27,17 +29,17 @@ router.get(
         } catch (e) {
             console.log(e);
             res.status(500).json({
-                msg: 'Something went wrong!',
+                msg: 'User chats could not be fetched from the database!',
             });
         }
     }
 );
 
 router.get(
-    '/chat/:chatId',
+    '/chat/:id',
     async (req: Request, res: Response, next: NextFunction) => {
         try {
-            const chatId = req.params.chatId;
+            const chatId = req.params.id;
             const chat = await Chat.find({
                 _id: chatId,
             }).populate('responses prompts');
@@ -47,7 +49,7 @@ router.get(
         } catch (e) {
             console.log(e);
             res.status(500).json({
-                msg: 'Something went wrong!',
+                msg: 'Chat could not be fetched from the database!',
             });
         }
     }
@@ -59,120 +61,114 @@ router.get(
 // if model fails => delete prompt, chat and return error
 // if response save fails => delete prompt, chat and return error
 
-// new chat creator
 router.post(
-    '/new-chat/:fireBaseId',
+    '/new-chat/:id',
     async (req: Request, res: Response, next: NextFunction) => {
+        let chatId;
+        let promptId;
+        let responseId;
+
         try {
-            let savedPromptId; // just used for deleting the saved prompt incase of failures
-            const userFireBaseId = req.params.fireBaseId;
+            const firebaseId = req.params.id;
             const userDetails: {
                 age: string;
                 gender: string;
                 height: string;
                 weight: string;
                 symptoms: string;
-				modelName: string;
+                modelName: string;
             } = req.body;
-			const title = `${userDetails.age} · ${userDetails.gender} · ${userDetails.weight} kg · ${userDetails.height} cm · ${userDetails.symptoms}`;
-            const prompt: string = `Generate evidence-based health recommendations for a person with the following profile:\n\nAge: ${userDetails.age}\nGender: ${userDetails.gender}\nHeight: ${userDetails.height}\nWeight: ${userDetails.weight}\nSymptoms: ${userDetails.symptoms}\n\nPlease provide:\n1. A brief assessment of their health metrics\n2. 3-5 specific next steps they should take\n3. When they should consider seeking professional medical care\n4. Any lifestyle modifications that may help address their symptoms\n\nFormat the response in clear sections with actionable advice. Include appropriate disclaimers about not replacing professional medical advice.`;
 
+            const title = `${userDetails.age} · ${userDetails.gender} · ${userDetails.weight} kg · ${userDetails.height} cm · ${userDetails.symptoms}`;
             const newChat = new Chat({
-				title: title,
-                ownerFireBaseId: userFireBaseId,
+                title: title,
+                firebaseId: firebaseId,
                 prompts: [],
                 responses: [],
             });
-            const savedChat = await newChat.save();
+            const chat = await newChat.save();
+            chatId = chat._id.toString();
 
             try {
-                const savedPrompt = await Prompt.create({
-                    chat: savedChat._id,
-                    text: prompt,
+                const promptString: string = `Age: ${userDetails.age}\nGender: ${userDetails.gender}\nHeight: ${userDetails.height}\nWeight: ${userDetails.weight}\nSymptoms: ${userDetails.symptoms}`;
+                const prompt = await Prompt.create({
+                    chat: chatId,
+                    text: promptString,
                 });
-				await Chat.updateOne({
-					_id: savedChat._id
-				}, {
-					$push: { prompts: savedPrompt._id }
-				})
-                savedPromptId = savedPrompt._id;
-            } catch (promptSavingError) {
-                await Chat.deleteOne({
-                    _id: savedChat._id,
-                });
-                console.log(promptSavingError);
+                promptId = prompt._id.toString();
+            } catch (promptSaveError) {
+                console.log(promptSaveError);
+                await deleteRecords(chatId, promptId, responseId);
                 res.status(500).json({
-                    msg: 'Something went wrong!',
+                    msg: 'Prompt could not be saved!',
                 });
                 return;
             }
 
             try {
-                const MLResponse = await axios.post(
-                    'http://localhost:3001/gemini',
-                    {
-                        prompt: prompt,
-                    }
-                );
-				// const MLResponse: any = await startTalkWithChoosenLLM(userDetails.modelName, prompt)
-                if (MLResponse.status !== 200) {
+                const modelPromptString: string = `Generate evidence-based health recommendations for a person with the following profile:\n\nAge: ${userDetails.age}\nGender: ${userDetails.gender}\nHeight: ${userDetails.height}\nWeight: ${userDetails.weight}\nSymptoms: ${userDetails.symptoms}\n\nPlease provide:\n1. A brief assessment of their health metrics\n2. 3-5 specific next steps they should take\n3. When they should consider seeking professional medical care\n4. Any lifestyle modifications that may help address their symptoms\n\nFormat the response in clear sections with actionable advice. Include appropriate disclaimers about not replacing professional medical advice.`;
+                const MLResponse: AxiosResponse | undefined = await startChat(
+                    modelPromptString,
+                    userDetails.modelName
+                );				
+                if (!MLResponse || MLResponse.status !== 200) {
                     const e = {
-                        msg: 'Something went wrong',
+                        msg: 'Response generation by chosen model failed. Pls try again later.',
                     };
                     throw e;
                 }
                 try {
-                    const savedResponse = await ResponseModel.create({
-                        chat: savedChat._id,
-                        text: MLResponse.data.response,
-						generatedBy: userDetails.modelName
+                    const response = await ResponseModel.create({
+                        chat: chatId,
+                        text: MLResponse!.data.response,
+                        generatedBy: userDetails.modelName,
                     });
-					await Chat.updateOne({
-						_id: savedChat._id
-					}, {
-						$push: { responses: savedResponse._id }
-					})
-                } catch (responseSavingError) {
-                    await Prompt.deleteOne({
-                        _id: savedPromptId,
-                    });
-                    await Chat.deleteOne({
-                        _id: savedChat._id,
-                    });
-                    console.log(responseSavingError);
+                    responseId = response._id.toString();
+                } catch (responseSaveError) {
+                    console.log(responseSaveError);
+                    await deleteRecords(chatId, promptId, responseId);
                     res.status(500).json({
-                        msg: 'Something went wrong!',
+                        msg: 'Response could not be saved!',
                     });
                     return;
                 }
             } catch (modelResError) {
-                await Prompt.deleteOne({
-                    _id: savedPromptId,
-                });
-                await Chat.deleteOne({
-                    _id: savedChat._id,
-                });
                 console.log(modelResError);
+                await deleteRecords(chatId, promptId, responseId);
                 res.status(500).json({
-                    msg: 'Something went wrong!',
+                    msg: 'Response from model could not be generated!',
                 });
             }
 
-			// no error handling
-			await User.updateOne({
-				userFireBaseId: userFireBaseId
-			}, {
-				$push: { chat_ids: savedChat._id } 
-			})
+            await Chat.updateOne(
+                {
+                    _id: chatId,
+                },
+                {
+                    $push: {
+                        prompts: promptId,
+                        responses: responseId,
+                    },
+                }
+            );
+            await User.updateOne(
+                {
+                    firebaseId: firebaseId,
+                },
+                {
+                    $push: { chats: chatId },
+                }
+            );
 
-            res.status(200).json({
+            res.status(201).json({
                 msg: 'New chat successfully created!',
-                chatId: savedChat._id,
+                chatId: chatId,
             });
-        } catch (chatSavingError: any) {
-            console.log(chatSavingError);
+        } catch (chatSaveError) {
+            console.log(chatSaveError);
+            await deleteRecords(chatId, promptId, responseId);
             res.status(500).json({
-                msg: 'Something went wrong!',
+                msg: 'New chat could not be created!',
             });
             return;
         }
@@ -180,170 +176,99 @@ router.post(
 );
 
 router.post(
-    '/chat/:chatId',
+    '/chat/:id',
     async (req: Request, res: Response, next: NextFunction) => {
-
-		let savedPromptId: string;
-		let savedResponseId: string;
-		let savedChatHistory: any;
+        let promptId: string;
+        let responseId: string;
+        let chatHistory: any;
 
         try {
-            const chatId = req.params.chatId;
-            const prompt = req.body.prompt;
-			const modelName = req.body.modelName
-			
-			try {
-				const chatHistory = await Chat.findOne({
-					_id: chatId,
-				}).populate('responses prompts');
+            const chatId = req.params.id;
+            const promptString = req.body.prompt;
+            const modelName = req.body.modelName;
 
-				savedChatHistory = chatHistory
-			} catch (chatLoadError) {
-				console.log(chatLoadError)
-				res.status(500).json({
-					msg: 'Something went wrong!'
-				})
-				return
-			}
+            try {
+                const chat = await Chat.findOne({
+                    _id: chatId,
+                }).populate('responses prompts');
+                chatHistory = chat;
+            } catch (chatFetchError) {
+                console.log(chatFetchError);
+                res.status(500).json({
+                    msg: 'Chat history could not be fetched!',
+                });
+                return;
+            }
 
-            const MLResponse = await axios.post(
-                'http://localhost:3001/gemini',
-                {
-                    prompt: prompt,
-					chatHistory: savedChatHistory
-                },
+            const MLResponse: AxiosResponse | undefined = await continueChat(
+                promptString,
+                modelName,
+                chatHistory
             );
-			// const MLResponse: any = await talkToChoosenLLM(modelName, prompt, savedChatHistory)
+            if (!MLResponse) {
+                const e = {
+                    msg: 'Response from model could not be generated!',
+                };
+                throw e;
+            }
 
-            if (MLResponse.status !== 200) {
-				const e = {
-					msg: 'Something went wrong',
-				};
-				throw e;
-			}
+            try {
+                const prompt = await Prompt.create({
+                    chat: chatId,
+                    text: promptString,
+                });
+                promptId = prompt._id.toString();
+            } catch (promptSavingError) {
+                console.log(promptSavingError);
+                res.status(500).json({
+                    msg: 'Prompt could not be saved!',
+                });
+                return;
+            }
 
-			try {
-				const newPrompt = new Prompt({
-					chat: chatId,
-					text: prompt,
-				});
-				const DBRes = await newPrompt.save();
-				savedPromptId = DBRes._id.toString()
-			} catch (promptSavingError) {
-				console.log(promptSavingError)
-				res.status(500).json({
-					msg: 'Something went wrong!'
-				})
-				return
-			}
+            try {
+                const response = await ResponseModel.create({
+                    chat: chatId,
+                    text: MLResponse.data.response,
+                    generatedBy: modelName,
+                });
+                responseId = response._id.toString();
+            } catch (ResponseSavingError) {
+                console.log(ResponseSavingError);
+                await deleteRecords('', promptId, '');
+                res.status(500).json({
+                    msg: 'Response could not be saved!',
+                });
+                return;
+            }
 
-			try {
-				const newResponse = new ResponseModel({
-					chat: chatId,
-					text: MLResponse.data.response,
-					generatedBy: modelName
-				});
-				const DBRes = await newResponse.save();
-				savedResponseId = DBRes._id.toString()
-			} catch (ResponseSavingError) {
-				console.log(ResponseSavingError)
-				await Prompt.deleteOne({
-					_id: savedPromptId
-				})
-				res.status(500).json({
-					msg: 'Soemthing went wrong!'
-				})
-				return
-			}
-
-			try {
-				await Chat.findByIdAndUpdate(
-					chatId,
-					{
-						$push: {
-							prompts: savedPromptId,
-							responses: savedResponseId
-						},
-					}
-				);
-			} catch (chatUpdateError) {
-				await Prompt.deleteOne({
-					_id: savedPromptId
-				})
-				await ResponseModel.deleteOne({
-					_id: savedResponseId
-				})
-				console.log(chatUpdateError)
-				res.status(500).json({
-					msg: 'Something went wrong!'
-				})
-				return
-			}
+            try {
+                await Chat.findByIdAndUpdate(chatId, {
+                    $push: {
+                        prompts: promptId,
+                        responses: responseId,
+                    },
+                });
+            } catch (chatUpdateError) {
+                console.log(chatUpdateError);
+                await deleteRecords('', promptId, responseId);
+                res.status(500).json({
+                    msg: 'Chat could not be updated with the saved prompt and response!',
+                });
+                return;
+            }
 
             res.status(200).json({
                 msg: 'Response successfully generated, prompt and response successfully stored!',
-				response: MLResponse.data.response
+                response: MLResponse.data.response,
             });
         } catch (modelResError) {
             console.log(modelResError);
             res.status(500).json({
-                msg: 'Something went wrong!',
+                msg: 'Response from model could not be generated!',
             });
         }
     }
 );
 
 export default router;
-
-const startTalkWithChoosenLLM = async (modelName: string, prompt: string) => {
-	try {
-		let modelURL: string;
-
-		if (modelName === 'ChatGPT') {
-			modelURL = 'http://localhost:3003/chatgpt'
-		} else if (modelName === 'Claude') {
-			modelURL = 'http://localhost:3002/claude'
-		} else if (modelName === 'Gemini') {
-			modelURL = 'http://localhost:3001/gemini'
-		}
-
-		// URL string to modelURL
-		const MLResponse = await axios.post(
-			'http://localhost:3001/gemini',
-			{
-				prompt: prompt
-			},
-		);
-
-		return MLResponse
-	} catch(e :any) {
-		console.log(e)
-	}
-}
-
-const talkToChoosenLLM = async (modelName: string, prompt: string, savedChatHistory: any) => {
-	try {
-		let modelURL: string;
-
-		if (modelName === 'ChatGPT') {
-			modelURL = 'http://localhost:3003/chatgpt'
-		} else if (modelName === 'Claude') {
-			modelURL = 'http://localhost:3002/claude'
-		} else if (modelName === 'Gemini') {
-			modelURL = 'http://localhost:3001/gemini'
-		}
-
-		// URL string to modelURL
-		const MLResponse = await axios.post(
-			'http://localhost:3001/gemini',
-			{
-				prompt: prompt,
-				chatHistory: savedChatHistory
-			},
-		);
-
-		return MLResponse
-	} catch(e :any) {
-		console.log(e)
-	}
-}

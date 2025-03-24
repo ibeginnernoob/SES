@@ -1,8 +1,9 @@
-import { View, Keyboard, Platform } from 'react-native'
-import { useState, useRef, SetStateAction, Dispatch } from 'react'
-
+import { View} from 'react-native'
+import { SetStateAction, Dispatch } from 'react'
+import { StyleSheet } from 'react-native'
 //@ts-ignore
 import { AutoGrowingTextInput } from 'react-native-autogrow-textinput'
+
 
 export default function AutoExpandingInputComponent({
     height,
@@ -34,15 +35,7 @@ export default function AutoExpandingInputComponent({
                 }}
                 multiline={true}
                 value={text}
-                style={{
-                    minHeight: 35,
-                    maxHeight: 210,
-                    height: Math.min(height, 210),
-                    padding: 8,
-                    borderWidth: 1,
-                    borderColor: isFocused ? 'black' : '#ccc',
-                    textAlignVertical: 'center',
-                }}
+                style={getInputStyles(height, isFocused).autoexpandinginput}
                 onFocus={() => setIsFocused(true)}
                 onBlur={() => setIsFocused(false)}
                 placeholder="Chat away"
@@ -50,4 +43,20 @@ export default function AutoExpandingInputComponent({
             />
         </View>
     )
+}
+
+const getInputStyles = (height: number, isFocused: boolean) => {
+	const styles = StyleSheet.create({
+		autoexpandinginput: {
+			minHeight: 35,
+			maxHeight: 210,
+			height: Math.min(height, 210),
+			padding: 8,
+			borderWidth: 1,
+			borderColor: isFocused ? 'black' : '#ccc',
+			textAlignVertical: 'center',
+		}
+	})
+
+	return styles
 }
