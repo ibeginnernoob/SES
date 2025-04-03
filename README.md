@@ -16,7 +16,7 @@ The app provides **healthcare-related questions** as input to multiple LLMs (bot
 ### 2️⃣ Integrate & Compare Multiple LLMs
 - Use different LLMs from:
   - **Cloud-based**: ChatGPT (OpenAI), Gemini (Google), Claude (Anthropic).
-  - **Local**: biomedlm (Stanford), LLama-3.1 (8B).
+  - **Local**: bioGpt, LLama-3.1 (1B).
 
 ### 3️⃣ Test Across Devices & Conditions
 - Run tests on **different devices** (laptop, cloud VM, mobile, edge devices).
@@ -48,7 +48,7 @@ The app provides **healthcare-related questions** as input to multiple LLMs (bot
 
 ---
 ## 🏗️ Tech Stack
-- **Backend**: Node.js, Express, Python (FastAPI/Flask)
+- **Backend**: Firebase, Express,Python (FastAPI/Flask)
 - **Frontend**: React Native, Tailwind CSS (UI)
 - **Database**: PostgreSQL/MongoDB (for storing test results)
 - **Cloud APIs**: OpenAI, Google Gemini, Anthropic Claude
