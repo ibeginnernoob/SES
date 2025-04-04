@@ -1,24 +1,20 @@
-import { Request, Response, NextFunction } from 'express'
+import { Request, Response, NextFunction, text } from 'express'
 import { Router } from 'express'
-
-import formatChat from '../utils/formatChat'
+import axios from 'axios'
 
 const router = Router()
 
 router.use(async (req: Request, res: Response, next: NextFunction) => {
-    try {
-
-        const formattedChat = formatChat(req.body.chatHistory)
-        formattedChat.push({
-            role: 'user',
-            content: req.body.prompt,
-        })
-
-		// get response from BioGPT and send it as part of response body
-       
+    try {        
+		const modelResponse = await axios.post(
+			'http://10.0.12.87:8000/ask', {
+				text: req.body.prompt,
+				max_length: 200
+			}
+		)
 
         res.status(200).json({
-            response: ""
+            response: modelResponse.data.output
         })
     } catch (e: any) {
         console.log(e)
