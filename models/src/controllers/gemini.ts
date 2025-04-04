@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express'
 import { GoogleGenerativeAI } from '@google/generative-ai'
 import { Router } from 'express'
 
-import formatChat from '../utils/formatGemini'
+import formatChatToString from '../utils/formatChatToString'
 
 const router = Router()
 
@@ -14,7 +14,7 @@ router.use(
                 model: 'gemini-2.0-flash',
             })
 
-            let formattedChat = formatChat(req.body.chatHistory)
+            let formattedChat = formatChatToString(req.body.chatHistory)
             formattedChat += `User: ${req.body.prompt}`
 
             const result = await model.generateContent(formattedChat)

@@ -21,6 +21,14 @@ const models = [
         name: 'Grok',
         image: require('../../assets/model-icons/grok-logo.png'),
     },
+	{
+		name: 'Llama',
+		image: require('../../assets/model-icons/llama-logo.png')
+	},
+	{
+		name: 'BioGPT',
+		image: require('../../assets/model-icons/biogpt-logo.png')
+	}
 ]
 
 export default function LLMChooserModal({
@@ -62,7 +70,7 @@ export default function LLMChooserModal({
                                         <Image
                                             source={model.image}
                                             alt={model.name}
-                                            className={`h-8 w-8 ${model.name === 'ChatGPT' ? 'h-6 w-6 ml-1' : ''}`}
+                                            className={`h-8 w-8 ${model.name === 'ChatGPT' ? 'h-6 w-6 ml-1' : ''} ${model.name === 'Llama' ? 'h-4 w-8' : ''} ${model.name === 'BioGPT' ? 'h-6 w-6 ml-1 mr-1' : ''}`}
                                         />
                                         <Text
                                             className={`ml-4 ${model.name === 'ChatGPT' ? 'ml-5' : ''}`}

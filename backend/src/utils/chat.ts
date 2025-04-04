@@ -28,7 +28,7 @@ export const continueChat = async (
 
         // URL string to modelURL
         const response = await axios.post(
-            'http://localhost:3001/generate/gemini',
+            'http://localhost:3001/generate/llama',
             {
                 prompt: prompt,
                 chatHistory: chatHistory,
