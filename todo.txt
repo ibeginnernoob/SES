@@ -24,15 +24,3 @@ optimizations ->
 can dos ->
 
 authentication for each microservice
-
-UML diagrams to be made :-
-1. Sequence
-3. Activity
-4. Use-case
-5. class
-High Level Architecture
-
-PPT work:-
-All the content including graphs, about models, app , API's(cloud and local),
-use of software principles, requirement engineering, refactoring.
-

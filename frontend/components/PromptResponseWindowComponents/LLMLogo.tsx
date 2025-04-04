@@ -22,6 +22,16 @@ const models = [
         image: require('../../assets/model-icons/grok-logo.png'),
 		styles: "h-9 w-9 p-2"
     },
+	{
+		name: 'Llama',
+		image: require('../../assets/model-icons/llama-logo.png'),
+		styles: "h-3 w-6"
+	},
+	{
+		name: 'BioGPT',
+		image: require('../../assets/model-icons/biogpt-logo.png'),
+		styles: "h-4 w-4"
+	}
 ]
 
 export default function LLMLogo({ modelName } : {
