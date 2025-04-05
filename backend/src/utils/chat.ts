@@ -2,11 +2,14 @@ import axios from 'axios';
 
 export const startChat = async (prompt: string, modelName: string) => {
     try {
-        let modelURL: string = `http://localhost:3001/generate/${modelName.toLowerCase()}`;
+		let modelURL: string = `http://localhost:3001/generate/${modelName.toLowerCase()}`;
 
-        // URL string to modelURL
+		if (modelName.toLowerCase() !== "llama" || modelName.toLowerCase() !== "biogpt") {
+			modelURL = `http://localhost:3001/generate/gemini`;
+		}
+
         const response = await axios.post(
-            'http://localhost:3001/generate/gemini',
+            modelURL,
             {
                 prompt: prompt,
             }
@@ -26,9 +29,13 @@ export const continueChat = async (
     try {
         let modelURL: string = `http://localhost:3001/generate/${modelName.toLowerCase()}`;
 
+		if (modelName.toLowerCase() !== "llama" || modelName.toLowerCase() !== "biogpt") {
+			modelURL = `http://localhost:3001/generate/gemini`;
+		}
+
         // URL string to modelURL
         const response = await axios.post(
-            'http://localhost:3001/generate/llama',
+            modelURL,
             {
                 prompt: prompt,
                 chatHistory: chatHistory,
