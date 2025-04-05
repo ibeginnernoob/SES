@@ -1,92 +1,185 @@
-# 🏥 LLM Performance Comparison in a Healthcare App
+🏥 LLM Performance Comparison in a Healthcare App
+📌 Project Overview
+This project compares the performance of various Large Language Models (LLMs) integrated into a healthcare-focused app. It applies software engineering principles to evaluate LLMs across multiple metrics and platforms.
 
-## 📌 Project Overview
-This project evaluates the performance of different **Large Language Models (LLMs)** by integrating them into a healthcare-focused app. The primary objective is to apply **software engineering principles** while analyzing LLMs based on key performance metrics.
+🎯 Application Use Case
+The app allows users to input healthcare-related questions, which are processed by both cloud-based and local LLMs, enabling a detailed performance comparison.
 
----
-## 🎯 Application Use Case
-The app provides **healthcare-related questions** as input to multiple LLMs (both **cloud-based** and **local**) to compare their efficiency, accuracy, and resource usage.
+🚀 Objectives
+1️⃣ Develop the App
+Build an interactive, secure app for healthcare-related chat with LLMs.
 
----
-## 🚀 Objectives
-### 1️⃣ Define & Implement the App
-- Develop an interactive app to send **healthcare-related queries** to various LLMs.
-- Support both **cloud-based APIs** (e.g., OpenAI, Gemini, Claude) and **local models**.
+Include cloud-based APIs (e.g., OpenAI, Gemini, Claude, Grok) and local models.
 
-### 2️⃣ Integrate & Compare Multiple LLMs
-- Use different LLMs from:
-  - **Cloud-based**: ChatGPT (OpenAI), Gemini (Google), Claude (Anthropic).
-  - **Local**: bioGpt, LLama-3.1 (1B).
+2️⃣ Integrate Multiple LLMs
+Compare models from:
 
-### 3️⃣ Test Across Devices & Conditions
-- Run tests on **different devices** (laptop, cloud VM, mobile, edge devices).
-- Evaluate models under **varying network conditions** to assess real-world performance.
+Cloud-based: OpenAI (ChatGPT), Gemini, Claude, Grok
 
-### 4️⃣ Measure Key Performance Metrics
-- **Response Time**: How quickly the model generates a response.
-- **Accuracy & Relevance**: Compare responses against standard answers.
-- **Resource Usage**: Measure **CPU, RAM, and GPU consumption**.
-- **Latency Issues**: Identify **delays** in response delivery.
+Local: bioGPT, LLama-3.1 (1B).
 
-### 5️⃣ Data Collection & Visualization
-- Gather data from multiple test cases.
-- Use **graphs, charts, and tables** to present findings.
+3️⃣ Test Across Devices & Conditions
+Evaluate performance on mobile, laptop, cloud VMs, and edge devices.
 
----
-## 🛠️ Process
-- Downloaded models, trained, and fine-tuned them for app integration.
-- Acquired API keys for various LLM models and integrated them using **FastAPI**.
-- Developed an **interactive app** using **React Native (Frontend)**.
+Simulate varied network conditions to test reliability and latency.
 
----
-## 📌 How to Use the App
-1. **Sign in** with valid credentials.
-2. **Fill in** details (Name, Age, Height, Weight, Symptoms).
-3. Click on **Start Chatting**.
-4. **Select a model** from the dropdown list.
-5. **Compare efficiency** and various parameters across multiple LLMs.
+4️⃣ Measure Key Metrics
+⏱ Response Time
 
----
-## 🏗️ Tech Stack
-- **Backend**: Firebase, Express,Python (FastAPI/Flask)
-- **Frontend**: React Native, Tailwind CSS (UI)
-- **Database**: PostgreSQL/MongoDB (for storing test results)
-- **Cloud APIs**: OpenAI, Google Gemini, Anthropic Claude
-- **Local LLMs**: Hugging Face models (via Transformers library)
-- **Visualization**: Matplotlib, Seaborn, Plotly
+🎯 Accuracy & Relevance
 
----
-## 📊 Expected Outcomes
-- A **detailed performance comparison** of cloud-based vs. local LLMs.
-- Insights into **software engineering best practices** for LLM integration.
-- **Visualization dashboards** showcasing LLM performance.
+🧠 Resource Usage (CPU, RAM, GPU)
 
----
-## 🔮 Future Enhancements
-- Expand to other domains (**education, finance, legal**).
-- Add **more LLMs** as they become available.
-- Improve **benchmarking framework** for deeper analysis.
+🚧 Latency & Delay Analysis
 
----
-## 📚 License
-This project is open-source under the **MIT License**.
+5️⃣ Visualize Data
+Collect and analyze results using charts, graphs, and tables.
 
----
-## 👥 Contributors
-- **Adheil Gupta** (23BDS002)
-- **Arnav Gupta** (23BDS009)
-- **Atharva Agrawal** (23BDS010)
-- **SuryaNarayan Rao** (23BDS025)
+🛠️ Technologies Used
+🔹 Primary Language
+TypeScript
 
-💡 **Contributions are welcome!** Feel free to submit pull requests. 🚀
+🔹 IDE
+Visual Studio Code (VSCode)
 
----
-## 🛠️ How to Contribute
-1. **Fork** the repository.
-2. **Create a new branch** (`feature-xyz`).
-3. **Commit** your changes.
-4. **Push** to your branch and submit a **Pull Request (PR)**.
+🔹 Frontend
+React Native – UI development
 
----
+Zustand – State management
 
+Ky – HTTP requests
 
+Gluestick – UI component library
+
+Firebase Auth – Authentication
+
+🔹 Backend
+Express.js – API and service handling
+
+Mongoose (ORM) – MongoDB interaction
+
+Axios – Internal and external HTTP requests
+
+🔹 Database
+MongoDB
+
+🔹 Microservices
+Express.js – Microservice framework
+
+LLM SDKs/APIs – Official packages from OpenAI, Anthropic, Google, etc.
+
+📲 How to Use the App
+Sign in with your credentials via Firebase.
+
+Fill in patient details (Name, Age, Height, Weight, Symptoms).
+
+Tap Start Chatting.
+
+Choose your preferred LLM from the dropdown.
+
+Begin the conversation and compare results across models.
+
+🔐 If a signed-out user tries to access any protected page (like the form or chat), the app redirects them to the Sign-In screen.
+
+🧑‍💻 User Features
+🧾 Fetch & resume previous chat sessions.
+
+🧠 Compare different model responses on identical queries.
+
+📈 View performance stats and model efficiency insights.
+
+📊 Expected Outcomes
+In-depth analysis of cloud vs. local LLMs in a real-world app.
+
+Software engineering insights into LLM integration.
+
+Visualization dashboards to present the performance metrics.
+
+🧱 Architecture Diagrams
+🔄 Sequence Diagram
+Updated with actual tools used:
+
+Frontend uses React Native, Ky, and Firebase
+
+Backend microservices use Express, Mongoose, Axios
+
+🏗️ Class Diagrams (Updated)
+Clean separation of concerns across User, Chat, Prompt, and Response entities.
+
+Updated to show Firebase Auth, and integration with MongoDB using Mongoose.
+
+🌐 Network Architecture
+Includes:
+
+React Native frontend (Firebase → Express → Microservices)
+
+Cloud LLM APIs
+
+Local model microservice handler
+
+MongoDB for persistent storage
+
+🎯 Activity & State Diagram
+Illustrates the flow:
+
+User lands on the homepage.
+
+On clicking “Start Chat”, if signed in → proceeds to the form.
+
+If not signed in → redirected to Sign-In screen.
+
+🗃️ Entity-Relationship (ER) Diagram
+txt
+Copy
+Edit
+User
+- email: string
+- password: string
+- firebaseId: string
+- chats: [chat ids]
+
+Chat
+- firebaseId: string (owner id)
+- title: string
+- prompts: [prompt ids]
+- responses: [response ids]
+
+Prompt
+- chat: id
+- askedAt: Date
+- text: string
+
+Response
+- chat: id
+- repliedAt: Date
+- text: string
+- generatedBy: string (e.g., ChatGPT, Claude)
+🔮 Future Enhancements
+Expand into other industries like education, finance, legal.
+
+Add support for new LLMs as they are released.
+
+Enhance the benchmarking engine for deeper analysis and automation.
+
+📚 License
+This project is licensed under the MIT License.
+
+👥 Contributors
+Adheil Gupta (23BDS002)
+
+Arnav Gupta (23BDS009)
+
+Atharva Agrawal (23BDS010)
+
+SuryaNarayan Rao (23BDS025)
+
+💡 Contributions are welcome! Submit pull requests anytime 🚀
+
+🛠️ How to Contribute
+Fork this repository.
+
+Create a new branch (feature-xyz).
+
+Commit your changes.
+
+Push your branch and submit a Pull Request.
