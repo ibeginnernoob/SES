@@ -109,28 +109,31 @@ The app allows users to input **healthcare-related questions**, which are proces
 
 ---
 
-## 🗃️ Entity-Relationship (ER) Diagram
+### 🔮 Future Enhancements
+-  Expand into other industries like education, finance, legal.
 
-```txt
-User
-- email: string
-- password: string
-- firebaseId: string
-- chats: [chat ids]
+-  Add support for new LLMs as they are released.
 
-Chat
-- firebaseId: string (owner id)
-- title: string
-- prompts: [prompt ids]
-- responses: [response ids]
+-  Enhance the benchmarking engine for deeper analysis and automation.
 
-Prompt
-- chat: id
-- askedAt: Date
-- text: string
+### 📚 License
+This project is licensed under the MIT License.
 
-Response
-- chat: id
-- repliedAt: Date
-- text: string
-- generatedBy: string (e.g., ChatGPT, Claude)
+### 👥 Contributors
+-  Adheil Gupta (23BDS002)
+
+-  Arnav Gupta (23BDS009)
+
+-  Atharva Agrawal (23BDS010)
+
+-  SuryaNarayan Rao (23BDS025)
+
+💡 Contributions are welcome! Submit pull requests anytime 🚀
+
+ ### How to Contribute
+-  Fork this repository.
+-  Create a new branch (feature-xyz).
+-  Commit your changes.
+-  Push your branch and submit a Pull Request.
+
+
