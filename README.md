@@ -19,7 +19,7 @@ The app allows users to input **healthcare-related questions**, which are proces
 ### 2️⃣ Integrate Multiple LLMs
 - Compare models from:
   - **Cloud-based**: OpenAI (ChatGPT), Gemini, Claude, Grok.
-  - **Local**: bioGPT, LLama-3.1 (1B).
+  - **Local**: bioGPT, LLama-3.2 (1B).
 
 ### 3️⃣ Test Across Devices & Conditions
 - Evaluate performance on **mobile**, **laptop**, **cloud VMs**, and **edge devices**.
