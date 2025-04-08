@@ -9,6 +9,8 @@ const router = Router()
 router.use(
 	async (req: Request, res: Response, next: NextFunction) => {
 		try {
+			console.log("Claude active to respond!")
+
 			const anthropic = new Anthropic({
 				apiKey: process.env.CLAUDE_API_KEY,
 			})

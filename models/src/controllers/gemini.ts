@@ -9,6 +9,8 @@ const router = Router()
 router.use(
 	async (req: Request, res: Response, next: NextFunction) => {
         try {
+			console.log("Gemini active to respond!")
+
             const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!)
             const model = genAI.getGenerativeModel({
                 model: 'gemini-2.0-flash',

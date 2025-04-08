@@ -5,16 +5,18 @@ import axios from 'axios'
 const router = Router()
 
 router.use(async (req: Request, res: Response, next: NextFunction) => {
-    try {        
+    try {
+		console.log("BioGPT active to respond!")
+		
 		const modelResponse = await axios.post(
-			'http://10.0.12.87:8000/ask', {
+			'http://10.0.12.87:8000/query', {
 				text: req.body.prompt,
-				max_length: 200
+				max_tokens: 500
 			}
 		)
 
         res.status(200).json({
-            response: modelResponse.data.output
+            response: modelResponse.data.answer
         })
     } catch (e: any) {
         console.log(e)

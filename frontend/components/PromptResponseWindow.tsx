@@ -37,7 +37,7 @@ export default function PromptResponseWindow({
         <ScrollView ref={scrollViewRef}>
             <View className="bg-white w-screen h-full">
                 <View className="flex flex-col items-start bg-white py-2">
-                    {getTextArray(chat).map((message) => (
+                    {getTextArray(chat).map((message, index) => (
                         <Fragment key={message.id}>
                             <View className="bg-blue-200 px-4 py-2 rounded-xl max-w-[75%] self-end mr-5 my-4">
                                 <Text>{message.prompt}</Text>
@@ -45,7 +45,7 @@ export default function PromptResponseWindow({
                             <View className="flex flex-row items-start mb-2 w-full mx-4">
                                 <LLMLogo modelName={message.responseGeneratedBy} />
                                 <View
-                                    className="max-w-[75%] pt-2"
+                                    className={`max-w-[75%] pt-2 ${(message.responseGeneratedBy === 'Llama' || message.responseGeneratedBy === 'BioGPT') && index === getTextArray(chat).length - 1 ? "mb-2" : ""}`}
                                     pointerEvents="box-none"
                                 >
                                     {message.response === '' ? (

@@ -8,6 +8,7 @@ const router = Router()
 
 router.use(async (req: Request, res: Response, next: NextFunction) => {
     try {
+		console.log("Grok active to respond!")
         const client = new OpenAI({
             apiKey: process.env.XAI_API_KEY,
             baseURL: 'https://api.x.ai/v1',

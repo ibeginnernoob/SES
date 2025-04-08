@@ -3,8 +3,9 @@ import axios from 'axios';
 export const startChat = async (prompt: string, modelName: string) => {
     try {
 		let modelURL: string = `http://localhost:3001/generate/${modelName.toLowerCase()}`;
+		console.log(modelName.toLowerCase())
 
-		if (modelName.toLowerCase() !== "llama" || modelName.toLowerCase() !== "biogpt") {
+		if (modelName.toLowerCase() !== "llama" && modelName.toLowerCase() !== "biogpt") {
 			modelURL = `http://localhost:3001/generate/gemini`;
 		}
 
@@ -28,8 +29,9 @@ export const continueChat = async (
 ) => {
     try {
         let modelURL: string = `http://localhost:3001/generate/${modelName.toLowerCase()}`;
+		console.log(modelName.toLowerCase())
 
-		if (modelName.toLowerCase() !== "llama" || modelName.toLowerCase() !== "biogpt") {
+		if (modelName.toLowerCase() !== "llama" && modelName.toLowerCase() !== "biogpt") {
 			modelURL = `http://localhost:3001/generate/gemini`;
 		}
 

@@ -8,6 +8,8 @@ const router = Router()
 
 router.use(async (req: Request, res: Response, next: NextFunction) => {
     try {
+		console.log("ChatGPT active to respond!")
+
         const client = new OpenAI({
             apiKey: process.env.CHATGPT_API_KEY,
         })
