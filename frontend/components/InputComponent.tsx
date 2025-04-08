@@ -27,9 +27,8 @@ export default function InputComponent({
                 isInvalid={isInvalid}
                 isReadOnly={false}
                 className={`py-2 border-none ${styles}`}
-				
             >
-                {getInputIcon()}
+                {getInputIcon(type)}
                 <InputField
                     type={`${type === 'password' && !showPassword ? 'password' : 'text'}`}
                     keyboardType={`${type === 'email' ? 'email-address' : 'default'}`}
@@ -37,46 +36,37 @@ export default function InputComponent({
                     onChangeText={(text) => {
                         setValue(text)
                     }}
-					autoCapitalize='none'
+                    autoCapitalize="none"
                 />
                 {getShowPasswordIcon()}
             </Input>
         </View>
     )
 
-    function getInputIcon() {
-        if (type === 'password') {
-            return (
-                <InputSlot className="pl-4">
-                    <InputIcon as={LockIcon} />
-                </InputSlot>
-            )
-        } else if (type === 'email') {
-            return (
-                <InputSlot className="pl-4">
-                    <InputIcon as={MailIcon} />
-                </InputSlot>
-            )
-        }
-    }
+	function handleShowPasswordState() {
+		setShowPassword((prevState) => !prevState)
+	}
+	function getShowPasswordIcon() {
+		if (type === 'password') {
+			return (
+				<InputSlot className="pr-6" onPress={handleShowPasswordState}>
+					<InputIcon as={!showPassword ? EyeOffIcon : EyeIcon} />
+				</InputSlot>
+			)
+		}
+	}
+}
 
-    function handleShowPasswordState() {
-        setShowPassword((prevState) => !prevState)
-    }
-
-    function getShowPasswordIcon() {
-        if (type === 'password' && !showPassword) {
-            return (
-                <InputSlot className="pr-6" onPress={handleShowPasswordState}>
-                    <InputIcon as={EyeOffIcon} />
-                </InputSlot>
-            )
-        } else if (type === 'password' && showPassword) {
-            return (
-                <InputSlot className="pr-6" onPress={handleShowPasswordState}>
-                    <InputIcon as={EyeIcon} />
-                </InputSlot>
-            )
-        }
-    }
+function getInputIcon(type: string) {
+	let icon;
+	if (type === 'password') {
+		icon = LockIcon
+	} else if (type === 'email') {
+		icon = MailIcon
+	}
+	return (
+		<InputSlot className="pl-4">
+			<InputIcon as={icon} />
+		</InputSlot>
+	)
 }

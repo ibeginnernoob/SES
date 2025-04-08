@@ -11,16 +11,15 @@ import {
     SelectItem,
 } from '@/components/ui/select'
 import { ChevronDownIcon } from './ui/icon'
-import { useState } from 'react'
 
 export default function SelectOptionComponent({
-	styles,
+    styles,
     inputValue,
     setInputValue,
 }: {
     inputValue: string | null
     setInputValue: (para: string) => void
-	styles?: string
+    styles?: string
 }) {
     return (
         <Select
@@ -38,13 +37,13 @@ export default function SelectOptionComponent({
                 <SelectInput className="text-sm" placeholder="Select option" />
                 <SelectIcon className="mr-3" as={ChevronDownIcon} />
             </SelectTrigger>
-            <SelectPortal className=''>
+            <SelectPortal className="">
                 <SelectBackdrop />
                 <SelectContent className={`pt-2 pb-10`}>
                     <SelectDragIndicatorWrapper>
                         <SelectDragIndicator />
                     </SelectDragIndicatorWrapper>
-                    <SelectItem className='pt-3' label="Male" value="male" />
+                    <SelectItem className="pt-3" label="Male" value="male" />
                     <SelectItem label="Female" value="female" />
                     <SelectItem label="Rather Not Say" value="NA" />
                 </SelectContent>

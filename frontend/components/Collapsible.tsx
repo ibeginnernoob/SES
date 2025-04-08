@@ -7,7 +7,7 @@ import { IconSymbol } from '@/components/ui/IconSymbol'
 import { Colors } from '@/constants/Colors'
 import { useColorScheme } from '@/hooks/useColorScheme'
 
-export function Collapsible({
+export default function Collapsible({
     children,
     title,
 }: PropsWithChildren & { title: string }) {

@@ -4,13 +4,11 @@ import { View, Text, Alert } from 'react-native'
 import { router } from 'expo-router'
 import { useFocusEffect } from '@react-navigation/native'
 
-import { auth } from '@/firebaseConfig'
-import { signInWithEmailAndPassword, GoogleAuthProvider } from 'firebase/auth'
-
 import InputComponent from '@/components/InputComponent'
 import ButtonComponent from '@/components/ButtonComponent'
 import SpinnerComponent from '@/components/SpinnerComponent'
 import AlertComponent from '@/components/AlertComponent'
+import { userSignin } from '@/utils/auth/userSignin'
 
 export default function Signin() {
     const [email, setEmail] = useState('')
@@ -31,38 +29,15 @@ export default function Signin() {
         }, []),
     )
 
-    const userSignin = async () => {
-        try {
-            setLoading(true)
-            const userCredential = await signInWithEmailAndPassword(
-                auth,
-                email,
-                password,
-            )
-            console.log(userCredential)
-            const user = userCredential.user
-            if (!user) {
-                const e = {
-                    message: 'Could not authenticate user!',
-                }
-                throw e
-            }
-            setLoading(false)
-            router.navigate('/')
-        } catch (e: any) {
-            setLoading(false)
-            const errorMessage = e.message
-            if (errorMessage === 'Firebase: Error (auth/invalid-email).') {
-                setInvalidInputs((prevState) => {
-                    const updatedInvalidInputs = ['email', 'password']
-                    setErrorMessage('Invalid Credentials')
-                    return updatedInvalidInputs
-                })
-            } else {
-                setErrorMessage('Something went wrong. Pls try again later.')
-            }
-        }
-    }
+    const callSignin = async () => {
+		await userSignin({
+			email: email,
+			password: password,
+			setLoading: setLoading,
+			setInvalidInputs: setInvalidInputs,
+			setErrorMessage: setErrorMessage
+		})
+	}
 
     if (loading) {
         return <SpinnerComponent />
@@ -87,7 +62,7 @@ export default function Signin() {
                         </Text>
                     </Text>
                 </View>
-                <View className='mt-10'>
+                <View className="mt-10">
                     <InputComponent
                         styles="mx-8 py-4 h-auto"
                         placeholder="Email"
@@ -96,7 +71,7 @@ export default function Signin() {
                         isInvalid={getInputValidity('email')}
                     />
                 </View>
-                <View className='mt-8'>
+                <View className="mt-8">
                     <InputComponent
                         styles="mx-8 py-4 h-auto"
                         placeholder="Password"
@@ -108,7 +83,7 @@ export default function Signin() {
                 <ButtonComponent
                     buttonStyles="mt-12 py-4 mx-8 h-auto bg-orange-600"
                     msg="Log In"
-                    onclick={userSignin}
+                    onclick={callSignin}
                 />
                 {errorMessage !== '' && (
                     <AlertComponent

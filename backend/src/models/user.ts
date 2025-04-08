@@ -9,12 +9,12 @@ const userSchema = new Schema({
     password: {
         type: String,
     },
-    userFireBaseId: {
+    firebaseId: {
         type: String,
         unique: true,
         required: true,
     },
-    chat_ids: [
+    chats: [
         {
             type: String,
             ref: 'Chat',
