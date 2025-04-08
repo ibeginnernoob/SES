@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from 'react'
 import ky from 'ky'
 
-const BACKEND_URL = 'http://10.0.10.73:3000'
+const BACKEND_URL = 'http://<your-IP>:3000'
 
 export const updateChat = async ({
 	prompt,

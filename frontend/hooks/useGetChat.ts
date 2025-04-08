@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 
 import useChatId from '@/store/chatId'
 
-const BACKEND_URL = 'http://10.0.10.73:3000'
+const BACKEND_URL = 'http://<your-IP>:3000'
 
 export const useGetChat = () => {
     const [chat, setChat] = useState<any>(null)

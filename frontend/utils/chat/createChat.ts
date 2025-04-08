@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction } from "react"
 import { router } from "expo-router"
 import ky from "ky"
 
-const BACKEND_URL = 'http://10.0.10.73:3000'
+const BACKEND_URL = 'http://<your-IP>:3000'
 
 export const createChat = async ({ 
 	firebaseId,

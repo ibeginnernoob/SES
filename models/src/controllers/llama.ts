@@ -9,7 +9,7 @@ router.use(async (req: Request, res: Response, next: NextFunction) => {
 		console.log("Llama active to respond!")
 
 		const modelResponse = await axios.post(
-			'http://10.0.12.87:8000/ask', {
+			'http://localhost:8000/ask', {
 				question: req.body.prompt,
 				max_length: 200
 			}

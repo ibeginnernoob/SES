@@ -9,7 +9,7 @@ router.use(async (req: Request, res: Response, next: NextFunction) => {
 		console.log("BioGPT active to respond!")
 		
 		const modelResponse = await axios.post(
-			'http://10.0.12.87:8000/query', {
+			'http://localhost:8000/query', {
 				text: req.body.prompt,
 				max_tokens: 500
 			}
