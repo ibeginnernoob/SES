@@ -5,7 +5,7 @@ import ky from 'ky'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '@/firebaseConfig.js'
 
-const BACKEND_URL = 'http://10.0.10.73:8081'
+const BACKEND_URL = 'http://10.0.10.73:8081' // Replace with your backend URL
 
 export const createUser = async ({
 	email,
