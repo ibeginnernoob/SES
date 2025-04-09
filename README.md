@@ -121,19 +121,68 @@ This project is licensed under the MIT License.
 
 ### 👥 Contributors
 -  Adheil Gupta (23BDS002)
-
 -  Arnav Gupta (23BDS009)
-
 -  Atharva Agrawal (23BDS010)
-
 -  SuryaNarayan Rao (23BDS025)
 
-💡 Contributions are welcome! Submit pull requests anytime 🚀
+# 🚀 Project Setup
 
- ### How to Contribute
--  Fork this repository.
--  Create a new branch (feature-xyz).
--  Commit your changes.
--  Push your branch and submit a Pull Request.
+Follow these steps to set up and run the project locally:
+
+---
+
+## 🖥️ Clone the Repository
+
+```bash
+git clone <repo-url>
+cd <repo-directory>
+clone the repo
+
+Start frontend ->
+
+cd frontend
+
+replace <your-IP> with IP of the server on which the backend runs
+
+go to firebaseConfig.js file and populate with ur own values
+
+install dependencies -
+npx install-expo-modules@latest
+npm install
+
+start development server -
+npx expo start
+
+Start microservice ->
+
+cd models
+
+create env file
+
+follow the same format as env.example
+
+populate the keys with ur own files
+
+install dependencies -
+npm install
+
+start dev server -
+npm start
+
+Start Backend ->
+
+cd backend
+
+create env file
+
+follow the same format as env.example
+
+populate the keys with ur own files
+
+install dependencies -
+npm install
+
+start dev server -
+npm start
 
 
