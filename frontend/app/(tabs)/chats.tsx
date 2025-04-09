@@ -22,7 +22,7 @@ export default function Chats() {
     useFocusEffect(
         useCallback(() => {
             return () => {
-                setShowSideBar(false)
+                setShowSideBar(false)		
             }
         }, []),
     )
