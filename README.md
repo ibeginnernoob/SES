@@ -131,12 +131,6 @@ Follow these steps to set up and run the project locally:
 
 ---
 
-# 🚀 Project Setup
-
-Follow these steps to set up and run the project locally:
-
----
-
 ## 🖥️ Clone the Repository
 
 ```bash
