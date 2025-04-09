@@ -131,58 +131,91 @@ Follow these steps to set up and run the project locally:
 
 ---
 
+# 🚀 Project Setup
+
+Follow these steps to set up and run the project locally:
+
+---
+
 ## 🖥️ Clone the Repository
 
 ```bash
 git clone <repo-url>
 cd <repo-directory>
-clone the repo
+```
 
-Start frontend ->
+---
 
+## 🌐 Start Frontend
+
+```bash
 cd frontend
+```
 
-replace <your-IP> with IP of the server on which the backend runs
+1. Replace `<your-IP>` in the project files with the **IP address of the backend server**.
+2. Open the `firebaseConfig.js` file and populate it with your **Firebase project configuration**.
 
-go to firebaseConfig.js file and populate with ur own values
+### 📦 Install Dependencies
 
-install dependencies -
+```bash
 npx install-expo-modules@latest
 npm install
+```
 
-start development server -
+### ▶️ Start the Development Server
+
+```bash
 npx expo start
+```
 
-Start microservice ->
+---
 
+## 🧠 Start Microservice (Models)
+
+```bash
 cd models
+```
 
-create env file
+1. Create a `.env` file.
+2. Follow the format provided in `.env.example`.
+3. Populate the keys using your **model files and credentials**.
 
-follow the same format as env.example
+### 📦 Install Dependencies
 
-populate the keys with ur own files
-
-install dependencies -
+```bash
 npm install
+```
 
-start dev server -
+### ▶️ Start the Development Server
+
+```bash
 npm start
+```
 
-Start Backend ->
+---
 
+## 🛠️ Start Backend
+
+```bash
 cd backend
+```
 
-create env file
+1. Create a `.env` file.
+2. Follow the format provided in `.env.example`.
+3. Populate the keys using your **own configuration values**.
 
-follow the same format as env.example
+### 📦 Install Dependencies
 
-populate the keys with ur own files
-
-install dependencies -
+```bash
 npm install
+```
 
-start dev server -
+### ▶️ Start the Development Server
+
+```bash
 npm start
+```
+
+
 
 
