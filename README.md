@@ -147,7 +147,7 @@ cd frontend
 ```
 
 1. Replace `<your-IP>` in the project files with the **IP address of the backend server**.
-2. Open the `firebaseConfig.js` file and populate it with your **Firebase project configuration**.
+2. Open the `firebaseConfig.js, GoogleService-Info.plist, google-services.json` file and populate it with your **Firebase project configuration**.
 
 ### 📦 Install Dependencies
 
