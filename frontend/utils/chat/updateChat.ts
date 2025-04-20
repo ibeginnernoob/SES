@@ -1,11 +1,9 @@
 import { Dispatch, SetStateAction } from 'react'
 import ky from 'ky'
 
-<<<<<<< HEAD
+
 const BACKEND_URL = 'http://10.0.10.73:8081'
-=======
-const BACKEND_URL = 'http://10.0.10.73:3000'
->>>>>>> dev3
+
 
 export const updateChat = async ({
 	prompt,
