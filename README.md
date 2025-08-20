@@ -123,7 +123,7 @@ This project is licensed under the MIT License.
 -  Adheil Gupta (23BDS002)
 -  Arnav Gupta (23BDS009)
 -  Atharva Agrawal (23BDS010)
--  SuryaNarayan Rao (23BDS025)
+-  Surya Narayana Rao (23BDS025)
 
 # 🚀 Project Setup
 
