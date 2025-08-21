@@ -1,2 +1,5 @@
-MyApp
 run.txt
+.DS_Store
+**/.DS_Store
+.vscode
+.idea
