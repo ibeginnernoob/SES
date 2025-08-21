@@ -2,13 +2,13 @@ import { View, Text } from 'react-native'
 import { useState, useCallback } from 'react'
 import { useFocusEffect } from '@react-navigation/native'
 
-import { useIsAuth } from '@/hooks/useIsAuth'
-import { useGetChats } from '@/hooks/useGetChats'
+import { useIsAuth } from '@/hooks/useAuth'
+import { useGetChats } from '@/hooks/useChats'
 import useChatId from '@/store/chatId'
 
-import TopBar from '@/components/ui/topBar'
+import TopBar from '@/components/ui/navbar'
 import SpinnerComponent from '@/components/ui/spinnerComponent'
-import SideBarComponent from '@/components/ui/sideBarComponent'
+import SideBarComponent from '@/components/ui/sidebar'
 import ChatsWindow from '@/components/ui/chatsWindow'
 
 export default function Chats() {

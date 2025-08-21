@@ -2,7 +2,7 @@ import { View } from 'react-native'
 import Modal from 'react-native-modal'
 
 import LogoutButton from './logoutButton'
-import PageChangeTabs from '../SideBarComponents/pageChangeTabs'
+import PageChangeTabs from '../sidebar/pageChangeTabs'
 
 export default function SideBarComponent({
     showSideBar,

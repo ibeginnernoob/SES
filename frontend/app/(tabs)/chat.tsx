@@ -1,24 +1,20 @@
-import {
-    View,
-    TouchableWithoutFeedback,
-    Keyboard,
-} from 'react-native'
+import { View, TouchableWithoutFeedback, Keyboard } from 'react-native'
 import { useMemo, useState, useCallback } from 'react'
 import { router } from 'expo-router'
 import { useFocusEffect } from '@react-navigation/native'
 
-import { useGetChat } from '@/hooks/useGetChat'
-import { useIsAuth } from '@/hooks/useIsAuth'
+import { useGetChat } from '@/hooks/useChat'
+import { useIsAuth } from '@/hooks/useAuth'
 import useChatId from '@/store/chatId'
 import useModel from '@/store/modelName'
 
 import PromptResponseWindow from '@/components/ui/promptResponseWindow'
-import TopBar from '@/components/ui/topBar'
-import SideBarComponent from '@/components/ui/sideBarComponent'
+import TopBar from '@/components/ui/navbar'
+import SideBarComponent from '@/components/ui/sidebar'
 import SpinnerComponent from '@/components/ui/spinnerComponent'
 import AutoExpandingInputComponent from '@/components/ui/autoExpandingInputComponent'
 import { updateChat } from '@/utils/chat/updateChat'
-import SendMessageButton from '@/components/ChatPageComponents/sendMessageButton'
+// import SendMessageButton from '@/components/ChatPageComponents/sendMessageButton'
 
 function Chat() {
     const [prompt, setPrompt] = useState('')
@@ -61,15 +57,15 @@ function Chat() {
         router.navigate('/')
     }
 
-	const callUpdateChat = async () => {
-		await updateChat({
-			prompt: prompt,
-			chatId: chatId,
-			modelName: modelName,
-			setPrompt: setPrompt,
-			setChat: setChat
-		})
-	}
+    const callUpdateChat = async () => {
+        await updateChat({
+            prompt: prompt,
+            chatId: chatId,
+            modelName: modelName,
+            setPrompt: setPrompt,
+            setChat: setChat,
+        })
+    }
 
     return (
         <TouchableWithoutFeedback
@@ -85,10 +81,7 @@ function Chat() {
                     setShowSideBar={setShowSideBar}
                     activePage=""
                 />
-                <TopBar
-                    setSideBarVisibility={setShowSideBar}
-                    email={email}
-                />
+                <TopBar setSideBarVisibility={setShowSideBar} email={email} />
                 <View className="z-0 h-[80%]">
                     <PromptResponseWindow chat={chat} />
                 </View>
@@ -111,10 +104,10 @@ function Chat() {
                             positioning={'flex-1'}
                             styles={'rounded-xl'}
                         />
-                        <SendMessageButton
+                        {/* <SendMessageButton
 							isChatDisabled={isChatDisabled}
 							callUpdateChat={callUpdateChat}
-						/>
+						/> */}
                     </View>
                 </View>
             </View>
@@ -122,4 +115,4 @@ function Chat() {
     )
 }
 
-export default Chat;
+export default Chat

@@ -1,9 +1,9 @@
 import { View, StyleSheet} from 'react-native'
 import { Dispatch, SetStateAction, useState } from 'react'
 
-import LLMChooserModal from '../TopBarComponents/llmChooserModal'
-import ShowSideBarButton from '../TopBarComponents/showSideBarButton'
-import LLMChooserButton from '../TopBarComponents/llmChooserButton'
+import LLMChooserModal from '../navbar/llmChooserModal'
+import ShowSideBarButton from '../navbar/showSideBarButton'
+import LLMChooserButton from '../navbar/llmChooserButton'
 
 export default function TopBar({
     setSideBarVisibility,

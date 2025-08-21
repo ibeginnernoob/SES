@@ -8,7 +8,7 @@ import InputComponent from '@/components/ui/inputComponent'
 import ButtonComponent from '@/components/ui/buttonComponent'
 import SpinnerComponent from '@/components/ui/spinnerComponent'
 import AlertComponent from '@/components/ui/alertComponent'
-import { userSignin } from '@/utils/auth/userSignin'
+import { userSignin } from '@/utils/auth/signin'
 
 export default function Signin() {
     const [email, setEmail] = useState('')
