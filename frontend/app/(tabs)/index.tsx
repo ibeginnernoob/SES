@@ -8,7 +8,7 @@ import {
 } from 'react-native'
 import { router } from 'expo-router'
 
-import LinearGradientComponent from '@/components/LinearGradientComponent'
+import LinearGradientComponent from '@/components/ui/linearGradientComponent'
 
 export default function Home() {
     const scaleAnim = useRef(new Animated.Value(1)).current // Logo scale animation

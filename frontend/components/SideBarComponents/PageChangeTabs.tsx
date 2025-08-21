@@ -1,26 +1,25 @@
 import { TouchableOpacity, View, Text, ColorValue } from "react-native"
-import { Icon, EditIcon, MessageCircleIcon } from "../ui/icon"
 import { router } from "expo-router"
 
-const pages = [
-	{
-		name: 'form',
-		icon: EditIcon,
-		text: "Start new Chat"		
-	},
-	{
-		name: 'chats',
-		icon: MessageCircleIcon,
-		text: "Your chats"
-	}
-]
+// const pages = [
+// 	{
+// 		name: 'form',
+// 		icon: EditIcon,
+// 		text: "Start new Chat"		
+// 	},
+// 	{
+// 		name: 'chats',
+// 		icon: MessageCircleIcon,
+// 		text: "Your chats"
+// 	}
+// ]
 
 export default function PageChangeTabs({ activePage } : {
 	activePage: string
 }) {
 	return (
 		<>
-			{pages.map(page => (
+			{/* {pages.map(page => (
 				<TouchableOpacity
 				key={page.name}
 					onPress={() => {
@@ -47,7 +46,8 @@ export default function PageChangeTabs({ activePage } : {
 						</View>
 					</View>
 				</TouchableOpacity>
-			))}
+			))} */}
+			<View></View>
 		</>
 	)
 }

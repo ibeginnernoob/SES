@@ -12,15 +12,15 @@ import { useIsAuth } from '@/hooks/useIsAuth'
 import useChatId from '@/store/chatId'
 import useModel from '@/store/modelName'
 
-import PromptResponseWindow from '@/components/PromptResponseWindow'
-import TopBar from '@/components/TopBar'
-import SideBarComponent from '@/components/SideBarComponent'
-import SpinnerComponent from '@/components/SpinnerComponent'
-import AutoExpandingInputComponent from '@/components/AutoExpandingInputComponent'
+import PromptResponseWindow from '@/components/ui/promptResponseWindow'
+import TopBar from '@/components/ui/topBar'
+import SideBarComponent from '@/components/ui/sideBarComponent'
+import SpinnerComponent from '@/components/ui/spinnerComponent'
+import AutoExpandingInputComponent from '@/components/ui/autoExpandingInputComponent'
 import { updateChat } from '@/utils/chat/updateChat'
-import SendMessageButton from '@/components/ChatPageComponents/SendMessageButton'
+import SendMessageButton from '@/components/ChatPageComponents/sendMessageButton'
 
-export default function Chat() {
+function Chat() {
     const [prompt, setPrompt] = useState('')
     const [isFocused, setIsFocused] = useState(false)
     const [height, setHeight] = useState(35)
@@ -121,3 +121,5 @@ export default function Chat() {
         </TouchableWithoutFeedback>
     )
 }
+
+export default Chat;

@@ -5,10 +5,10 @@ import { useFocusEffect } from 'expo-router'
 
 import { createUser } from '@/utils/auth/createUser'
 
-import InputComponent from '@/components/InputComponent'
-import ButtonComponent from '@/components/ButtonComponent'
-import SpinnerComponent from '@/components/SpinnerComponent'
-import AlertComponent from '@/components/AlertComponent'
+import InputComponent from '@/components/ui/inputComponent'
+import ButtonComponent from '@/components/ui/buttonComponent'
+import SpinnerComponent from '@/components/ui/spinnerComponent'
+import AlertComponent from '@/components/ui/alertComponent'
 
 export default function Signin() {
     const [email, setEmail] = useState('')

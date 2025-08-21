@@ -1,10 +1,9 @@
 import { View, StyleSheet} from 'react-native'
-import { Avatar, AvatarFallbackText, AvatarImage } from './ui/avatar'
 import { Dispatch, SetStateAction, useState } from 'react'
 
-import LLMChooserModal from './TopBarComponents/LLMChooserModal'
-import ShowSideBarButton from './TopBarComponents/ShowSideBarButton'
-import LLMChooserButton from './TopBarComponents/LLMChooserButton'
+import LLMChooserModal from '../TopBarComponents/llmChooserModal'
+import ShowSideBarButton from '../TopBarComponents/showSideBarButton'
+import LLMChooserButton from '../TopBarComponents/llmChooserButton'
 
 export default function TopBar({
     setSideBarVisibility,
@@ -24,9 +23,9 @@ export default function TopBar({
             <View className="flex flex-row items-center justify-between px-7 mt-16">
                 <ShowSideBarButton setSideBarVisibility={setSideBarVisibility} />
                 <LLMChooserButton setModelSwitch={setModelSwitch} />
-                <Avatar className="h-10 w-10">
+                {/* <Avatar className="h-10 w-10">
                     <AvatarFallbackText>{email}</AvatarFallbackText>
-                </Avatar>
+                </Avatar> */}
             </View>
             <View style={styles.bottomBorder} />
         </View>

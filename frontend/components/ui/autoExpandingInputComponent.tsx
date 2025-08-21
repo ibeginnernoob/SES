@@ -1,9 +1,6 @@
-import { View} from 'react-native'
+import { View } from 'react-native'
 import { SetStateAction, Dispatch } from 'react'
 import { StyleSheet } from 'react-native'
-//@ts-ignore
-import { AutoGrowingTextInput } from 'react-native-autogrow-textinput'
-
 
 export default function AutoExpandingInputComponent({
     height,
@@ -26,7 +23,7 @@ export default function AutoExpandingInputComponent({
 }) {
     return (
         <View className={`${positioning}`}>
-            <AutoGrowingTextInput
+            {/* <AutoGrowingTextInput
                 onChangeText={(text: string) => {
                     setText(text)
                 }}
@@ -40,23 +37,23 @@ export default function AutoExpandingInputComponent({
                 onBlur={() => setIsFocused(false)}
                 placeholder="Chat away"
                 className={`rounded-lg ${styles}`}
-            />
+            /> */}
         </View>
     )
 }
 
 const getInputStyles = (height: number, isFocused: boolean) => {
-	const styles = StyleSheet.create({
-		autoexpandinginput: {
-			minHeight: 35,
-			maxHeight: 210,
-			height: Math.min(height, 210),
-			padding: 8,
-			borderWidth: 1,
-			borderColor: isFocused ? 'black' : '#ccc',
-			textAlignVertical: 'center',
-		}
-	})
+    const styles = StyleSheet.create({
+        autoexpandinginput: {
+            minHeight: 35,
+            maxHeight: 210,
+            height: Math.min(height, 210),
+            padding: 8,
+            borderWidth: 1,
+            borderColor: isFocused ? 'black' : '#ccc',
+            textAlignVertical: 'center',
+        },
+    })
 
-	return styles
+    return styles
 }

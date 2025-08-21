@@ -2,7 +2,7 @@ import { View, Text, ScrollView, Animated } from 'react-native'
 import { useRef, useEffect } from 'react'
 import { Fragment } from 'react'
 
-import LLMLogo from './PromptResponseWindowComponents/LLMLogo'
+import LLMLogo from '../PromptResponseWindowComponents/llmLogo'
 
 export default function PromptResponseWindow({
     chat,

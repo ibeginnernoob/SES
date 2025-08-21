@@ -1,6 +1,5 @@
 import { useState, useCallback, useMemo } from 'react'
 import { View, Text } from 'react-native'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { router } from 'expo-router'
 import { useFocusEffect } from '@react-navigation/native'
 
@@ -8,13 +7,13 @@ import { useIsAuth } from '@/hooks/useIsAuth'
 import useChatId from '@/store/chatId'
 import useModel from '@/store/modelName'
 
-import DropDownComponent from '@/components/DropDownComponent'
-import TextAreaComponent from '@/components/TextAreaComponent'
-import TopBar from '@/components/TopBar'
-import SpinnerComponent from '@/components/SpinnerComponent'
-import SelectOptionComponent from '@/components/SelectOptionComponent'
-import SideBarComponent from '@/components/SideBarComponent'
-import ButtonComponent from '@/components/ButtonComponent'
+import DropDownComponent from '@/components/ui/dropDownComponent'
+import TextAreaComponent from '@/components/ui/textAreaComponent'
+import TopBar from '@/components/ui/topBar'
+import SpinnerComponent from '@/components/ui/spinnerComponent'
+import SelectOptionComponent from '@/components/ui/selectOptionComponent'
+import SideBarComponent from '@/components/ui/sideBarComponent'
+import ButtonComponent from '@/components/ui/buttonComponent'
 import { createChat } from '@/utils/chat/createChat'
 
 export default function FormPage() {
@@ -45,19 +44,19 @@ export default function FormPage() {
         }, []),
     )
 
-	const callCreateChat = async () => {
-		await createChat({
-			firebaseId: userId,
-			age: age,
-			gender: gender,
-			height: height,
-			weight: weight,
-			symptoms: symptoms,
-			modelName: modelName,
-			updateChatId: updateChatId,
-			setCreateChatLoad: setCreateChatLoad
-		})
-	}
+    const callCreateChat = async () => {
+        await createChat({
+            firebaseId: userId,
+            age: age,
+            gender: gender,
+            height: height,
+            weight: weight,
+            symptoms: symptoms,
+            modelName: modelName,
+            updateChatId: updateChatId,
+            setCreateChatLoad: setCreateChatLoad,
+        })
+    }
 
     const isCreateChatDisabled = useMemo(() => {
         if (
@@ -73,8 +72,6 @@ export default function FormPage() {
         return false
     }, [age, gender, weight, height, symptoms])
 
-    
-
     if (loading || createChatLoad) {
         return <SpinnerComponent />
     }
@@ -83,85 +80,80 @@ export default function FormPage() {
     }
 
     return (
-        <KeyboardAwareScrollView>
-            <View>
-                <SideBarComponent
-                    showSideBar={showSideBar}
-                    setShowSideBar={setShowSideBar}
-                    activePage="form"
-                />
-                <TopBar
-                    setSideBarVisibility={setShowSideBar}
-                    email={email}
-                />
-                <View className="flex flex-col">
-                    <View className="mx-8 pt-6 pb-3 border-b-[0.5px] border-gray-300">
-                        <Text className="text-3xl mb-1 font-bold">Welcome</Text>
-                        <Text className="text-sm text-gray-500 pl-1">
-                            Get answers to all your medical queries!
+        <View>
+            <SideBarComponent
+                showSideBar={showSideBar}
+                setShowSideBar={setShowSideBar}
+                activePage="form"
+            />
+            <TopBar setSideBarVisibility={setShowSideBar} email={email} />
+            <View className="flex flex-col">
+                <View className="mx-8 pt-6 pb-3 border-b-[0.5px] border-gray-300">
+                    <Text className="text-3xl mb-1 font-bold">Welcome</Text>
+                    <Text className="text-sm text-gray-500 pl-1">
+                        Get answers to all your medical queries!
+                    </Text>
+                </View>
+                <View className="mt-5 mx-8">
+                    <View>
+                        <Text className="mb-0 text-base font-semibold">
+                            Gender:
                         </Text>
-                    </View>
-                    <View className="mt-5 mx-8">
-                        <View>
-                            <Text className="mb-0 text-base font-semibold">
-                                Gender:
-                            </Text>
-                            <SelectOptionComponent
-                                styles={''}
-                                inputValue={gender}
-                                setInputValue={setGender}
-                            />
-                        </View>
-                        <View className="mt-5">
-                            <Text className="mb-0 text-base font-semibold">{`Age:`}</Text>
-                            <DropDownComponent
-                                type="age"
-                                inputValue={age}
-                                setInputValue={setAge}
-                            />
-                        </View>
-                    </View>
-                    <View className="mt-5 mx-8">
-                        <View>
-                            <Text className="mb-0 text-base font-semibold">{`Weight (kg):`}</Text>
-                            <DropDownComponent
-                                type="weight"
-                                inputValue={weight}
-                                setInputValue={setWeight}
-                            />
-                        </View>
-                        <View className="mt-5">
-                            <Text className="mb-0 text-base font-semibold">
-                                {'Height (cm):'}
-                            </Text>
-                            <DropDownComponent
-                                type="height"
-                                inputValue={height}
-                                setInputValue={setHeight}
-                            />
-                        </View>
-                    </View>
-                    <View className="mx-8 mt-6">
-                        <Text className="mb-1 text-base font-semibold">
-                            Symptoms:
-                        </Text>
-                        <TextAreaComponent
-                            placeholder=""
-                            inputValue={symptoms}
-                            setInputValue={setSymptoms}
+                        <SelectOptionComponent
+                            styles={''}
+                            inputValue={gender}
+                            setInputValue={setGender}
                         />
                     </View>
-                    <View className="w-screen flex flex-row justify-end mt-10 pr-8 mb-20">
-                        <ButtonComponent
-                            msg="Create Chat!"
-                            onclick={callCreateChat}
-                            buttonStyles="w-[120px] h-[45px] rounded-base bg-green-500"
-                            textStyles="text-sm"
-                            isDisabled={isCreateChatDisabled}
+                    <View className="mt-5">
+                        <Text className="mb-0 text-base font-semibold">{`Age:`}</Text>
+                        <DropDownComponent
+                            type="age"
+                            inputValue={age}
+                            setInputValue={setAge}
                         />
                     </View>
                 </View>
+                <View className="mt-5 mx-8">
+                    <View>
+                        <Text className="mb-0 text-base font-semibold">{`Weight (kg):`}</Text>
+                        <DropDownComponent
+                            type="weight"
+                            inputValue={weight}
+                            setInputValue={setWeight}
+                        />
+                    </View>
+                    <View className="mt-5">
+                        <Text className="mb-0 text-base font-semibold">
+                            {'Height (cm):'}
+                        </Text>
+                        <DropDownComponent
+                            type="height"
+                            inputValue={height}
+                            setInputValue={setHeight}
+                        />
+                    </View>
+                </View>
+                <View className="mx-8 mt-6">
+                    <Text className="mb-1 text-base font-semibold">
+                        Symptoms:
+                    </Text>
+                    <TextAreaComponent
+                        placeholder=""
+                        inputValue={symptoms}
+                        setInputValue={setSymptoms}
+                    />
+                </View>
+                <View className="w-screen flex flex-row justify-end mt-10 pr-8 mb-20">
+                    <ButtonComponent
+                        msg="Create Chat!"
+                        onclick={callCreateChat}
+                        buttonStyles="w-[120px] h-[45px] rounded-base bg-green-500"
+                        textStyles="text-sm"
+                        isDisabled={isCreateChatDisabled}
+                    />
+                </View>
             </View>
-        </KeyboardAwareScrollView>
+        </View>
     )
 }

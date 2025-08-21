@@ -4,7 +4,7 @@ import { Alert, View } from 'react-native'
 import { auth } from '@/firebaseConfig'
 import { signOut } from 'firebase/auth'
 
-import ButtonComponent from './ButtonComponent'
+import ButtonComponent from './buttonComponent'
 
 interface LogoutButtonProps {
     buttonStyles?: string

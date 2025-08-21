@@ -1,5 +1,4 @@
 import Modal from 'react-native-modal'
-import { Image } from '../ui/image'
 import { View, Text, TouchableOpacity } from 'react-native'
 import { Dispatch, SetStateAction } from 'react'
 import useModel from '@/store/modelName'
@@ -21,14 +20,14 @@ const models = [
         name: 'Grok',
         image: require('../../assets/model-icons/grok-logo.png'),
     },
-	{
-		name: 'Llama',
-		image: require('../../assets/model-icons/llama-logo.png')
-	},
-	{
-		name: 'BioGPT',
-		image: require('../../assets/model-icons/biogpt-logo.png')
-	}
+    {
+        name: 'Llama',
+        image: require('../../assets/model-icons/llama-logo.png'),
+    },
+    {
+        name: 'BioGPT',
+        image: require('../../assets/model-icons/biogpt-logo.png'),
+    },
 ]
 
 export default function LLMChooserModal({
@@ -67,11 +66,6 @@ export default function LLMChooserModal({
                                     className={`mx-4 py-3 ${index === models.length - 1 ? '' : 'border-b-[0.2px] border-gray-400'}`}
                                 >
                                     <View className="flex flex-row items-center ml-3">
-                                        <Image
-                                            source={model.image}
-                                            alt={model.name}
-                                            className={`h-8 w-8 ${model.name === 'ChatGPT' ? 'h-6 w-6 ml-1' : ''} ${model.name === 'Llama' ? 'h-4 w-8' : ''} ${model.name === 'BioGPT' ? 'h-6 w-6 ml-1 mr-1' : ''}`}
-                                        />
                                         <Text
                                             className={`ml-4 ${model.name === 'ChatGPT' ? 'ml-5' : ''}`}
                                         >

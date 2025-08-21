@@ -6,10 +6,10 @@ import { useIsAuth } from '@/hooks/useIsAuth'
 import { useGetChats } from '@/hooks/useGetChats'
 import useChatId from '@/store/chatId'
 
-import TopBar from '@/components/TopBar'
-import SpinnerComponent from '@/components/SpinnerComponent'
-import SideBarComponent from '@/components/SideBarComponent'
-import ChatsWindow from '@/components/ChatsWindow'
+import TopBar from '@/components/ui/topBar'
+import SpinnerComponent from '@/components/ui/spinnerComponent'
+import SideBarComponent from '@/components/ui/sideBarComponent'
+import ChatsWindow from '@/components/ui/chatsWindow'
 
 export default function Chats() {
     const updateChatId = useChatId((state: any) => state.updateChatId)
