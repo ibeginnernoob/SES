@@ -1,21 +1,21 @@
 import { Dispatch, SetStateAction } from 'react'
 import { router } from 'expo-router'
 
-import { auth } from '@/firebaseConfig'
-import { signInWithEmailAndPassword, GoogleAuthProvider } from 'firebase/auth'
+import { auth } from '@/firebase-config'
+import { signInWithEmailAndPassword } from 'firebase/auth'
 
 export const userSignin = async ({
-	email,
-	password,
-	setLoading,
-	setInvalidInputs,
-	setErrorMessage
-} : {
-	email: string,
-	password: string,
-	setLoading: Dispatch<SetStateAction<boolean>>,
-	setInvalidInputs: Dispatch<SetStateAction<string[]>>,
-	setErrorMessage: Dispatch<SetStateAction<string>>,
+    email,
+    password,
+    setLoading,
+    // setInvalidInputs,
+    // setErrorMessage,
+}: {
+    email: string
+    password: string
+    setLoading: Dispatch<SetStateAction<boolean>>
+    // setInvalidInputs?: Dispatch<SetStateAction<string[]>>
+    // setErrorMessage?: Dispatch<SetStateAction<string>>
 }) => {
     try {
         setLoading(true)
@@ -38,13 +38,13 @@ export const userSignin = async ({
         setLoading(false)
         const errorMessage = e.message
         if (errorMessage === 'Firebase: Error (auth/invalid-email).') {
-            setInvalidInputs((prevState) => {
-                const updatedInvalidInputs = ['email', 'password']
-                setErrorMessage('Invalid Credentials')
-                return updatedInvalidInputs
-            })
+            // setInvalidInputs((prevState) => {
+            //     const updatedInvalidInputs = ['email', 'password']
+            //     setErrorMessage('Invalid Credentials')
+            //     return updatedInvalidInputs
+            // })
         } else {
-            setErrorMessage('Something went wrong. Pls try again later.')
+            // setErrorMessage('Something went wrong. Pls try again later.')
         }
     }
 }

@@ -39,5 +39,5 @@ app-example
 ios
 android
 
-./firebasekeys.js
 .env
+firebase/

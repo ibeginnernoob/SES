@@ -3,11 +3,11 @@ import { View, Text } from 'react-native'
 import { router } from 'expo-router'
 import { useFocusEffect } from '@react-navigation/native'
 
-import { useIsAuth } from '@/hooks/useAuth'
+import { useAuth } from '@/hooks/useAuth'
 import useChatId from '@/store/chatId'
 import useModel from '@/store/modelName'
 
-import DropDownComponent from '@/components/ui/dropDownComponent'
+import DropDownComponent from '@/components/ui/dropdownComponent'
 import TextAreaComponent from '@/components/ui/textAreaComponent'
 import TopBar from '@/components/ui/navbar'
 import SpinnerComponent from '@/components/ui/spinnerComponent'
@@ -16,7 +16,7 @@ import SideBarComponent from '@/components/ui/sidebar'
 import ButtonComponent from '@/components/ui/buttonComponent'
 import { createChat } from '@/utils/chat/createChat'
 
-export default function FormPage() {
+function FormPage() {
     const updateChatId = useChatId((state: any) => state.updateChatId)
     const modelName = useModel((state: any) => state.modelName)
 
@@ -29,7 +29,7 @@ export default function FormPage() {
     const [showSideBar, setShowSideBar] = useState(false)
     const [createChatLoad, setCreateChatLoad] = useState(false)
 
-    const { loading, userId, email } = useIsAuth()
+    const { loading, userId, email } = useAuth()
 
     useFocusEffect(
         useCallback(() => {
@@ -157,3 +157,5 @@ export default function FormPage() {
         </View>
     )
 }
+
+export default FormPage

@@ -1,7 +1,7 @@
 import { router } from 'expo-router'
 import React from 'react'
 import { Alert, View } from 'react-native'
-import { auth } from '@/firebaseConfig'
+import { auth } from '@/firebase-config'
 import { signOut } from 'firebase/auth'
 
 import ButtonComponent from './buttonComponent'

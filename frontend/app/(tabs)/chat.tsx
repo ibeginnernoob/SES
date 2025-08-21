@@ -3,8 +3,8 @@ import { useMemo, useState, useCallback } from 'react'
 import { router } from 'expo-router'
 import { useFocusEffect } from '@react-navigation/native'
 
-import { useGetChat } from '@/hooks/useChat'
-import { useIsAuth } from '@/hooks/useAuth'
+import { useChat } from '@/hooks/useChat'
+import { useAuth } from '@/hooks/useAuth'
 import useChatId from '@/store/chatId'
 import useModel from '@/store/modelName'
 
@@ -14,7 +14,6 @@ import SideBarComponent from '@/components/ui/sidebar'
 import SpinnerComponent from '@/components/ui/spinnerComponent'
 import AutoExpandingInputComponent from '@/components/ui/autoExpandingInputComponent'
 import { updateChat } from '@/utils/chat/updateChat'
-// import SendMessageButton from '@/components/ChatPageComponents/sendMessageButton'
 
 function Chat() {
     const [prompt, setPrompt] = useState('')
@@ -23,8 +22,8 @@ function Chat() {
 
     const [showSideBar, setShowSideBar] = useState(false)
 
-    const { loading, userId, email } = useIsAuth()
-    const { loadChat, chat, setChat } = useGetChat()
+    const { loading, userId, email } = useAuth()
+    const { loadChat, chat, setChat } = useChat()
 
     const chatId = useChatId((state: any) => state.chatId)
     const modelName = useModel((state: any) => state.modelName)

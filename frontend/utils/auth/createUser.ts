@@ -1,9 +1,8 @@
 import { Dispatch, SetStateAction } from 'react'
 import { router } from 'expo-router'
 import ky from 'ky'
-
 import { createUserWithEmailAndPassword } from 'firebase/auth'
-import { auth } from '@/firebaseConfig.js'
+import { auth } from '@/firebase-config'
 
 const BACKEND_URL = 'http://<your-IP>:3000'
 

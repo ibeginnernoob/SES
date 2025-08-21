@@ -5,7 +5,7 @@ import useChatId from '@/store/chatId'
 
 const BACKEND_URL = 'http://<your-IP>:3000'
 
-export const useGetChat = () => {
+export const useChat = () => {
     const [chat, setChat] = useState<any>(null)
     const [loadChat, setLoadChat] = useState(false)
 

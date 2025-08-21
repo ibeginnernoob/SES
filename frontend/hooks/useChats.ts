@@ -4,7 +4,7 @@ import ky from 'ky'
 
 const BACKEND_URL = 'http://<your-IP>:3000'
 
-export function useGetChats(firebaseId: string | null) {
+export function useChats(firebaseId: string | null) {
     const [chats, setChats] = useState<any>(null)
     const [loadChats, setLoadChats] = useState<boolean>(false)
 

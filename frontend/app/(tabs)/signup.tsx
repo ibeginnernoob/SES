@@ -2,22 +2,20 @@ import { View, Text } from 'react-native'
 import { useState, useCallback } from 'react'
 import { router } from 'expo-router'
 import { useFocusEffect } from 'expo-router'
-
 import { createUser } from '@/utils/auth/createUser'
-
 import InputComponent from '@/components/ui/inputComponent'
 import ButtonComponent from '@/components/ui/buttonComponent'
 import SpinnerComponent from '@/components/ui/spinnerComponent'
 import AlertComponent from '@/components/ui/alertComponent'
 
-export default function Signin() {
+function Signup() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
-    const [loading, setLoading] = useState(false)
 
-    const [errorMessage, setErrorMessage] = useState('')
     const [invalidInputs, setInvalidInputs] = useState<string[]>([])
+    const [loading, setLoading] = useState(false)
+    const [errorMessage, setErrorMessage] = useState('')
 
     useFocusEffect(
         useCallback(() => {
@@ -40,6 +38,10 @@ export default function Signin() {
             setInvalidInputs: setInvalidInputs,
             setErrorMessage: setErrorMessage,
         })
+    }
+
+    function getInputValidity(inputType: string) {
+        return invalidInputs.includes(inputType)
     }
 
     if (loading) {
@@ -105,8 +107,6 @@ export default function Signin() {
             )}
         </View>
     )
-
-    function getInputValidity(inputType: string) {
-        return invalidInputs.includes(inputType)
-    }
 }
+
+export default Signup

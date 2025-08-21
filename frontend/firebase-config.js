@@ -12,13 +12,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 
 // replace with your own firebase details
 const firebaseConfig = {
-    apiKey: "your apiKey",
-    authDomain: "your authDomain",
-    projectId: "your projectId",
-    storageBucket: "your storageBucket",
-    messagingSenderId: "your messagingSenderId",
-    appId: "your appId",
-    measurementId: "your measurementId",
+    apiKey: process.env.EXPO_PUBLIC_FIREBASE_APIKEY,
+    authDomain: process.env.EXPO_PUBLIC_FIREBASE_AUTHDOMAIN,
+    projectId: process.env.EXPO_PUBLIC_FIREBASE_PROJECTID,
+    storageBucket: process.env.EXPO_PUBLIC_FIREBASE_STORAGEBUCKET,
+    messagingSenderId: process.env.EXPO_PUBLIC_FIREBASE_MESSAGINGSENDERID,
+    appId: process.env.EXPO_PUBLIC_FIREBASE_APPID,
+    measurementId: process.env.EXPO_PUBLIC_FIREBASE_MEASUREMENTID,
 }
 
 // Initialize Firebase

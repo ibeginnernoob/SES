@@ -1,11 +1,6 @@
-import '../../gesture-handler'
-
 import { Tabs } from 'expo-router'
 import React from 'react'
-import { Platform } from 'react-native'
-
 import { HapticTab } from '@/components/ui/hapticTab'
-import { IconSymbol } from '@/components/ui/iconSymbol'
 import TabBarBackground from '@/components/ui/TabBarBackground'
 import { Colors } from '@/constants/Colors'
 import { useColorScheme } from '@/hooks/useColorScheme'
@@ -23,42 +18,43 @@ export default function TabLayout() {
                 tabBarStyle: {
                     display: 'none',
                 },
+                animation: 'fade',
             }}
         >
             <Tabs.Screen
                 name="index"
                 options={{
-                    title: 'Home',
+                    title: 'home',
                 }}
             />
             <Tabs.Screen
                 name="signin"
                 options={{
-                    title: 'Signin',
+                    title: 'signin',
                 }}
             />
             <Tabs.Screen
                 name="signup"
                 options={{
-                    title: 'Signup',
+                    title: 'signup',
                 }}
             />
             <Tabs.Screen
                 name="chat"
                 options={{
-                    title: 'Chat',
+                    title: 'chat',
                 }}
             />
             <Tabs.Screen
                 name="chats"
                 options={{
-                    title: 'Chats',
+                    title: 'chats',
                 }}
             />
             <Tabs.Screen
                 name="form"
                 options={{
-                    title: 'FormPage',
+                    title: 'form',
                 }}
             />
         </Tabs>
