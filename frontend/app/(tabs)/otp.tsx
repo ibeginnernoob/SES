@@ -3,7 +3,6 @@ import {
     View,
     SafeAreaView,
     StyleSheet,
-    TextInput,
     Image,
     TouchableWithoutFeedback,
     Keyboard,
@@ -13,7 +12,7 @@ import {
     ActivityIndicator,
 } from 'react-native'
 import { OtpInput } from 'react-native-otp-entry'
-import { router, useFocusEffect } from 'expo-router'
+import { useLocalSearchParams, router, useFocusEffect } from 'expo-router'
 
 function Input({
     disabled,
@@ -44,6 +43,8 @@ const inputStyles = StyleSheet.create({
 })
 
 function Otp() {
+    const { mobile } = useLocalSearchParams()
+    console.log(mobile)
     const [digits, setDigits] = useState<string>('')
 
     const [loading, setLoading] = useState(false)

@@ -7,7 +7,7 @@ import { useAuth } from '@/hooks/useAuth'
 import useChatId from '@/store/chatId'
 import useModel from '@/store/modelName'
 
-import DropDownComponent from '@/components/ui/dropDownComponent'
+import DropDownComponent from '@/components/ui/dropdownComponent'
 import TextAreaComponent from '@/components/ui/textAreaComponent'
 import TopBar from '@/components/ui/navbar'
 import SpinnerComponent from '@/components/ui/spinnerComponent'

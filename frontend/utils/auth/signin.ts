@@ -1,6 +1,5 @@
 import { Dispatch, SetStateAction } from 'react'
 import { router } from 'expo-router'
-
 import { auth } from '@/firebase-config'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 

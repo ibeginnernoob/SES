@@ -14,13 +14,16 @@ import {
 } from 'react-native'
 import { router } from 'expo-router'
 import { useFocusEffect } from '@react-navigation/native'
-import { signIn } from '@/utils/auth/signin'
+import { phoneSignIn } from '@/utils/auth/phoneSignIn'
+import { FirebaseAuthTypes } from '@react-native-firebase/auth'
 import Feather from '@expo/vector-icons/Feather'
 import AntDesign from '@expo/vector-icons/AntDesign'
 
 function Signin() {
     const [loading, setLoading] = useState(false)
     const [activeInput, setActiveInput] = useState<string>('')
+    const [confirm, setConfirm] =
+        useState<FirebaseAuthTypes.ConfirmationResult | null>(null)
 
     const [mobile, setMobile] = useState<string>('')
 
@@ -32,6 +35,16 @@ function Signin() {
             }
         }, []),
     )
+
+    const handlePhoneSignIn = async () => {
+        try {
+            if (mobile.length !== 10) {
+                return
+            }
+            const confirmation = await phoneSignIn(mobile)
+            setConfirm(confirmation)
+        } catch (e: any) {}
+    }
 
     return (
         <SafeAreaView style={styles.container}>
@@ -82,7 +95,10 @@ function Signin() {
                         </View>
                         <TouchableOpacity
                             onPress={() => {
-                                router.push('/otp')
+                                router.navigate({
+                                    pathname: '/otp',
+                                    params: { mobile: mobile },
+                                })
                             }}
                             style={[
                                 styles.button,

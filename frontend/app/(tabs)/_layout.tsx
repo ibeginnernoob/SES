@@ -1,7 +1,7 @@
 import { Tabs } from 'expo-router'
 import React from 'react'
 import { HapticTab } from '@/components/ui/hapticTab'
-import TabBarBackground from '@/components/ui/TabBarBackground'
+import TabBarBackground from '@/components/ui/tabBarBackground'
 import { Colors } from '@/constants/Colors'
 import { useColorScheme } from '@/hooks/useColorScheme'
 
