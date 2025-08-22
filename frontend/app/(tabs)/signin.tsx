@@ -10,10 +10,11 @@ import {
     ActivityIndicator,
     TouchableWithoutFeedback,
     Keyboard,
+    Platform,
 } from 'react-native'
 import { router } from 'expo-router'
 import { useFocusEffect } from '@react-navigation/native'
-import { userSignin } from '@/utils/auth/signin'
+import { signIn } from '@/utils/auth/signin'
 import Feather from '@expo/vector-icons/Feather'
 import AntDesign from '@expo/vector-icons/AntDesign'
 
@@ -32,29 +33,21 @@ function Signin() {
         }, []),
     )
 
-    // const callSignin = async () => {
-    //     await userSignin({
-    //         email: email,
-    //         password: password,
-    //         setLoading: setLoading,
-    //     })
-    // }
-
-    // if (loading) {
-    //     return <SpinnerComponent />
-    // }
-
     return (
         <SafeAreaView style={styles.container}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                <View className="flex-1 w-[90%] flex flex-col relative justify-center pt-10">
+                <View
+                    className={`flex-1 w-[90%] flex flex-col relative justify-center ${Platform.OS === 'ios' ? 'pt-10' : 'pt-20'}`}
+                >
                     <View style={styles.logoContainer}>
                         <Image
                             source={require('@/assets/new-images/logo.png')}
                             className="w-52 h-52"
                         />
                     </View>
-                    <View className="flex-1 flex flex-col gap-10 pb-10">
+                    <View
+                        className={`flex-1 flex flex-col gap-10 ${Platform.OS === 'ios' ? 'pb-10' : 'pb-20'}`}
+                    >
                         <View style={styles.inputContainer}>
                             <Feather
                                 name="phone"
@@ -88,7 +81,9 @@ function Signin() {
                             />
                         </View>
                         <TouchableOpacity
-                            onPress={() => setLoading((prev) => !prev)}
+                            onPress={() => {
+                                router.push('/otp')
+                            }}
                             style={[
                                 styles.button,
                                 {

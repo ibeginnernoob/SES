@@ -18,7 +18,7 @@ export default function TabLayout() {
                 tabBarStyle: {
                     display: 'none',
                 },
-                animation: 'fade',
+                animation: 'shift',
             }}
         >
             <Tabs.Screen
@@ -33,6 +33,14 @@ export default function TabLayout() {
                     title: 'signin',
                 }}
             />
+            <Tabs.Screen
+                name="otp"
+                options={{
+                    title: 'otp',
+                }}
+            />
+
+            {/* to be worked on */}
             <Tabs.Screen
                 name="signup"
                 options={{

@@ -4,7 +4,7 @@ import { router } from 'expo-router'
 import { auth } from '@/firebase-config'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 
-export const userSignin = async ({
+export const signIn = async ({
     email,
     password,
     setLoading,
