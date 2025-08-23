@@ -3,7 +3,7 @@
         "scheme": "ai-animesh",
         "userInterfaceStyle": "automatic",
         "android": {
-            "edgeToEdgeEnabled": "true",
+            "edgeToEdgeEnabled": true,
             "googleServicesFile": "./firebase/google-services.json",
             "package": "com.AI.animesh"
         },
