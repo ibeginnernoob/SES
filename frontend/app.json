@@ -1,6 +1,7 @@
 {
     "expo": {
         "scheme": "ai-animesh",
+		"userInterfaceStyle": "automatic",
         "android": {
             "googleServicesFile": "./firebase/google-services.json",
             "package": "com.AI.animesh"
