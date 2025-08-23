@@ -1,8 +1,9 @@
 {
     "expo": {
         "scheme": "ai-animesh",
-		"userInterfaceStyle": "automatic",
+        "userInterfaceStyle": "automatic",
         "android": {
+            "edgeToEdgeEnabled": "true",
             "googleServicesFile": "./firebase/google-services.json",
             "package": "com.AI.animesh"
         },
