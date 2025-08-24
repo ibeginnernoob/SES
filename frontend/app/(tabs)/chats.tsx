@@ -4,7 +4,6 @@ import { useFocusEffect } from '@react-navigation/native'
 
 import { useAuth } from '@/hooks/useAuth'
 import { useChats } from '@/hooks/useChats'
-import getChatId from '@/store/old/chatId'
 
 import TopBar from '@/components/ui/navbar'
 import SpinnerComponent from '@/components/ui/spinnerComponent'
@@ -12,7 +11,7 @@ import SideBarComponent from '@/components/ui/sidebar'
 import ChatsWindow from '@/components/ui/chatsWindow'
 
 function Chats() {
-    const updateChatId = getChatId((state: any) => state.updateChatId)
+    // const updateChatId = getChatId((state: any) => state.updateChatId)
 
     const [showSideBar, setShowSideBar] = useState(false)
 
@@ -46,7 +45,7 @@ function Chats() {
             </View>
             {chats && chats.length > 0 && (
                 <View className="flex-1 mb-20">
-                    <ChatsWindow chats={chats} updateChatId={updateChatId} />
+                    {/* <ChatsWindow chats={chats} updateChatId={updateChatId} /> */}
                 </View>
             )}
         </View>

@@ -4,8 +4,6 @@ import { router } from 'expo-router'
 import { useFocusEffect } from '@react-navigation/native'
 
 import { useAuth } from '@/hooks/useAuth'
-import useChatId from '@/store/old/chatId'
-import useModel from '@/store/old/model'
 
 import DropDownComponent from '@/components/ui/dropdownComponent'
 import TextAreaComponent from '@/components/ui/textAreaComponent'
@@ -14,12 +12,8 @@ import SpinnerComponent from '@/components/ui/spinnerComponent'
 import SelectOptionComponent from '@/components/ui/selectOptionComponent'
 import SideBarComponent from '@/components/ui/sidebar'
 import ButtonComponent from '@/components/ui/buttonComponent'
-import { createChat } from '@/utils/chat/createChat'
 
 function FormPage() {
-    const updateChatId = useChatId((state: any) => state.updateChatId)
-    const modelName = useModel((state: any) => state.modelName)
-
     const [age, setAge] = useState<string | null>(null)
     const [gender, setGender] = useState<string | null>(null)
     const [weight, setWeight] = useState<string | null>(null)
@@ -45,17 +39,17 @@ function FormPage() {
     )
 
     const callCreateChat = async () => {
-        await createChat({
-            firebaseId: userId,
-            age: age,
-            gender: gender,
-            height: height,
-            weight: weight,
-            symptoms: symptoms,
-            modelName: modelName,
-            updateChatId: updateChatId,
-            setCreateChatLoad: setCreateChatLoad,
-        })
+        // await createChat({
+        //     firebaseId: userId,
+        //     age: age,
+        //     gender: gender,
+        //     height: height,
+        //     weight: weight,
+        //     symptoms: symptoms,
+        //     modelName: modelName,
+        //     updateChatId: updateChatId,
+        //     setCreateChatLoad: setCreateChatLoad,
+        // })
     }
 
     const isCreateChatDisabled = useMemo(() => {
