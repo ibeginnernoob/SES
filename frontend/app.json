@@ -22,6 +22,12 @@
                         "useFrameworks": "static"
                     }
                 }
+            ],
+            [
+                "expo-dev-client",
+                {
+                    "launchMode": "most-recent"
+                }
             ]
         ]
     }
