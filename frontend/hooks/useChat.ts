@@ -1,7 +1,7 @@
 import ky from 'ky'
 import { useState, useEffect } from 'react'
 
-import useChatId from '@/store/chatId'
+import useChatId from '@/store/old/chatId'
 
 const BACKEND_URL = 'http://<your-IP>:3000'
 

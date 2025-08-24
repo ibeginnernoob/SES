@@ -5,8 +5,8 @@ import { useFocusEffect } from '@react-navigation/native'
 
 import { useChat } from '@/hooks/useChat'
 import { useAuth } from '@/hooks/useAuth'
-import useChatId from '@/store/chatId'
-import useModel from '@/store/modelName'
+import useChatId from '@/store/old/chatId'
+import useModel from '@/store/old/model'
 
 import PromptResponseWindow from '@/components/ui/promptResponseWindow'
 import TopBar from '@/components/ui/navbar'

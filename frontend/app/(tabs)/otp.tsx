@@ -12,7 +12,8 @@ import {
     ActivityIndicator,
 } from 'react-native'
 import { OtpInput } from 'react-native-otp-entry'
-import { useLocalSearchParams, router, useFocusEffect } from 'expo-router'
+import { useFocusEffect, useRouter } from 'expo-router'
+import useConfirm from '@/store/confirm'
 
 function Input({
     disabled,
@@ -43,8 +44,9 @@ const inputStyles = StyleSheet.create({
 })
 
 function Otp() {
-    const { mobile } = useLocalSearchParams()
-    console.log(mobile)
+    const { confirm } = useConfirm()
+    const router = useRouter()
+
     const [digits, setDigits] = useState<string>('')
 
     const [loading, setLoading] = useState(false)
@@ -57,6 +59,19 @@ function Otp() {
             }
         }, []),
     )
+
+    const handleOtpSubmit = async () => {
+        try {
+            if (!confirm) {
+                throw new Error('Confirmation not found')
+            }
+            setLoading(true)
+            await confirm.confirm(digits)
+            router.push('/')
+        } catch (e: any) {
+            console.log(e)
+        }
+    }
 
     return (
         <SafeAreaView style={styles.container}>
@@ -73,6 +88,7 @@ function Otp() {
                     <Input disabled={loading} setDigits={setDigits} />
                     <View className="w-full" style={styles.bottomContainer}>
                         <TouchableOpacity
+                            onPress={() => handleOtpSubmit()}
                             style={[
                                 styles.button,
                                 {

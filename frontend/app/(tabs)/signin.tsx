@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import {
     View,
     SafeAreaView,
@@ -12,18 +12,20 @@ import {
     Keyboard,
     Platform,
 } from 'react-native'
-import { router } from 'expo-router'
+import { useRouter, usePathname } from 'expo-router'
 import { useFocusEffect } from '@react-navigation/native'
 import { phoneSignIn } from '@/utils/auth/phoneSignIn'
-import { FirebaseAuthTypes } from '@react-native-firebase/auth'
 import Feather from '@expo/vector-icons/Feather'
 import AntDesign from '@expo/vector-icons/AntDesign'
+import useConfirm from '@/store/confirm'
 
 function Signin() {
+    const pathname = usePathname()
+    const router = useRouter()
+    const { updateConfirm } = useConfirm()
+
     const [loading, setLoading] = useState(false)
     const [activeInput, setActiveInput] = useState<string>('')
-    const [confirm, setConfirm] =
-        useState<FirebaseAuthTypes.ConfirmationResult | null>(null)
 
     const [mobile, setMobile] = useState<string>('')
 
@@ -36,14 +38,25 @@ function Signin() {
         }, []),
     )
 
+    useEffect(() => {
+        if (pathname === '/firebaseauth/link') {
+            router.back()
+        }
+    }, [pathname])
+
     const handlePhoneSignIn = async () => {
         try {
             if (mobile.length !== 10) {
                 return
             }
             const confirmation = await phoneSignIn(mobile)
-            setConfirm(confirmation)
-        } catch (e: any) {}
+            if (confirmation) {
+                updateConfirm(confirmation)
+                router.push('/otp')
+            }
+        } catch (e: any) {
+            alert('Something went wrong')
+        }
     }
 
     return (
@@ -70,8 +83,10 @@ function Signin() {
                                 }
                                 className="absolute z-10 left-5 top-2.5"
                             />
+                            <Text style={styles.phoneCountryCode}>+91</Text>
                             <TextInput
                                 keyboardType="numeric"
+                                maxLength={10}
                                 value={mobile}
                                 onChangeText={setMobile}
                                 style={[
@@ -94,11 +109,8 @@ function Signin() {
                             />
                         </View>
                         <TouchableOpacity
-                            onPress={() => {
-                                router.navigate({
-                                    pathname: '/otp',
-                                    params: { mobile: mobile },
-                                })
+                            onPress={async () => {
+                                await handlePhoneSignIn()
                             }}
                             style={[
                                 styles.button,
@@ -166,13 +178,20 @@ const styles = StyleSheet.create({
         width: '100%',
         alignItems: 'center',
     },
+    phoneCountryCode: {
+        position: 'absolute',
+        left: 47.5,
+        top: 8,
+        fontSize: 16,
+        color: 'black',
+    },
     phoneInput: {
         width: '100%',
         borderRadius: 5,
-        paddingLeft: 50,
+        paddingLeft: 80,
         paddingRight: 40,
         paddingVertical: 8,
-        color: 'white',
+        color: 'black',
         borderBottomWidth: 1,
         fontSize: 16,
     },

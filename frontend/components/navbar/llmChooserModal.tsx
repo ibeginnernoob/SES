@@ -1,7 +1,7 @@
 import Modal from 'react-native-modal'
 import { View, Text, TouchableOpacity } from 'react-native'
 import { Dispatch, SetStateAction } from 'react'
-import useModel from '@/store/modelName'
+import useModel from '@/store/old/model'
 
 const models = [
     {

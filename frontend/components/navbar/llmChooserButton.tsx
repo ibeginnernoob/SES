@@ -1,7 +1,7 @@
 import { TouchableOpacity, View, Text } from "react-native"
 import { Dispatch, SetStateAction } from "react"
 
-import useModel from "@/store/modelName"
+import useModel from "@/store/old/model"
 
 export default function LLMChooserButton({ setModelSwitch } : {
 	setModelSwitch: Dispatch<SetStateAction<boolean>>

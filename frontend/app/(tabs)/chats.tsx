@@ -4,7 +4,7 @@ import { useFocusEffect } from '@react-navigation/native'
 
 import { useAuth } from '@/hooks/useAuth'
 import { useChats } from '@/hooks/useChats'
-import getChatId from '@/store/chatId'
+import getChatId from '@/store/old/chatId'
 
 import TopBar from '@/components/ui/navbar'
 import SpinnerComponent from '@/components/ui/spinnerComponent'

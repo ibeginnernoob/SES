@@ -4,8 +4,8 @@ import { router } from 'expo-router'
 import { useFocusEffect } from '@react-navigation/native'
 
 import { useAuth } from '@/hooks/useAuth'
-import useChatId from '@/store/chatId'
-import useModel from '@/store/modelName'
+import useChatId from '@/store/old/chatId'
+import useModel from '@/store/old/model'
 
 import DropDownComponent from '@/components/ui/dropdownComponent'
 import TextAreaComponent from '@/components/ui/textAreaComponent'
