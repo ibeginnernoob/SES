@@ -12,7 +12,7 @@ export default function TabLayout() {
         <Tabs
             screenOptions={{
                 tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-                headerShown: true,
+                headerShown: false,
                 tabBarButton: HapticTab,
                 tabBarBackground: TabBarBackground,
                 tabBarStyle: {
@@ -46,19 +46,7 @@ export default function TabLayout() {
                 options={{
                     title: 'signup',
                 }}
-            />
-            <Tabs.Screen
-                name="chat"
-                options={{
-                    title: 'chat',
-                }}
-            />
-            <Tabs.Screen
-                name="chats"
-                options={{
-                    title: 'chats',
-                }}
-            />
+            />            
             <Tabs.Screen
                 name="form"
                 options={{

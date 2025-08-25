@@ -4,10 +4,16 @@ export default function DrawerLayout() {
     return (
         <Drawer>
             <Drawer.Screen
-                name="home"
+                name="chat"
                 options={{
-                    drawerLabel: 'Home',
-                    title: 'Home',
+                    title: 'chat',
+                    headerShown: true,
+                }}
+            />
+            <Drawer.Screen
+                name="chats"
+                options={{
+                    title: 'chats',
                 }}
             />
         </Drawer>

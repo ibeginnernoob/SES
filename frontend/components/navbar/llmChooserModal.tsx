@@ -1,7 +1,6 @@
 import Modal from 'react-native-modal'
 import { View, Text, TouchableOpacity } from 'react-native'
 import { Dispatch, SetStateAction } from 'react'
-import useModel from '@/store/old/model'
 
 const models = [
     {
@@ -37,8 +36,6 @@ export default function LLMChooserModal({
     showModelSwitchModal: boolean
     setShowModalSwitchModal: Dispatch<SetStateAction<boolean>>
 }) {
-    const updateModelName = useModel((state: any) => state.updateModel)
-
     return (
         <Modal
             isVisible={showModelSwitchModal}
@@ -59,7 +56,7 @@ export default function LLMChooserModal({
                                 className="active:bg-gray-300"
                                 onPress={() => {
                                     setShowModalSwitchModal(false)
-                                    updateModelName(model.name)
+                                    // updateModelName(model.name)
                                 }}
                             >
                                 <View
