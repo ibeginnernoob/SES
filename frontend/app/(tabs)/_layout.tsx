@@ -39,20 +39,6 @@ export default function TabLayout() {
                     title: 'otp',
                 }}
             />
-
-            {/* to be worked on */}
-            <Tabs.Screen
-                name="signup"
-                options={{
-                    title: 'signup',
-                }}
-            />            
-            <Tabs.Screen
-                name="form"
-                options={{
-                    title: 'form',
-                }}
-            />
         </Tabs>
     )
 }

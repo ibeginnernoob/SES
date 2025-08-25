@@ -4,16 +4,14 @@ import {
     View,
     TextInput,
     StyleSheet,
-    Text,
-    TouchableWithoutFeedback,
-    Keyboard,
     KeyboardAvoidingView,
     Platform,
-	TouchableOpacity,
+    TouchableOpacity,
 } from 'react-native'
 import Feather from '@expo/vector-icons/Feather'
 import AntDesign from '@expo/vector-icons/AntDesign'
 import { useHeaderHeight } from '@react-navigation/elements'
+import ChatWindow from '@/components/app/chatWindow'
 
 function Chat() {
     const headerHeight = useHeaderHeight()
@@ -27,13 +25,9 @@ function Chat() {
             keyboardVerticalOffset={headerHeight}
         >
             <SafeAreaView className="flex-1">
-                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                    <View className="flex-1">
-                        <View className="flex-1 bg-red-200">
-                            <Text>Chat Window</Text>
-                        </View>
-                    </View>
-                </TouchableWithoutFeedback>
+                <View className="flex-1">
+                    <ChatWindow />
+                </View>
                 <View className="py-2 relative">
                     <TextInput
                         placeholder="Ask anything"
@@ -47,7 +41,9 @@ function Chat() {
                     />
                     <View style={styles.inputButtonsContainer}>
                         {prompt.length === 0 && (
-                            <Feather name="mic" size={22} color="gray" />
+                            <TouchableOpacity>
+                                <Feather name="mic" size={22} color="gray" />
+                            </TouchableOpacity>
                         )}
                         <TouchableOpacity style={styles.sendContainer}>
                             <AntDesign name="arrowup" size={20} color="white" />
