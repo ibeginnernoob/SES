@@ -137,8 +137,9 @@ export const getStyles = (fontColor: string = 'white', fontSize: number = 15.5) 
         table: {
             borderLeftWidth: 1,
 			borderRightWidth: 1,
-			borderBottomWidth: 1,
-            borderColor: '#000000',
+			borderTopWidth: 1,
+			borderBottomWidth: 0,
+            borderColor: 'gray',
             borderRadius: 3,
         },
         thead: {},
@@ -148,7 +149,7 @@ export const getStyles = (fontColor: string = 'white', fontSize: number = 15.5) 
             padding: 5,
         },
         tr: {
-            borderBottomWidth: 1,
+            borderBottomWidth: 0.5,
             borderColor: '#000000',
             flexDirection: 'row',
         },

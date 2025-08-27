@@ -41,7 +41,15 @@ function Chat() {
             const data = JSON.parse(event.data || '{}') as Chunk
 
             if (data.finished) {
-				setPrompt('')
+                setPrompt('')
+                setMessages((prevState) => {
+                    const lastMsg = prevState[prevState.length - 1]
+                    if (lastMsg && lastMsg.id === msgId.current) {
+                        return [...prevState.slice(0, -1), lastMsg]
+                    } else {
+                        return [...prevState]
+                    }
+                })
                 es.current?.close()
                 return
             }
@@ -62,7 +70,7 @@ function Chat() {
             es.current?.close()
         })
 
-        es.current?.addEventListener('close', (event) => {			
+        es.current?.addEventListener('close', (event) => {
             console.log('event has been closed')
             es.current = null
         })
@@ -105,7 +113,10 @@ function Chat() {
         >
             <SafeAreaView className="flex-1">
                 <View className="flex-1">
-                    <ChatWindow messages={messages} />
+                    <ChatWindow
+                        messages={messages}
+                        msgId={msgId.current || ''}
+                    />
                 </View>
                 <View className="py-2 relative">
                     <TextInput
