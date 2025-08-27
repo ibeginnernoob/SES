@@ -3,17 +3,17 @@ import mongoose from 'mongoose';
 import * as dotenv from 'dotenv';
 import cors from 'cors';
 
-import Routes from './routes/index';
+import chatRouter from './routes/chat';
 
 const app = express();
 
 dotenv.config();
 
-main().catch((err) => console.log(err));
+// main().catch((err) => console.log(err));
 
-async function main() {
-    await mongoose.connect(process.env.MONGODB_CONNECTION_STRING || '');
-}
+// async function main() {
+//     await mongoose.connect(process.env.MONGODB_CONNECTION_STRING || '');
+// }
 
 app.use(cors());
 app.use(express.json());
@@ -23,7 +23,8 @@ app.get('/', (req, res, next) => {
         msg: 'Hello World!',
     });
 });
-app.use('/api/v1', Routes);
+
+app.use('/chat', chatRouter);
 
 app.listen(3000, () => {
     console.log('Listening on port 3000!');
