@@ -18,6 +18,7 @@ import { phoneSignIn } from '@/utils/auth/phoneSignIn'
 import Feather from '@expo/vector-icons/Feather'
 import AntDesign from '@expo/vector-icons/AntDesign'
 import useConfirm from '@/store/confirm'
+import { googleSignIn } from '@/utils/auth/googleSignIn'
 
 function Signin() {
     const pathname = usePathname()
@@ -133,6 +134,7 @@ function Signin() {
 
                         <View className="w-full" style={styles.bottomContainer}>
                             <TouchableOpacity
+                                onPress={googleSignIn}
                                 style={[
                                     styles.button,
                                     {

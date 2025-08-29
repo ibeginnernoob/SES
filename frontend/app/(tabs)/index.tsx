@@ -8,7 +8,7 @@ function Home() {
         <LinearGradientComponent>
             <View className="flex flex-col items-center justify-center">
                 <TouchableOpacity
-                    onPress={() => router.navigate('/test')}
+                    onPress={() => router.navigate('/signin')}
                     className="mt-10 rounded-xl bg-cyan-500"
                 >
                     <Text className="text-lg px-8 py-4 text-white">

@@ -39,12 +39,6 @@ export default function TabLayout() {
                     title: 'otp',
                 }}
             />
-			<Tabs.Screen
-                name="test"
-                options={{
-                    title: 'test',
-                }}
-            />
         </Tabs>
     )
 }
