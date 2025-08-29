@@ -73,6 +73,7 @@ function Chat() {
         es.current?.addEventListener('close', (event) => {
             console.log('event has been closed')
             es.current = null
+            msgId.current = null
         })
     }
 
@@ -81,14 +82,15 @@ function Chat() {
             message: prompt,
         }
 
-        msgId.current = generateId()
+        const newMsgId = generateId()
 
         const newMsg: Message = {
-            id: msgId.current,
+            id: newMsgId,
             response: '',
             prompt: prompt,
         }
         setMessages((prevState) => [...prevState, newMsg])
+        msgId.current = newMsgId
 
         const newES = new EventSource(
             `${process.env.EXPO_PUBLIC_BACKEND_URL}/chat`,

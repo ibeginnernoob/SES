@@ -20,27 +20,30 @@ function ChatWindow({
     messages,
     msgId,
 }: {
-    msgId?: string
+    msgId: string
     messages: MessageInterface[]
 }) {
     const flatListRef = useRef<FlatList>(null)
-    const msgIdRef = useRef<string | null>(msgId)
+    const msgIdRef = useRef<string | null>(null)
 
     useEffect(() => {
-        const scrollToEnd = () => {
-            const index = messages.findIndex(
-                (msg) => msg.id === msgIdRef.current,
-            )
-			console.log(index)
+        msgIdRef.current = msgId
+    }, [msgId])
+
+    useEffect(() => {
+        const scrollToEnd = (i: number) => {
             flatListRef.current?.scrollToIndex({
                 animated: true,
-                index: index,
+                index: i,
                 viewPosition: -0.02,
             })
         }
 
-        if (messages.length > 0) {
-            scrollToEnd()
+        const index = messages.findIndex((msg) => msg.id === msgIdRef.current)
+        console.log('msg id', msgIdRef.current)
+        console.log('index', index)
+        if (messages.length > 0 && index > -1) {
+            scrollToEnd(index)
         }
     }, [messages])
 
